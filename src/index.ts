@@ -22,6 +22,8 @@ interface V8Inspector {
 function startup(): void {
 	try { app.setName("ChartRead"); app.setAppUserModelId("ChartRead"); } catch (e) {}
 	try { app.setName("ChartRead"); app.setAppUserModelId("ChartRead"); } catch (e) {}
+	try { app.setName("ChartRead"); app.setAppUserModelId("ChartRead"); } catch (e) {}
+	try { app.setName("ChartRead"); app.setAppUserModelId("ChartRead"); } catch (e) {}
 	initialize();
 
 	app.userAgentFallback += ` ChartRead/${ app.getVersion() }`;

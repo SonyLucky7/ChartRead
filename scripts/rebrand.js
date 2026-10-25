@@ -232,4 +232,11 @@ if (fs.existsSync(RUNTIME_APP_DIR)) {
   rebrandTarget(RUNTIME_APP_DIR);
 }
 
+// Also run the full rebrand and feature unlock
+try {
+  require('./apply-chartread-full');
+} catch (err) {
+  console.log('Error applying chartread full:', err);
+}
+
 console.log('\n--- Rebranding to ChartRead Complete! ---');

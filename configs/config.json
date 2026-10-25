@@ -14,7 +14,7 @@
 		"splash": {
 			"width": 600,
 			"height": 350,
-			"showDevTools": true
+			"showDevTools": false
 		}
 	},
 	"logging": {
@@ -32,19 +32,20 @@
 		"autoSaveInterval": 300000
 	},
 	"googleAnalytics": {
-		"key": "3LizEk59Qly60mrqxTq8Fw",
-		"measurementId": "G-6BZN5RZ7W7",
+		"key": "",
+		"measurementId": "",
 		"analyticsDevModeSettings": {
 			"isDevMode": false,
-			"devModeCid": "141456121"
+			"devModeCid": ""
 		}
 	},
 	"sentry": {
-		"dsn": "https://6885ca777e2889705b455c11d63a24ab@o981304.ingest.sentry.io/5935836",
-		"upload": true
+		"dsn": "",
+		"upload": false
 	},
 	"advanced": {
 		"debugMode": false,
+		"disableAppOnboarding": true,
 		"concurrencyLimit": 2,
 		"windowLoadTimeout": 10000,
 		"infoRequestTimeout": 60000,
