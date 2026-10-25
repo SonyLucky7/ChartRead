@@ -5,7 +5,7 @@ import { isDarwin } from '../utils/platform';
 import { Rectangle } from '../utils/Position';
 import { UndoEntry } from '../utils/undo-entry';
 
-export const DEFAULT_TAB_TITLE = 'TradingView';
+export const DEFAULT_TAB_TITLE = 'ChartRead';
 export const ERROR_TAB_TITLE = 'Oops, something went wrong';
 export const BLANK_TAB_URL = 'about:blank';
 export const DEFAULT_TAB_URL = '#default';
