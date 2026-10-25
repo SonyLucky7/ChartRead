@@ -81,7 +81,7 @@ function getSplashTypeForCurrentDate(): SplashType {
 
 export interface SplashData {
 	postfix: SplashPostfix;
-	title?: 'TradingView';
+	title?: 'ChartRead';
 	eventTitle?: string;
 }
 
@@ -93,7 +93,7 @@ const regularSplashPostfixes: SplashPostfix[] = [
 
 const defaultSplashData: SplashData = {
 	postfix: SplashPostfix.AstronautIce,
-	title: 'TradingView',
+	title: 'ChartRead',
 };
 
 export function isRegularSplash(postfix: SplashPostfix): boolean {
@@ -103,17 +103,17 @@ export function isRegularSplash(postfix: SplashPostfix): boolean {
 function getRegularSplashData(): SplashData {
 	const postfix = regularSplashPostfixes[randomIntFromInterval(0, regularSplashPostfixes.length - 1)];
 
-	return postfix ? { postfix, title: 'TradingView' } : defaultSplashData;
+	return postfix ? { postfix, title: 'ChartRead' } : defaultSplashData;
 }
 
 function getChristmasHolidaysSplashData(): SplashData {
 	const defaultChristmasHolidaysSplashData: SplashData = {
-		postfix: SplashPostfix.ChristmasHolidays, title: 'TradingView',
+		postfix: SplashPostfix.ChristmasHolidays, title: 'ChartRead',
 	};
 
 	const ChristmasHolidaysSplashDataMap = new Map<ChristmasSplashType, SplashData>([
 		[ChristmasSplashType.ChristmasHolidays, defaultChristmasHolidaysSplashData],
-		[ChristmasSplashType.NewYear, { postfix: SplashPostfix.NewYear, title: 'TradingView' }],
+		[ChristmasSplashType.NewYear, { postfix: SplashPostfix.NewYear, title: 'ChartRead' }],
 	]);
 
 	return ChristmasHolidaysSplashDataMap.get(randomIntFromInterval(0, 1)) ?? defaultChristmasHolidaysSplashData;
@@ -121,10 +121,10 @@ function getChristmasHolidaysSplashData(): SplashData {
 
 const splashDataMap = new Map<SplashType, SplashData>([
 	[SplashType.Regular, getRegularSplashData()],
-	[SplashType.FirstApril, { postfix: SplashPostfix.FirstApril, title: 'TradingView' }],
-	[SplashType.Halloween, { postfix: SplashPostfix.Halloween, title: 'TradingView' }],
-	[SplashType.BlackFriday, { postfix: SplashPostfix.BlackFriday, title: 'TradingView', eventTitle: 'Black Friday' }],
-	[SplashType.CyberMonday, { postfix: SplashPostfix.CyberMonday, title: 'TradingView', eventTitle: 'Cyber Monday' }],
+	[SplashType.FirstApril, { postfix: SplashPostfix.FirstApril, title: 'ChartRead' }],
+	[SplashType.Halloween, { postfix: SplashPostfix.Halloween, title: 'ChartRead' }],
+	[SplashType.BlackFriday, { postfix: SplashPostfix.BlackFriday, title: 'ChartRead', eventTitle: 'Black Friday' }],
+	[SplashType.CyberMonday, { postfix: SplashPostfix.CyberMonday, title: 'ChartRead', eventTitle: 'Cyber Monday' }],
 	[SplashType.ChristmasHolidays, getChristmasHolidaysSplashData()],
 ]);
 

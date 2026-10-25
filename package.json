@@ -1,7 +1,7 @@
 {
   "name": "chartread",
   "productName": "ChartRead",
-  "description": "ChartRead - Advanced Desktop Charting Application with Multi-Window, Tab Linking and Real-Time Analysis",
+  "description": "ChartRead - Advanced Desktop Charting Platform",
   "main": "index.js",
   "version": "3.4.1",
   "private": true,
