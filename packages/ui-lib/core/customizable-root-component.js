@@ -1,0 +1,1 @@
+export function renameRef(e){const{reference:r,...n}=e;return{...n,ref:r}}

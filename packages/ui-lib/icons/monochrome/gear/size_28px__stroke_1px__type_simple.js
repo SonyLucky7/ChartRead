@@ -1,0 +1,1 @@
+export const svgIcongearSize28pxStroke1pxTypeSimple = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="m24.5 14-5 9h-11l-5-9 5-9h11zM9.089 6l-4.445 8 4.445 8h9.822l4.445-8-4.445-8zM14 10a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6"/></svg>`;

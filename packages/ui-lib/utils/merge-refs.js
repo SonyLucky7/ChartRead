@@ -1,0 +1,1 @@
+export function mergeRefs(e){return r=>{e.forEach((e=>{"function"==typeof e?e(r):null!=e&&(e.current=r)}))}}export function isomorphicRef(e){return mergeRefs([e])}

@@ -1,0 +1,1 @@
+import{windowEvent}from"@tradingview/ui-lib/popovers/positioners/window-event";import{useConditionalEffect}from"@tradingview/ui-lib/popovers/utils/use-conditional-effect";const onResize=windowEvent("resize");export function useCloseOnWindowResize(e,i){useConditionalEffect(e,(()=>onResize((()=>i(!0,"currentLevel")))),[i])}

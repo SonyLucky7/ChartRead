@@ -1,0 +1,1 @@
+import*as React from"react";import{ClickableIconButton}from"./clickable-icon-button";import{ToggleableIconButton}from"./toggleable-icon-button";export function IconButton(t){return"onClick"in t?React.createElement(ClickableIconButton,{...t}):React.createElement(ToggleableIconButton,{...t})}

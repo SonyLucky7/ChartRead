@@ -1,0 +1,1 @@
+export const svgIconfundamentalGraphsSize28pxStroke1 = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M14.752 2.002v24h-1.5v-24zm-3.75 2v20h-7v-20zm13 20h-7v-1.5h5.5v-17h-5.5v-1.5h7z"/></svg>`;

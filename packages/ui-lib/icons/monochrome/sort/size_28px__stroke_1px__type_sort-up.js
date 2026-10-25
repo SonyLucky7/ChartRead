@@ -1,0 +1,1 @@
+export const svgIconsortSize28pxStroke1pxTypeSortUp = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="m12.999 11.27-.689.725L9 8.854v12.144H8V8.854l-3.31 3.141-.688-.724L8.5 7zm7 6.728v1h-4v-1zm2-4h-6v-1h6zm2-5h-8v-1h8z"/></svg>`;

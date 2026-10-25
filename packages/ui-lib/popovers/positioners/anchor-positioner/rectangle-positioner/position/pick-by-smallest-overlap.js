@@ -1,0 +1,1 @@
+import{minBy}from"@tradingview/ui-lib/utils/min-by";export function pickBestBySmallestOverlapImpl(i,t){return minBy(i,t)}

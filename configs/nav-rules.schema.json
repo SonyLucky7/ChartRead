@@ -1,0 +1,207 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+
+	"type": "object",
+	"properties": {
+
+		"common-rules" : {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+
+					"url" : {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					},
+
+					"action" : {
+						"type": "string",
+						"enum": ["inplace", "open-tab", "open-external", "open-popup"]
+					}
+
+				},
+
+				"required": ["action"]
+			}
+		},
+
+		"dialog" : {
+			"type" : "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"action" : {
+						"type": "string",
+						"enum": ["open-tab", "open-external"]
+					},
+
+					"url" : {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					}
+				},
+
+				"required": ["action"]
+			}
+		},
+
+		"popup": {
+			"type": "object",
+			"properties": {
+				"will-create-window": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"action": {
+								"type": "string",
+								"enum": ["open-popup", "open-external"]
+							},
+
+							"currentUrl" : {
+								"anyOf": [
+									{"type": "array", "items": { "type": "string" } },
+									{"type": "string"}
+								]
+							},
+
+							"url": {
+								"anyOf": [
+									{ "type": "array", "items": { "type": "string" } },
+									{ "type":"string" }
+								]
+							}
+						}
+					}
+				},
+				"will-navigate": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"action": {
+								"type": "string",
+								"enum": ["inplace", "open-external"]
+							},
+
+							"currentUrl" : {
+								"anyOf": [
+									{"type": "array", "items": { "type": "string" } },
+									{"type": "string"}
+								]
+							},
+
+							"url": {
+								"anyOf": [
+									{ "type": "array", "items": { "type": "string" } },
+									{ "type":"string" }
+								]
+							}
+						},
+						"required": ["action"]
+					}
+				},
+				"did-create-window": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"action": {
+								"type": "string",
+								"enum": ["open-external"]
+							},
+
+							"url": {
+								"anyOf": [
+									{ "type": "array", "items": { "type": "string" } },
+									{ "type":"string" }
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"navigation" : {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"currentUrl" : {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					},
+
+					"url" : {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					},
+
+					"action" : {
+						"type": "string",
+						"enum": ["inplace", "open-tab", "open-external", "open-popup"]
+					}
+
+				},
+
+				"required": ["action"]
+			}
+		},
+
+		"window-open" : {
+			"type" : "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"action" : {
+						"type": "string",
+						"enum": ["open-tab", "open-popup", "open-external"]
+					},
+
+					"url" : {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					}
+				},
+
+				"required": ["action"]
+			}
+		},
+
+		"new-window": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"action": {
+						"type": "string",
+						"enum": ["open-window"]
+					},
+
+					"url": {
+						"anyOf": [
+							{"type": "array", "items": { "type": "string" } },
+							{"type": "string"}
+						]
+					}
+				}
+			}
+		},
+
+		"embeddedLinks": {
+			"type":"object"
+		}
+	}
+}

@@ -1,0 +1,1 @@
+export const svgIconburgerMenuSize28pxStroke1px = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M23 19H5v-1h18zm0-6v1H5v-1zm0-4H5V8h18z"/></svg>`;

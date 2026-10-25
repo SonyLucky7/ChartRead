@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="filter">
+            <feComponentTransfer in="SourceGraphic">
+                <feFuncR type="linear" slope="1.9" intercept="-0.3"></feFuncR>
+                <feFuncG type="linear" slope="1.9" intercept="-0.3"></feFuncG>
+                <feFuncB type="linear" slope="1.9" intercept="-0.3"></feFuncB>
+            </feComponentTransfer>
+            <feGaussianBlur stdDeviation="15"></feGaussianBlur>
+            <feComposite in2="SourceGraphic" operator="lighter"></feComposite>
+            <feComponentTransfer>
+                <feFuncR type="linear" slope="1.35" intercept="-0.1"></feFuncR>
+                <feFuncG type="linear" slope="1.35" intercept="-0.1"></feFuncG>
+                <feFuncB type="linear" slope="1.35" intercept="-0.1"></feFuncB>
+            </feComponentTransfer>
+        </filter>
+    </defs>
+</svg>

@@ -1,0 +1,1 @@
+import{bySmallestArea}from"@tradingview/ui-lib/popovers/positioners/anchor-positioner/rectangle-positioner/position/by-smallest-area";const metrics={horizontal:r=>r[0].overflow.x,vertical:r=>r[0].overflow.y,area:bySmallestArea};export function criteriaToImpl(r){return metrics[r]}

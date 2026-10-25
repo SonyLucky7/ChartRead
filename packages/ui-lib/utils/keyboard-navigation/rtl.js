@@ -1,0 +1,1 @@
+export function flipArrowsOnRtl(r,n){if(!n)return r;const t=255&r,o=-256&r;return 37===t?39+o:39===t?37+o:r}

@@ -1,0 +1,1 @@
+import{useEffect,useState}from"react";export function useIsFirstRender(){const[e,t]=useState(!0);return useEffect((()=>{t(!1)}),[]),e}export function useIsNonFirstRender(){return!useIsFirstRender()}

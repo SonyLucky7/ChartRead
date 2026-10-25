@@ -1,0 +1,1 @@
+export function disableEventHandlerConditionally(n,t){return e=>{if(t)return e.preventDefault(),void e.stopPropagation();n?.(e)}}

@@ -1,0 +1,1 @@
+import*as React from"react";import classNames from"classnames";import{BeforeSlot}from"../control-skeleton/slots";import s from"./label.css.json";import"./label.css";export function Label(e){const{htmlFor:l,children:t,className:o,id:a,...r}=e;return React.createElement(BeforeSlot,{...r,className:classNames(s.label,o)},React.createElement("label",{id:a,htmlFor:l},t))}

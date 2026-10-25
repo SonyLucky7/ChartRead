@@ -1,0 +1,1 @@
+export const checkboxCheckSvgIcon = `<svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.999878 4L3.99988 7L9.99988 1" stroke-width="2" stroke="currentColor"/></svg>`;

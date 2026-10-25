@@ -1,0 +1,1 @@
+export const svgIconstatusSize28pxFilledOnTypeExclamation = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M14 19a2 2 0 1 1 0 4 2 2 0 0 1 0-4m-.001-14a2.998 2.998 0 0 1 2.937 3.597l-1.47 7.204a1.498 1.498 0 0 1-2.935 0l-1.47-7.204A2.998 2.998 0 0 1 14 5"/></svg>`;

@@ -1,0 +1,1 @@
+import*as React from"react";export const Icon=React.forwardRef(((e,a)=>{const{icon:r="",title:t,ariaLabel:l,ariaLabelledby:i,ariaHidden:n,...o}=e,c=!!(t||l||i);return React.createElement("span",{role:"img",...o,ref:a,"aria-label":l,"aria-labelledby":i,"aria-hidden":n||!c,title:t,dangerouslySetInnerHTML:{__html:r}})}));

@@ -1,0 +1,1 @@
+import{createContext}from"react";import noop from"lodash-es/noop";export const SwitchGroupContext=createContext({getName:()=>"",getValues:()=>[],getOnChange:()=>noop,subscribe:noop,unsubscribe:noop});

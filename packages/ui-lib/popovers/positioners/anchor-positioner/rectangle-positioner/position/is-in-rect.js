@@ -1,0 +1,1 @@
+export function isInRect(t,x){return x.x<=t.x&&t.x<=x.x+x.width&&x.y<=t.y&&t.y<=x.y+x.height}

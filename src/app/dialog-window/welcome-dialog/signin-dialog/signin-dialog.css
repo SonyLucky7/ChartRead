@@ -1,0 +1,8 @@
+// Imports
+import ___CSS_LOADER_API_SOURCEMAP_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/sourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".sign-in {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tbox-sizing: border-box;\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\tjustify-content: start;\r\n\tcolor: var(--color-content-primary-neutral-bold);\r\n}\r\n\r\n.sign-in-button-close {\r\n\tposition: absolute;\r\n\ttop: 20px;\r\n\r\n\t[dir='ltr'] & {\r\n\t\tright: 20px;\r\n\t}\r\n\r\n\t[dir='rtl'] & {\r\n\t\tleft: 20px;\r\n\t}\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/app/dialog-window/welcome-dialog/signin-dialog/signin-dialog.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB,YAAY;CACZ,sBAAsB;CACtB,aAAa;CACb,sBAAsB;CACtB,sBAAsB;CACtB,gDAAgD;AACjD;;AAEA;CACC,kBAAkB;CAClB,SAAS;;CAET;EACC,WAAW;CACZ;;CAEA;EACC,UAAU;CACX;AACD","sourcesContent":[".sign-in {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tbox-sizing: border-box;\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\tjustify-content: start;\r\n\tcolor: var(--color-content-primary-neutral-bold);\r\n}\r\n\r\n.sign-in-button-close {\r\n\tposition: absolute;\r\n\ttop: 20px;\r\n\r\n\t[dir='ltr'] & {\r\n\t\tright: 20px;\r\n\t}\r\n\r\n\t[dir='rtl'] & {\r\n\t\tleft: 20px;\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+export default ___CSS_LOADER_EXPORT___;

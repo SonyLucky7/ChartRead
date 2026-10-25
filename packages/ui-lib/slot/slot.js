@@ -1,0 +1,1 @@
+import*as React from"react";export class Slot extends React.Component{shouldComponentUpdate(){return!1}render(){return React.createElement("div",{style:{position:"fixed",zIndex:150,left:0,top:0},ref:this.props.reference})}}export const SlotContext=React.createContext(null);

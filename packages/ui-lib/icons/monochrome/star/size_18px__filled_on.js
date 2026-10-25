@@ -1,0 +1,1 @@
+export const svgIconstarSize18pxFilledOn = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" d="m11.083 6.053 4.915.603-3.626 3.418.886 4.926-4.26-2.44L4.737 15l.887-4.926-3.626-3.418 4.915-.603L8.998 1.5z"/></svg>`;

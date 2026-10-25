@@ -1,0 +1,4 @@
+export const HEAP_CHECK_INTERVAL = 60000;
+export const BYTES_IN_ONE_KBYTE = 1024;
+export const HEAP_USAGE_WARNING_LIMIT = 0.8;
+export const HEAP_USAGE_CRITICAL_LIMIT = 0.97;

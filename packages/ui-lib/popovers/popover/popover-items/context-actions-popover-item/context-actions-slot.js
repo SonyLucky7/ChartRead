@@ -1,0 +1,1 @@
+import React from"react";export function ContextActionsSlot(a){const{id:e,ariaLabelledby:t,ariaOwns:i}=a;return React.createElement("div",{id:e,role:"menu","aria-labelledby":t,"aria-orientation":"horizontal","aria-owns":i.join(" "),"aria-hidden":0===i.length})}

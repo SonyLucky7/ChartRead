@@ -1,0 +1,1 @@
+import React from"react";import classNames from"classnames";import s from"./track-middle.css.json";import"./track-middle.css";export function TrackMiddle(t){const{isTrackHighlighted:e,toNormalized:r=1,fromNormalized:a=0}=t,i=100*(r-a);return React.createElement("div",{className:classNames(s.trackMiddle,e&&s.trackHighlighted),style:{"--position":100*a+"%",width:`${i}%`}})}

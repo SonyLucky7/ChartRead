@@ -1,0 +1,1 @@
+export function scrollPopoverItemIntoView(o,e){o.scrollIntoView({behavior:e?"smooth":void 0,block:"center"})}

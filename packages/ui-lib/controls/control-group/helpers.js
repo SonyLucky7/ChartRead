@@ -1,0 +1,1 @@
+export function getGroupCellRemoveRoundBorders(t){let o=0;return t.isTop&&t.isLeft||(o+=1),t.isTop&&t.isRight||(o+=2),t.isBottom&&t.isLeft||(o+=8),t.isBottom&&t.isRight||(o+=4),o}

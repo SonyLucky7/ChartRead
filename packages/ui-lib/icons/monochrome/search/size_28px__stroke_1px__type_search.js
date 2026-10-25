@@ -1,0 +1,1 @@
+export const svgIconsearchSize28pxStroke1pxTypeSearch = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M12.5 5a7.5 7.5 0 0 1 5.645 12.439l4.852 4.851-.707.707-4.851-4.852A7.5 7.5 0 1 1 12.5 5m0 1a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13"/></svg>`;

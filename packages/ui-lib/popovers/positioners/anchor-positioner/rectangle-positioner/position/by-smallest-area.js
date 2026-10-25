@@ -1,0 +1,1 @@
+function intersection(t,e){const h=Math.max(t.x,e.x),i=Math.max(t.y,e.y),n=Math.min(t.x+t.width,e.x+e.width),c=Math.min(t.y+t.height,e.y+e.height);if(!(h>n||i>c))return{x:h,y:i,width:n-h,height:c-i}}export function bySmallestArea(t){const e=t[0].contentRect,h=intersection(e,{...t[0].screenRect});return h?e.width*e.height-h.width*h.height:Number.POSITIVE_INFINITY}

@@ -1,0 +1,1 @@
+export var BadgeSize;!function(e){e.XSmall="xsmall",e.Small="small",e.Medium="medium",e.Large="large",e.XLarge="xlarge"}(BadgeSize||(BadgeSize={}));

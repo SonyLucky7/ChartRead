@@ -1,0 +1,1 @@
+import React from"react";export const CommonIcon=React.forwardRef(((e,a)=>{const{className:r,ariaLabel:t,ariaLabelledby:l,title:n,icon:o="",...c}=e,i=c,m=!(!t&&!l);return React.createElement("span",{"aria-label":t,"aria-labelledby":l,"aria-hidden":!m,ref:a,role:"img",dangerouslySetInnerHTML:{__html:o},className:r,title:n,...i})}));

@@ -1,0 +1,17 @@
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgErrorViewFavicon = function SvgErrorViewFavicon(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    width: 18,
+    height: 18,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M9 18A9 9 0 1 0 9 0a9 9 0 0 0 0 18Zm4.996-4.162-.558-6.694a4.454 4.454 0 0 0-8.877 0l-.558 6.694a.735.735 0 0 0 1.14.672l1.125-.75a1 1 0 0 1 1.262.125l.762.762a1 1 0 0 0 1.415 0l.762-.762a1 1 0 0 1 1.261-.125l1.126.75a.735.735 0 0 0 1.14-.672ZM5.923 7.604A.427.427 0 1 1 6.526 7l.339.339L7.203 7a.427.427 0 0 1 .604.604l-.339.339.266.265a.427.427 0 0 1-.604.604l-.265-.266-.266.266a.427.427 0 1 1-.603-.604l.265-.265-.338-.339ZM10.19 7a.427.427 0 0 0 0 .604l.339.339-.265.265a.427.427 0 0 0 .603.604l.265-.266.266.266a.427.427 0 1 0 .603-.604l-.265-.265.339-.339A.427.427 0 0 0 11.472 7l-.338.339-.34-.339a.427.427 0 0 0-.603 0Zm-1.155 3.614c-.36 0-.684.157-.906.408a.5.5 0 1 1-.75-.661 2.203 2.203 0 0 1 1.656-.748c.66 0 1.252.29 1.655.748a.5.5 0 1 1-.75.661 1.203 1.203 0 0 0-.905-.409Z",
+    fill: "currentColor"
+  })));
+};
+export default SvgErrorViewFavicon;

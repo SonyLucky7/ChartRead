@@ -1,0 +1,1 @@
+import React from"react";import{useIsNonFirstRender}from"@tradingview/ui-lib/hooks/ignore-on-ssr";export function ignoreOnSSR(e){return r=>useIsNonFirstRender()?React.createElement(e,{...r}):null}

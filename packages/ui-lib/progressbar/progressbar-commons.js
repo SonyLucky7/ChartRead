@@ -1,0 +1,1 @@
+import{clamp}from"@tradingview/ui-lib/utils/clamp";export const PROGRESS_MIN_VALUE=0;export const PROGRESS_MAX_VALUE=100;export function getProgressbarProgressAttributes(r){const a=void 0!==r?clamp(r,0,100):r;return{"aria-valuemin":0,"aria-valuemax":100,"aria-valuenow":a,style:{"--ui-lib-progressbar-value":a}}}

@@ -1,0 +1,1 @@
+export const svgIconcaseSize28pxStroke1 = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M18 4a1 1 0 0 1 1 1v3h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h3V5a1 1 0 0 1 1-1zm-9 9v3H5.5v6a.5.5 0 0 0 .5.5h16a.5.5 0 0 0 .5-.5v-6H19v-3zm8 5h-6v-3h6zM10.5 8h7V5.5h-7z"/></svg>`;

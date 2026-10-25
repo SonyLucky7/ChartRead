@@ -1,0 +1,1 @@
+import{createContext}from"react";const DEFAULT_VALUE=!1;export const PopoverItemHasDescriptionContext=createContext(false);

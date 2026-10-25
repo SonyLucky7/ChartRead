@@ -1,0 +1,17 @@
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgTvLogo = function SvgTvLogo(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    width: 50,
+    height: 28,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M11.143 1.428H.857v10.286h10.286v16h10.286V1.428H11.143Zm29.143 26.198H28L38.378 1.428H50l-9.714 26.198ZM28.5 11.362a4.919 4.919 0 0 0 4.914-4.923c0-2.719-2.2-4.923-4.914-4.923a4.919 4.919 0 0 0-4.914 4.923c0 2.72 2.2 4.923 4.914 4.923Z",
+    fill: "#fff"
+  })));
+};
+export default SvgTvLogo;

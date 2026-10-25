@@ -1,0 +1,1 @@
+import React from"react";import{SquareButton}from"@tradingview/ui-lib/buttons/square-button";import s from"./snackbar-button.css.json";import"./snackbar-button.css";export function SnackbarButton(t){const{onClick:n,children:o}=t;return React.createElement(SquareButton,{className:s.snackbarButton,size:"xsmall",onClick:n},o)}

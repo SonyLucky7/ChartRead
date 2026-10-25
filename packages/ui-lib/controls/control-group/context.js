@@ -1,0 +1,1 @@
+import React from"react";export const defaultCellState={isTop:!0,isRight:!0,isBottom:!0,isLeft:!0};export const ControlGroupContext=React.createContext({isGrouped:!1,cellState:defaultCellState});

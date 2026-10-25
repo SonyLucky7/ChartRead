@@ -1,0 +1,1 @@
+import React from"react";import{renameRef}from"./customizable-root-component";export function CustomComponentDefaultLink(e){return React.createElement("a",{...renameRef(e)})}export class CustomClassComponentDefaultLink extends React.PureComponent{render(){return React.createElement("a",{...renameRef(this.props)})}}

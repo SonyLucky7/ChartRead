@@ -1,0 +1,58 @@
+{
+	"urls": {
+		"defaultHost": "https://www.tradingview.com/",
+		"authHost": "https://auth.tradingview.com",
+		"chart": "chart/",
+		"profile": "u/",
+		"cookieName": "sessionid"
+	},
+	"windows": {
+		"chartInitialWidth": 1152,
+		"chartInitialHeight": 864,
+		"chartMinWidth": 500,
+		"chartMinHeight": 350,
+		"splash": {
+			"width": 600,
+			"height": 350,
+			"showDevTools": true
+		}
+	},
+	"logging": {
+		"file": {
+			"enabled": true,
+			"logLevel": 0,
+			"maxFileSize": 100
+		},
+		"console": {
+			"enabled": true,
+			"logLevel": 0
+		}
+	},
+	"persistence": {
+		"autoSaveInterval": 300000
+	},
+	"googleAnalytics": {
+		"key": "3LizEk59Qly60mrqxTq8Fw",
+		"measurementId": "G-6BZN5RZ7W7",
+		"analyticsDevModeSettings": {
+			"isDevMode": false,
+			"devModeCid": "141456121"
+		}
+	},
+	"sentry": {
+		"dsn": "https://6885ca777e2889705b455c11d63a24ab@o981304.ingest.sentry.io/5935836",
+		"upload": true
+	},
+	"advanced": {
+		"debugMode": false,
+		"concurrencyLimit": 2,
+		"windowLoadTimeout": 10000,
+		"infoRequestTimeout": 60000,
+		"hostUrls": [
+			"http://localhost/"
+		]
+	},
+	"authentication": {
+		"waitRedirectTimeout": 120000
+	}
+}

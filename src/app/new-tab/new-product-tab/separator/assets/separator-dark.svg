@@ -1,0 +1,152 @@
+var _g, _defs;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgSeparatorDark = function SvgSeparatorDark(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    viewBox: "0 0 2560 216",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _g || (_g = /*#__PURE__*/React.createElement("g", {
+    clipPath: "url(#separator-dark_svg__a)"
+  }, /*#__PURE__*/React.createElement("g", {
+    opacity: 0.7,
+    filter: "url(#separator-dark_svg__b)"
+  }, /*#__PURE__*/React.createElement("path", {
+    fill: "url(#separator-dark_svg__c)",
+    d: "M40-186h2480v168H40z"
+  })), /*#__PURE__*/React.createElement("g", {
+    opacity: 0.7,
+    filter: "url(#separator-dark_svg__d)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M-106.891-203H2668L2476-18H85.11l-96-92.5-96.001-92.5Z",
+    fill: "url(#separator-dark_svg__e)"
+  })), /*#__PURE__*/React.createElement("g", {
+    opacity: 0.5,
+    filter: "url(#separator-dark_svg__f)"
+  }, /*#__PURE__*/React.createElement("path", {
+    fill: "url(#separator-dark_svg__g)",
+    d: "M0-154h2560v136H0z"
+  }), /*#__PURE__*/React.createElement("path", {
+    fill: "url(#separator-dark_svg__h)",
+    d: "M0-154h2560v136H0z"
+  })))), _defs || (_defs = /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "separator-dark_svg__c",
+    x1: 40,
+    y1: -102,
+    x2: 2520,
+    y2: -102,
+    gradientUnits: "userSpaceOnUse"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#00BCE6"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 0.503,
+    stopColor: "#2962FF"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 1,
+    stopColor: "#D500F9"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "separator-dark_svg__e",
+    x1: -106.891,
+    y1: -110.5,
+    x2: 2668,
+    y2: -110.5,
+    gradientUnits: "userSpaceOnUse"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#00BCE6"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 0.503,
+    stopColor: "#2962FF"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 1,
+    stopColor: "#D500F9"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "separator-dark_svg__g",
+    x1: 1280,
+    y1: -154,
+    x2: 1280,
+    y2: -18,
+    gradientUnits: "userSpaceOnUse"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 1,
+    stopOpacity: 0
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "separator-dark_svg__h",
+    x1: 2560,
+    y1: -154,
+    x2: 0,
+    y2: -154,
+    gradientUnits: "userSpaceOnUse"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff",
+    stopOpacity: 0
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 0.505,
+    stopColor: "#fff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: 1,
+    stopColor: "#fff",
+    stopOpacity: 0
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "separator-dark_svg__b",
+    x: -188,
+    y: -414,
+    width: 2936,
+    height: 624,
+    filterUnits: "userSpaceOnUse",
+    colorInterpolationFilters: "sRGB"
+  }, /*#__PURE__*/React.createElement("feFlood", {
+    floodOpacity: 0,
+    result: "BackgroundImageFix"
+  }), /*#__PURE__*/React.createElement("feBlend", {
+    "in": "SourceGraphic",
+    in2: "BackgroundImageFix",
+    result: "shape"
+  }), /*#__PURE__*/React.createElement("feGaussianBlur", {
+    stdDeviation: 114,
+    result: "effect1_foregroundBlur_486_23485"
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "separator-dark_svg__d",
+    x: -166.891,
+    y: -263,
+    width: 2894.89,
+    height: 305,
+    filterUnits: "userSpaceOnUse",
+    colorInterpolationFilters: "sRGB"
+  }, /*#__PURE__*/React.createElement("feFlood", {
+    floodOpacity: 0,
+    result: "BackgroundImageFix"
+  }), /*#__PURE__*/React.createElement("feBlend", {
+    "in": "SourceGraphic",
+    in2: "BackgroundImageFix",
+    result: "shape"
+  }), /*#__PURE__*/React.createElement("feGaussianBlur", {
+    stdDeviation: 30,
+    result: "effect1_foregroundBlur_486_23485"
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "separator-dark_svg__f",
+    x: -36,
+    y: -190,
+    width: 2632,
+    height: 208,
+    filterUnits: "userSpaceOnUse",
+    colorInterpolationFilters: "sRGB"
+  }, /*#__PURE__*/React.createElement("feFlood", {
+    floodOpacity: 0,
+    result: "BackgroundImageFix"
+  }), /*#__PURE__*/React.createElement("feBlend", {
+    "in": "SourceGraphic",
+    in2: "BackgroundImageFix",
+    result: "shape"
+  }), /*#__PURE__*/React.createElement("feGaussianBlur", {
+    stdDeviation: 18,
+    result: "effect1_foregroundBlur_486_23485"
+  })), /*#__PURE__*/React.createElement("clipPath", {
+    id: "separator-dark_svg__a"
+  }, /*#__PURE__*/React.createElement("path", {
+    fill: "#fff",
+    d: "M0 0h2560v216H0z"
+  })))));
+};
+export default SvgSeparatorDark;

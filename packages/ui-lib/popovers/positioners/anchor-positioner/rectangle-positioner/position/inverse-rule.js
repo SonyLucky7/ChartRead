@@ -1,0 +1,1 @@
+function inverseAnchorPoint(n,e){return{x:e?-n.x:1-n.x,y:n.y}}function inverseRule(n,e){return{name:e&&n.rtlName||n.name,anchorPoint:inverseAnchorPoint(n.anchorPoint),contentPoint:inverseAnchorPoint(n.contentPoint),offset:n.offset?inverseAnchorPoint(n.offset,!0):void 0}}export function inverseRules(n,e){return n.map((n=>inverseRule(n,e)))}

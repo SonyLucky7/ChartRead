@@ -1,0 +1,8 @@
+// Imports
+import ___CSS_LOADER_API_SOURCEMAP_IMPORT___ from "../../../../../../../../../../css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/sourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../../../../../../../../../../css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".ellipsis-1jn2Xq8c:dir(ltr){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.withGaps-1NwUxGBb:dir(ltr){align-items:center;display:flex;gap:6px}.ellipsis-1jn2Xq8c:dir(rtl){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.withGaps-1NwUxGBb:dir(rtl){align-items:center;display:flex;gap:6px}", "",{"version":3,"sources":["webpack://./node_modules/.pnpm/@tradingview+ui-lib@1.4.6_classnames@2.2.6_prop-types@15.8.1_react-dom@18.2.0_react@18.2.0__r_an6owet5lztlplarwgm2ituueq/node_modules/@tradingview/ui-lib/popovers/popover/popover-items/popover-item/parts/popover-item-part-ellipsable-slot/popover-item-part-ellipsable-slot.css"],"names":[],"mappings":"AAAA,4BAA4B,eAAe,CAAC,sBAAsB,CAAC,kBAAkB,CAAC,4BAA4B,kBAAkB,CAAC,YAAY,CAAC,OAAO,CAAC,4BAA4B,eAAe,CAAC,sBAAsB,CAAC,kBAAkB,CAAC,4BAA4B,kBAAkB,CAAC,YAAY,CAAC,OAAO","sourcesContent":[".ellipsis-1jn2Xq8c:dir(ltr){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.withGaps-1NwUxGBb:dir(ltr){align-items:center;display:flex;gap:6px}.ellipsis-1jn2Xq8c:dir(rtl){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.withGaps-1NwUxGBb:dir(rtl){align-items:center;display:flex;gap:6px}"],"sourceRoot":""}]);
+// Exports
+export default ___CSS_LOADER_EXPORT___;

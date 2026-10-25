@@ -1,0 +1,1 @@
+export const svgIconcrossWebSize18pxStroke1px = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" fill-rule="evenodd" d="m13.354 5.354-.708-.708L9 8.293 5.354 4.646l-.708.708L8.293 9l-3.647 3.646.708.708L9 9.707l3.646 3.647.708-.708L9.707 9z"/></svg>`;

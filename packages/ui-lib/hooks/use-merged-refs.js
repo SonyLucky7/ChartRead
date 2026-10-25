@@ -1,0 +1,1 @@
+import{useCallback}from"react";import{mergeRefs}from"../utils/merge-refs";export function useMergedRefs(e){return useCallback(mergeRefs(e),e)}

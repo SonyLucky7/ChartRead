@@ -1,0 +1,17 @@
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgBadConnection = function SvgBadConnection(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    width: 21,
+    height: 16,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M20 1h-4v7.6a5.507 5.507 0 0 0-1 .657V5h-4v10h2.207c.099.349.23.683.393 1H0v-5h5V7h5V4h5V0h6v8.6a5.465 5.465 0 0 0-1-.393V1ZM10 8H6v7h4V8Z",
+    fill: "#787B86"
+  })));
+};
+export default SvgBadConnection;

@@ -1,0 +1,1 @@
+export const checkSvgIcon = `<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16Zm4-9.97L11.9 6 8.3 9.82 6.1 7.46 4.99 8.5 8.32 12 13 7.03Z" fill="currentColor"/></svg>`;

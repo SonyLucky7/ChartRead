@@ -1,0 +1,1 @@
+export const svgIcontradingviewLogoSize28pxStroke1 = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M12 20H7v-7H2V8h10zm9.2 0h-5.6l4.8-12H26zM15.5 8a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5"/></svg>`;

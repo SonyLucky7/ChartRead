@@ -1,0 +1,1 @@
+export function renameColors(r){return"brand"===r?"black":"blue"===r?"brand":r}

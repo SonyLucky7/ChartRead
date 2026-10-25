@@ -1,0 +1,1 @@
+import{createContext}from"react";export const AppContext=createContext({isOnMobileAppPage:()=>!1,isRtl:!1,locale:"en",renderMode:"legacy"});

@@ -1,0 +1,1 @@
+import{isInRect}from"@tradingview/ui-lib/popovers/positioners/anchor-positioner/rectangle-positioner/position/is-in-rect";export function isInExcludedArea(i,n){if(!n)return!1;const e="current"in n?n.current?.getBoundingClientRect():n;return!!e&&isInRect(i,e)}

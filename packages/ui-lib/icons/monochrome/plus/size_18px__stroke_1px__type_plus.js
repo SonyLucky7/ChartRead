@@ -1,0 +1,1 @@
+export const svgIconplusSize18pxStroke1pxTypePlus = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" d="M9 3v5h5v1H9v5H8V9H3V8h5V3z"/></svg>`;

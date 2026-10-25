@@ -1,0 +1,1 @@
+import{createContext}from"react";export const CustomBehaviourContext=createContext({enableActiveStateStyles:!0});CustomBehaviourContext.displayName="CustomBehaviourContext";

@@ -1,0 +1,1 @@
+import*as React from"react";export const ArrowIcon=t=>React.createElement("svg",{width:"16",height:"5",viewBox:"0 0 16 5",xmlns:"http://www.w3.org/2000/svg",...t},React.createElement("path",{d:"M.5 5h15L8 0 .5 5Z",fill:"currentColor"}));

@@ -1,0 +1,1 @@
+export const svgIconarrowSize18pxStroke2pxTypeMiniDirectionDown = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" d="m14.431 7.85-1.32-1.504L9 9.956l-4.112-3.61L3.57 7.85 9 12.618z"/></svg>`;

@@ -1,0 +1,8 @@
+// Imports
+import ___CSS_LOADER_API_SOURCEMAP_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/sourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".main-menu-button.opened {\r\n\tbackground-color: var(--color-container-fill-primary-neutral-extra-light);\r\n}\r\n\r\n.main-menu-update-app-button {\r\n\t-webkit-app-region: none;\r\n\tmargin-right: 4px;\r\n\r\n\t&.opened {\r\n\t\t--ui-lib-button-default-color-bg: var(--color-container-fill-primary-success-semi-bold) !important;\r\n\t\t--ui-lib-button-default-color-border: var(--color-container-fill-primary-success-semi-bold) !important;\r\n\t}\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/app/window/tab-panel-actions/main-menu-button/main-menu-button.css"],"names":[],"mappings":"AAAA;CACC,yEAAyE;AAC1E;;AAEA;CACC,wBAAwB;CACxB,iBAAiB;;CAEjB;EACC,kGAAkG;EAClG,sGAAsG;CACvG;AACD","sourcesContent":[".main-menu-button.opened {\r\n\tbackground-color: var(--color-container-fill-primary-neutral-extra-light);\r\n}\r\n\r\n.main-menu-update-app-button {\r\n\t-webkit-app-region: none;\r\n\tmargin-right: 4px;\r\n\r\n\t&.opened {\r\n\t\t--ui-lib-button-default-color-bg: var(--color-container-fill-primary-success-semi-bold) !important;\r\n\t\t--ui-lib-button-default-color-border: var(--color-container-fill-primary-success-semi-bold) !important;\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+export default ___CSS_LOADER_EXPORT___;

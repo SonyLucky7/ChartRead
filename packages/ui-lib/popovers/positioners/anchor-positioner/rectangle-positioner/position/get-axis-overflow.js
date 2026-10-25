@@ -1,0 +1,1 @@
+export function getAxisOverflow(t,r){const o=t.start+t.length,e=r.start+r.length;return t.start<r.start?{overflow:r.start-t.start,correction:r.start-t.start}:o>e?{overflow:o-e,correction:e-o}:{overflow:0,correction:0}}

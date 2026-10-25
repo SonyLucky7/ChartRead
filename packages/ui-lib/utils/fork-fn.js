@@ -1,0 +1,1 @@
+export function forkFn(...r){return(...n)=>{r.forEach((r=>r?.(...n)))}}

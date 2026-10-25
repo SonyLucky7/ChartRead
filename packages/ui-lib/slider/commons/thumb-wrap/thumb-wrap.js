@@ -1,0 +1,1 @@
+import React from"react";import s from"./thumb-wrap.css.json";import"./thumb-wrap.css";export function ThumbWrap(t){const{children:r,position:o}=t;return React.createElement("div",{className:s.thumb,style:{"--position":100*o+"%"}},r)}

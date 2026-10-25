@@ -1,0 +1,1 @@
+export const svgIconsuperchartsSize28pxStroke1 = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="m22 4 4 9-12 13L2 13l4-9zM10.25 8v2H8.5v6h1.75v2h1.5v-2h1.75v-6h-1.75V8zm7-1v2H16v4h1.25v2h1.5v-2H20V9h-1.25V7zM12 14.5h-2v-3h2z"/></svg>`;

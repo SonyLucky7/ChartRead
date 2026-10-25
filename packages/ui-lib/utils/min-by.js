@@ -1,0 +1,1 @@
+export function minBy(t,n){let e=t[0],o=n(e);for(let r=1;r<t.length;r++){const l=t[r],c=n(l);c<o&&(o=c,e=l)}return e}

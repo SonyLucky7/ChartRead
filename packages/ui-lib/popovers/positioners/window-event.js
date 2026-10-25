@@ -1,0 +1,1 @@
+export function windowEvent(e){return(n,t)=>(window.addEventListener(e,n,t),()=>{window.removeEventListener(e,n,t)})}

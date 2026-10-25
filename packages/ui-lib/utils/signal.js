@@ -1,0 +1,1 @@
+export function createSignal(){const e=new Set;return{subscribe:r=>{e.add(r)},unsubscribe:r=>{e.delete(r)},fire:()=>{e.forEach((e=>e()))}}}

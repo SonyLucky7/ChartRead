@@ -1,0 +1,1 @@
+export const svgIconmediaControlPlaySize18pxFilledOnTypeDefaulUsageMediaControl = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" d="M6 4.55a.55.55 0 0 1 .849-.462l6.895 4.45a.55.55 0 0 1 0 .925l-6.895 4.45A.55.55 0 0 1 6 13.45z"/></svg>`;

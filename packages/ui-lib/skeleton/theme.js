@@ -1,0 +1,1 @@
+import s from"./skeleton.css.json";import"./skeleton.css";export const skeletonTheme=s;

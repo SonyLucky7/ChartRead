@@ -1,0 +1,199 @@
+{
+	"$schema": "./nav-rules.schema.json",
+	"common-rules": [
+		{
+			"action": "open-external",
+			"currentUrl": "${TV}/*",
+			"url": [
+				"${TV}/blog/*",
+				"${TV}/desktop/*",
+				"${TV}/order/*",
+				"${TV}/gopro/*",
+				"${TV}/pricing/*",
+				"${TV}/idc-sign-agreement/*",
+				"${TV}/#get-coins/*",
+				"${TV}/black-friday/*",
+				"https://twitter.com/share*",
+				"https://www.facebook.com/dialog/share*",
+				"https://www.facebook.com/sharer*",
+				"https://twitter.com/intent/tweet?*",
+				"${TV}/accounts/permission/twitter*",
+				"https://api.stocktwits.com/*"
+			]
+		},
+		{
+			"action": "open-popup",
+			"url": [
+				"${TV}/accounts/*",
+				"about:*"
+			]
+		},
+		{
+			"action": "open-tab",
+			"url": [
+				"https://s3.amazonaws.com/tradingview/snapshots/*",
+				"https://s3.tradingview.com/snapshots/*",
+				"${TV}/support/*"
+			]
+		}
+	],
+	"dialog": [
+		{
+			"action": "open-tab",
+			"url": [
+				"${TV}/*",
+				"tvd://*"
+			]
+		},
+		{
+			"action": "open-external",
+			"url": [
+				"https?://*",
+				"mailto:*"
+			]
+		}
+	],
+	"popup": {
+		"will-create-window": [
+			{
+				"action": "open-external",
+				"currentUrl": "https://accounts.google.com/*",
+				"url": "https://accounts.google.com/*"
+			},
+			{
+				"action": "open-popup",
+				"currentUrl": "https://live-trader.markets.com/funnel-client/trading-view/*",
+				"url": "about:blank"
+			},
+			{
+				"action": "open-popup",
+				"url": [
+					"https://accounts.google.com/*",
+					"https://appleid.apple.com/*",
+					"https://((www.)|(web.))?facebook.com/v*/dialog/oauth*",
+					"https://oauth.telegram.org/*",
+					"https://my.fxopen.((com.au)|(co.uk)|(com))/*"
+				]
+			},
+			{
+				"action": "open-external",
+				"url": [
+					"https?://*",
+					"mailto:*"
+				]
+			}
+		],
+		"will-navigate": [
+			{
+				"action": "inplace",
+				"url": [
+					"blob:${TV}/*",
+					"https://(www.)?linkedin.com/checkpoint/*",
+					"https://(www.)?linkedin.com/oauth/*",
+					"https://(www.)?facebook.com/((login)|(dialog/consent))/*",
+					"https://(www.)?htx.com/*/oauth/*"
+				]
+			},
+			{
+				"action": "open-external",
+				"url": [
+					"https://(www.)?apple.com/*",
+					"https://(www.)?facebook.com/*",
+					"https://(www.)?linkedin.com/*",
+					"https://(www.)?play.google.com/*",
+					"https://(www.)?bitstamp.net/",
+					"https://(www.)?bitstamp.net/legal/cookie-statement/*",
+					"https://(www.)?errante.(com|eu|net)/",
+					"https://(www.)?htx.com/register?*",
+					"https://(www.)?questrade.com/",
+					"https://(www.)?questrade.com/account-selection",
+					"https://(www.)?questrade.com/disclosure/privacy-policy-and-security/privacy-policy",
+					"https://(www.)?questrade.com/home",
+					"https://(www.)?home.saxo/accounts?cmpid=ref_tradingview",
+					"https://(www.)?home.saxo/*/disclaimer/*",
+					"https://(www.)?beian.miit.gov.cn/",
+					"https://(www.)?tradenation.com/",
+					"https://(www.)?tradenation.com/cookie-policy/",
+					"https://(www.)?tradestation.com/*",
+					"https://(www.)?getstarted2.tradestation.com/*",
+					"https://(www.)?whitebit.com/terms/cookies",
+					"https://(www.)?whitebit.com/privacy-policy",
+					"https://*.pdf",
+					"https://*download*"
+				]
+			},
+			{
+				"action": "inplace",
+				"url": "https://*"
+			}
+		],
+		"did-create-window": [
+			{
+				"action": "open-external",
+				"url": [
+					"https?://*",
+					"mailto:*"
+				]
+			}
+		]
+	},
+	"navigation": [
+		{
+			"action": "open-tab",
+			"currentUrl": "${TV}/chart/*",
+			"url": "${TV}/*"
+		},
+		{
+			"action": "inplace",
+			"url": [
+				"${TV}/*",
+				"tvd://*"
+			]
+		},
+		{
+			"action": "open-external",
+			"url": [
+				"https?://*",
+				"mailto:*"
+			]
+		}
+	],
+	"window-open": [
+		{
+			"action": "open-popup",
+			"url": [
+				"${TV}/trading/*",
+				"${TV}/chat/*",
+				"blob:${TV}/*"
+			]
+		},
+		{
+			"action": "open-tab",
+			"url": "${TV}/*"
+		},
+		{
+			"action": "open-external",
+			"url": [
+				"https?://*",
+				"mailto:*"
+			]
+		}
+	],
+	"new-window": [
+		{
+			"action": "open-window",
+			"currentUrl": "${TV}/*",
+			"url": "${TV}/*"
+		}
+	],
+	"embeddedLinks": {
+		"licences": {
+			"title": "Libraries we use",
+			"path": "app/licenses/index.html"
+		},
+		"new-tab": {
+			"title": "New tab",
+			"path": "app/new-tab/index.html"
+		}
+	}
+}

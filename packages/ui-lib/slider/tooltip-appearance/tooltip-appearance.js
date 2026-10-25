@@ -1,0 +1,1 @@
+import React from"react";import s from"./tooltip-appearance.css.json";import"./tooltip-appearance.css";export function TooltipAppearance(e){const{children:a}=e;return React.createElement("div",{className:s.tooltipAppearance},React.createElement("div",{className:s.arrow}),React.createElement("div",{className:s.inner},a))}

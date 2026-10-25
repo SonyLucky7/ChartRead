@@ -1,0 +1,1 @@
+import*as React from"react";import classNames from"classnames";import s from"./typography.css.json";import"./typography.css";export function Typography(a){return React.createElement(a.tag,{id:a.id,className:classNames(s[a.name],a.className)},a.children)}

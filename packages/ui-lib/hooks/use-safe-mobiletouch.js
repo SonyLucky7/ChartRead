@@ -1,0 +1,1 @@
+import{useEffect,useState}from"react";import{mobiletouch}from"@tradingview/platform-features";export function useSafeMobileTouch(){const[e,t]=useState(!1);return useEffect((()=>{t(mobiletouch)}),[]),e}

@@ -1,0 +1,14 @@
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgBoxWithPlanets = function SvgBoxWithPlanets(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 120,
+    height: 120
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    d: "M93.68 34c4.57 0 7.82 1.18 8.92 3.53l.12.28q.28.72.28 1.53c.05 3.72-3.98 8.79-10.42 13.74A23.6 23.6 0 0 1 91.42 66H94l8 14H92v24H28V80H18l8-14h5a18 18 0 0 1 16.99-17.97A23.5 23.5 0 0 1 79.8 36.37C85.02 34.83 89.82 34 93.68 34M32 100h56V80H32zm-7.1-24h70.2l-3.42-6H28.32zM49 52a14 14 0 0 0-14 14h28a14 14 0 0 0-14-14m39.92 3.7a88 88 0 0 1-11.43 6.4l-.77.35a89 89 0 0 1-9 3.55h19.33a19.4 19.4 0 0 0 1.87-10.3M69.5 38a19.5 19.5 0 0 0-17.2 10.3 18 18 0 0 1 14.3 13.86 86 86 0 0 0 21.45-10.71A19.5 19.5 0 0 0 69.5 38m-35.88 5.38L38 45l-4.38 1.62L32 51l-1.62-4.38L26 45l4.38-1.62L32 39zM93.68 38q-1.39-.01-3.09.16c-1.9.18-3.99.6-6.24 1.13a23.6 23.6 0 0 1 7.03 9.63q1.65-1.35 3-2.66c2.07-2.03 3.37-3.8 4.01-5.19a5 5 0 0 0 .46-1.44.7.7 0 0 0-.29-.61 5 5 0 0 0-1.4-.58c-.9-.23-2.06-.43-3.48-.44m-44.7-12.97L56 29.5l-7.03 4.47L44.5 41l-4.47-7.03L33 29.5l7.03-4.47L44.5 18zm-5.58 2.14-.48.75-.75.48-1.72 1.1 1.72 1.1.75.48.48.75 1.1 1.72 1.1-1.72.48-.75.75-.48 1.72-1.1-1.72-1.1-.75-.48-.48-.75-1.1-1.72z"
+  })));
+};
+export default SvgBoxWithPlanets;

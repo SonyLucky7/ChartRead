@@ -1,0 +1,17 @@
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgPolicyFavicon = function SvgPolicyFavicon(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    width: 18,
+    height: 18,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M9 18A9 9 0 1 0 9 0a9 9 0 0 0 0 18Zm4.608-13.363L9.201 3.036a.59.59 0 0 0-.406 0L4.404 4.638A.612.612 0 0 0 4 5.206V9c0 .847.271 1.694.789 2.518.396.631.948 1.25 1.632 1.84a12.428 12.428 0 0 0 2.324 1.58.6.6 0 0 0 .53.001 12.218 12.218 0 0 0 2.325-1.566c.684-.587 1.228-1.206 1.625-1.84C13.742 10.708 14 9.855 14 9V5.206a.6.6 0 0 0-.392-.569Zm-1.491 2.994-3.184 3.125a.712.712 0 0 1-.994 0L6.295 9.144a.685.685 0 0 1 0-.981c.275-.27.72-.27.994 0l1.147 1.125 2.687-2.637c.275-.27.72-.27.994 0 .276.27.276.71 0 .981Z",
+    fill: "currentColor"
+  })));
+};
+export default SvgPolicyFavicon;

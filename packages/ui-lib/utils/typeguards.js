@@ -1,0 +1,1 @@
+export function isExistent(n){return null!=n}

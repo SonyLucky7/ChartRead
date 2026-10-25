@@ -1,0 +1,1 @@
+export const FOCUS_TRAP_DATA_ATTRIBUTE="data-focus-trap";

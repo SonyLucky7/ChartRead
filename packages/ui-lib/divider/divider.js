@@ -1,0 +1,1 @@
+import*as React from"react";import classNames from"classnames";import s from"./divider.css.json";import"./divider.css";export function Divider(e){const{className:a,type:i="secondary",size:r="small",orientation:t="horizontal"}=e,o=classNames(a,s.divider,s[`size-${r}`],s[`type-${i}`],s[`orientation-${t}`]);return React.createElement("hr",{className:o,"aria-orientation":t})}

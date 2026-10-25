@@ -1,0 +1,1 @@
+export function pickByName(n,e){return n.find((n=>n[1].name===e.name))??n[0]}

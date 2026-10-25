@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@tradingview/ui-lib/*": ["packages/ui-lib/*"],
+      "@tradingview/core/*": ["packages/core/*"],
+      "@tradingview/platform-features/*": ["packages/platform-features/*"],
+      "@tradingview/hotkey-actions/*": ["packages/hotkey-actions/*"],
+      "*": ["src/*", "node_modules/*"]
+    },
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*", "packages/**/*"],
+  "exclude": ["node_modules", "dist", "app", "runtime", "org"]
+}

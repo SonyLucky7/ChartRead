@@ -1,0 +1,1 @@
+export const arrowMiniLeftSvgIcon = `<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><path d="m16.47 7.47 1.06 1.06L12.06 14l5.47 5.47-1.06 1.06L9.94 14l6.53-6.53Z" fill="currentColor"/></svg>`;

@@ -1,0 +1,1 @@
+export function contentProps(e,l,r,t){return{role:t,"aria-labelledby":l,"aria-multiselectable":r,id:e}}

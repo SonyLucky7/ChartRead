@@ -1,0 +1,1 @@
+import{createInterval}from"@tradingview/ui-lib/popovers/positioners/anchor-positioner/rectangle-positioner/position/create-interval";export function applyKeepNonFittingOnAxis(e){return createInterval(e.start,e.length)}

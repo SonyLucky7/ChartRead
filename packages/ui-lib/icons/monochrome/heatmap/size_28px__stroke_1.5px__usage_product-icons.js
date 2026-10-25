@@ -1,0 +1,1 @@
+export const svgIconheatmapSize28pxStroke1 = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M22 4a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm-10.5 8.5v10H16v-10zm6 10H22a.5.5 0 0 0 .5-.5v-4h-5zM6 5.5a.5.5 0 0 0-.5.5v9H10V5.5zm5.5 0V11h11V6a.5.5 0 0 0-.5-.5z"/></svg>`;

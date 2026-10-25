@@ -1,0 +1,44 @@
+{
+  "name": "chartread",
+  "productName": "ChartRead",
+  "description": "ChartRead - Advanced Desktop Charting Application with Multi-Window, Tab Linking and Real-Time Analysis",
+  "main": "index.js",
+  "version": "3.4.1",
+  "private": true,
+  "homepage": "https://github.com/morluto/rea",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --inspect=5858",
+    "run:portable": ".\\run-chartread.bat",
+    "reconstruct": "node scripts/reconstruct.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "@sentry/electron": "^5.11.0",
+    "abstract-level": "^3.1.1",
+    "classic-level": "^3.0.0",
+    "classnames": "^2.2.6",
+    "clsx": "^2.1.1",
+    "deepmerge": "^4.3.1",
+    "electron-context-menu": "^3.6.1",
+    "electron-dl": "^3.3.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^6.8.3",
+    "fs-extra": "^10.1.0",
+    "i18next": "^22.5.1",
+    "i18next-browser-languagedetector": "^7.2.2",
+    "keytar": "^7.9.0",
+    "lodash-es": "^4.17.23",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "electron": "41.7.1",
+    "typescript": "^5.3.3"
+  }
+}

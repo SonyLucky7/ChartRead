@@ -1,0 +1,8 @@
+// Imports
+import ___CSS_LOADER_API_SOURCEMAP_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/sourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../../../../../node_modules/.pnpm/css-loader@6.7.4_webpack@5.105.2/node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "[data-theme=\"dark\"] {\r\n\t--color-trial-bg-hover: var(--color-cold-gray-550); /* base ui-lib palette color */\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n\t--color-trial-bg-hover: var(--color-cold-gray-450); /* base ui-lib palette color */\r\n}\r\n.trial {\r\n\t--ui-lib-badgeSkewed-skewed-background: var(--color-default-gray) !important;\r\n\t&:hover {\r\n\t\t--ui-lib-badgeSkewed-skewed-background: var(--color-trial-bg-hover) !important;\r\n\t}\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/app/menu/user-card/badge-user/badge-user.css"],"names":[],"mappings":"AAAA;CACC,kDAAkD,EAAE,8BAA8B;AACnF;;AAEA;CACC,kDAAkD,EAAE,8BAA8B;AACnF;AACA;CACC,4EAA4E;CAC5E;EACC,8EAA8E;CAC/E;AACD","sourcesContent":["[data-theme=\"dark\"] {\r\n\t--color-trial-bg-hover: var(--color-cold-gray-550); /* base ui-lib palette color */\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n\t--color-trial-bg-hover: var(--color-cold-gray-450); /* base ui-lib palette color */\r\n}\r\n.trial {\r\n\t--ui-lib-badgeSkewed-skewed-background: var(--color-default-gray) !important;\r\n\t&:hover {\r\n\t\t--ui-lib-badgeSkewed-skewed-background: var(--color-trial-bg-hover) !important;\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+export default ___CSS_LOADER_EXPORT___;

@@ -1,0 +1,1 @@
+export function createInterval(t,e){return{start:t,length:e}}export function createHorizontalInterval(t){return createInterval(t.x,t.width)}export function createVerticalInterval(t){return createInterval(t.y,t.height)}

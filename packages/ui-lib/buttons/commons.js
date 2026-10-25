@@ -1,0 +1,1 @@
+export function isIconOnly(n,r){return r||null==n||("string"==typeof n||Array.isArray(n))&&0===n.length}

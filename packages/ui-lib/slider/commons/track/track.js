@@ -1,0 +1,1 @@
+import React from"react";import classNames from"classnames";import s from"./track.css.json";import"./track.css";export function Track(r){const{children:a,disableTopBorderRadius:c,size:e="medium"}=r;return React.createElement("div",{className:classNames(s.track,s[e],c&&s.trackWithGraph)},a)}

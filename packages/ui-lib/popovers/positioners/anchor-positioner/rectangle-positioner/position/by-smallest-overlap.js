@@ -1,0 +1,1 @@
+import{pickBestBySmallestOverlapImpl}from"@tradingview/ui-lib/popovers/positioners/anchor-positioner/rectangle-positioner/position/pick-by-smallest-overlap";export function ruleSelectionBehaviorBySmallestOverlapToImpl(e){return i=>pickBestBySmallestOverlapImpl(i,e)}

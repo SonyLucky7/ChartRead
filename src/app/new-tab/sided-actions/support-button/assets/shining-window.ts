@@ -1,0 +1,2 @@
+// eslint-disable-next-line max-len
+export const shiningWindowSvgIcon = '<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M20.48 3.76 21 2l.52 1.76a7 7 0 0 0 4.72 4.72L28 9l-1.76.52a7 7 0 0 0-4.72 4.72L21 16l-.52-1.76a7 7 0 0 0-4.72-4.72L14 9l1.76-.52a7 7 0 0 0 4.72-4.72ZM17.2 9A8 8 0 0 0 21 5.19 8 8 0 0 0 24.81 9 8 8 0 0 0 21 12.81 8 8 0 0 0 17.19 9ZM5 9c0-1.1.9-2 2-2h6V6H7a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-3h-1v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9Z" fill="currentColor"/></svg>';

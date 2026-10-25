@@ -1,0 +1,1 @@
+export function calcPosition(t,n,o){const{anchorPoint:i,contentPoint:h,offset:c}=o;return{x:t.x+t.width*i.x-n.width*h.x+(c?.x??0),y:t.y+t.height*i.y-n.height*h.y+(c?.y??0)}}

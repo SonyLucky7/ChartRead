@@ -1,0 +1,1 @@
+import styleVars from"@tradingview/ui-lib/definitions/style-consts.json";export const ALWAYS_DRAWER_POPOVER_BREAKPOINT="all";export const ALWAYS_DROPDOWN_POPOVER_BREAKPOINT="not all";export const DEFAULT_POPOVER_BREAKPOINT=styleVars["media-show-drawer"];

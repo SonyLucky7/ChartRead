@@ -1,0 +1,1 @@
+import React from"react";import s from"./divider-popover-item.css.json";import"./divider-popover-item.css";export function DividerPopoverItem(e){const{role:r,...i}=e,t=i;return React.createElement("div",{className:s["menu-divider"],role:r,...t},React.createElement("div",{className:s["menu-divider-line"]}))}

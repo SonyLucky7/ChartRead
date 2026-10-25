@@ -1,0 +1,1 @@
+export const svgIconcheckSize18pxStroke2pxTypeStroke = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path fill="currentColor" d="m14.252 6.396-6.42 6.602-4.083-4.2 1.433-1.394 2.65 2.725 4.985-5.127z"/></svg>`;

@@ -1,0 +1,1 @@
+import{useEffect}from"react";export function useConditionalEffect(e,f,t){useEffect((()=>{if(e)return f()}),[...t,e])}

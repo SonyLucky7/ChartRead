@@ -1,0 +1,26 @@
+var _path, _path2, _path3, _path4;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+import * as React from "react";
+var SvgErrorPageNotFound = function SvgErrorPageNotFound(props) {
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 120,
+    height: 120
+  }, props), _path || (_path = /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    d: "M46 46v14h3v4h-3v8h-4v-8H32a3 3 0 0 1-2.41-4.77l10.99-15A3 3 0 0 1 46 46M33.98 60 42 49.06V60z"
+  })), _path2 || (_path2 = /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    d: "M60 43a8 8 0 0 0-8 8v13a8 8 0 0 0 8 8h1a8 8 0 0 0 8-8V51a8 8 0 0 0-8-8zm-4 8a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4v13a4 4 0 0 1-4 4h-1a4 4 0 0 1-4-4z"
+  })), _path3 || (_path3 = /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    d: "M88 60V46a3 3 0 0 0-5.42-1.77l-11 15A3 3 0 0 0 74.02 64H84v8h4v-8h3v-4zm-4-10.94L75.98 60H84z"
+  })), _path4 || (_path4 = /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    d: "M51 27V16h18v11h33v59H69v25H51V86H18V27zm4 0v-7h10v7zm-33 4h76v51H22zm33 55h10v21H55z"
+  })));
+};
+export default SvgErrorPageNotFound;

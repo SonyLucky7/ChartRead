@@ -1,0 +1,2 @@
+// eslint-disable-next-line max-len
+export const macroMapsSvgIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28"><path fill="currentColor" d="M14.002 3c6.076 0 11.003 4.926 11.003 11.002s-4.927 11.003-11.003 11.003S3 20.078 3 14.002 7.926 3 14.002 3m0 1.5c-1.163 0-2.278.21-3.308.592L13 7v1l-2.5 2H9v4h2l1 2h2v2l-3 3H8v-4l-3.491-2.62c.199 5.073 4.372 9.125 9.493 9.125a9.48 9.48 0 0 0 6.999-3.077V17l-2-1v-4h-2l-2-1V9l2-1 1 1h4.08a9.5 9.5 0 0 0-8.079-4.5"/></svg>';

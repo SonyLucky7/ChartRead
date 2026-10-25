@@ -1,0 +1,1 @@
+import{isExistent}from"@tradingview/ui-lib/utils/typeguards";export function dataQaIds(i,t){return[i,t].filter(isExistent).join(" ")}

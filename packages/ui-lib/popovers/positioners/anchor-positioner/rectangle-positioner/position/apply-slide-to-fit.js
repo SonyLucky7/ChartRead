@@ -1,0 +1,1 @@
+import{createInterval}from"@tradingview/ui-lib/popovers/positioners/anchor-positioner/rectangle-positioner/position/create-interval";export function applySlideToFitOnAxis(t,e,r){if(t.start<r.start)return createInterval(r.start,t.length);const n=t.start+t.length>r.start+r.length;return createInterval(n?r.start+r.length-t.length:t.start,t.length)}

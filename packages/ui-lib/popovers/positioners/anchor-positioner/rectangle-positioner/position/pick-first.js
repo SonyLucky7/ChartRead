@@ -1,0 +1,1 @@
+export function pickFirst(r){return r[0]}
