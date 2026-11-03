@@ -1,18 +1,25 @@
 {
   "name": "chartread",
   "productName": "ChartRead",
-  "description": "ChartRead - Advanced Desktop Charting Platform",
+  "description": "ChartRead - Advanced Desktop Charting & Technical Analysis Platform",
   "main": "index.js",
-  "version": "3.4.1",
-  "private": true,
-  "homepage": "https://github.com/morluto/rea",
-  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "private": false,
+  "homepage": "https://github.com/SonyLucky7/ChartRead",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SonyLucky7/ChartRead.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SonyLucky7/ChartRead/issues"
+  },
+  "author": "SonyLucky7",
+  "license": "MIT",
   "scripts": {
     "start": "electron .",
     "dev": "electron . --inspect=5858",
-    "run:portable": ".\\run-chartread.bat",
-    "reconstruct": "node scripts/reconstruct.js",
-    "typecheck": "tsc --noEmit"
+    "test:replay": "node scripts/test_all_timeframes_replay.mjs",
+    "patch:replay": "node scripts/patch_replay_v2.js"
   },
   "dependencies": {
     "@electron/remote": "^2.1.2",

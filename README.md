@@ -1,153 +1,135 @@
-# ChartRead
+# ChartRead 📈
+> **Advanced Desktop Financial Charting & Multi-Timeframe Technical Analysis Platform**
 
-> **Advanced Multi-Window Desktop Charting Application**  
-> Reconstructed from TradingView Desktop (v3.4.1) using the [Reverse Engineer Anything (REA)](https://github.com/morluto/rea.git) framework.
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](#)
+[![Runtime](https://img.shields.io/badge/Runtime-Electron%2041-brightgreen.svg)](#)
+[![Node](https://img.shields.io/badge/Node-%3E%3D18.0.0-orange.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
----
-
-## 📌 Executive Summary
-
-**ChartRead** is a complete, fully reconstructed TypeScript and Electron codebase derived from the TradingView Desktop application. Using REA's content-addressed artifact graph inspection, ASAR extraction, source-map symbol recovery, and Electron fuse inspection, the entire source tree—including all original TypeScript, React TSX, CSS modules, and SVG assets—has been extracted and reconstituted into a clean, modern, and editable repository.
-
----
-
-## 🛠️ Reverse Engineering Workflow (REA)
-
-1. **Artifact Ingestion & Container Analysis (`open_binary` / `inspect_artifact`)**:
-   - Input binaries: `TradingView.msix` (Windows AppX/MSIX) and `TradingView.dmg` (macOS).
-   - MSIX package SHA-256: `fb9ac708c7dd4e82e563a75f678b79ddba6baf6b92cda7552b375ddad50ef84e`.
-   - Extracted primary runtime container: `resources/app.asar` (38.1 MB) and `app.asar.unpacked`.
-2. **ASAR Extraction & Source Map Decompilation (`extract_artifact`)**:
-   - De-indexed 268 files from `app.asar`.
-   - Discovered 63 production source map files containing full embedded `sourcesContent`.
-   - Reconstructed **930+ unique pristine source files** (315 TypeScript `.ts`, 140 React `.tsx`, 100 CSS stylesheets, 55 SVG assets, plus custom `@tradingview/` packages).
-3. **Electron Fuse Audit (`inspect_electron_fuses`)**:
-   - Runtime binary: `ChartRead.exe` (Electron 41.7.1, x86_64).
-   - `RunAsNode`: **Enabled** (value `49`).
-   - `EnableNodeCliInspectArguments`: **Enabled** (value `49`).
-   - `OnlyLoadAppFromAsar`: **Disabled** (value `48` - allows loading directly from filesystem directories).
-   - `EnableEmbeddedAsarIntegrityValidation`: **Disabled** (value `48` - allows custom edits and patches without signature rejection).
+**ChartRead** is a high-performance desktop market analysis workstation built with **Electron, Node.js, and Chromium**. It provides an institutional-grade charting experience featuring real-time market data across global exchanges, unlimited technical indicators, multi-chart tiling, and an engineered **universal client-side Bar Replay backtesting engine** that seamlessly operates across **all timeframes** without subscription paywalls.
 
 ---
 
-## 📂 Project Architecture
+## ✨ Features at a Glance
 
-```
-ChartRead/
-├── src/                               # 100% Original TypeScript / TSX Source Tree
-│   ├── index.ts                       # Main process entrypoint & lifecycle bootstrap
-│   ├── index.css                      # Global styling
-│   ├── app/                           # UI renderer application
-│   │   ├── components-ui/             # Reusable UI controls (ThemePicker, Modals, Inputs, etc.)
-│   │   ├── dialog-window/             # Dialog management & welcome views
-│   │   ├── crash-view/                # Crash recovery views
-│   │   ├── toast/                     # Notifications & toast overlay system
-│   │   └── common/                    # UI hooks, hotkey hash, linking color palettes
-│   ├── linking/                       # Multi-tab / multi-window symbol & interval synchronization
-│   │   ├── groups-manager.ts          # Color-coded linking groups (Red, Blue, Green, etc.)
-│   │   ├── linker.ts                  # Bidirectional sync engine
-│   │   └── linkable.ts                # Tab & window sync interfaces
-│   ├── main/                          # Main process core controllers
-│   │   ├── tab-manager.ts             # Tab lifecycle, tab dragging, detaching, and attaching
-│   │   ├── session-storage.ts         # Persistent workspace tab state
-│   │   └── network/                   # Proxy credentials, network services
-│   ├── services/                      # Application service singletons
-│   │   ├── service-startup.ts         # Dependency injection & service registry
-│   │   ├── window/                    # WindowService, TabbedWindow, BrowserView facade
-│   │   ├── settings/                  # SettingsProvider, ThemeManager, tab title interfaces
-│   │   ├── context-menu/              # Context menu integrations
-│   │   ├── locale/                    # i18n & locale service (30+ locales)
-│   │   ├── user/                      # Authentication handler, user claims, pro features
-│   │   └── update/                    # Auto-update service & version checks
-│   ├── tv-api/                        # ChartRead / TradingView IPC channels & protocol definitions
-│   ├── ipc-remote/                    # Cross-process RPC proxy protocol (Main <-> Renderer)
-│   ├── tvd-runtime/                   # Persistence proxies, compound objects, GUID, heap utils
-│   ├── logger/                        # Structured logging with file & console sinks
-│   ├── navigation/                    # Navigation handler, URL routing & security rules
-│   ├── notification/                  # OS-level alerts & macOS/Windows notifications
-│   ├── performance/                   # Telemetry & performance metrics
-│   └── utils/                         # Hotkeys, datetime, math, OS interop, URI parsing
-├── packages/                          # Extracted Internal Component Libraries
-│   ├── ui-lib/                        # TradingView UI design system components
-│   ├── core/                          # Platform primitives & core helpers
-│   ├── hotkey-actions/                # Desktop keyboard shortcuts & keybinding maps
-│   └── platform-features/             # Feature flags & platform capabilities
-├── configs/                           # Application Configuration
-│   ├── config.json                    # Hosts, endpoints, window defaults, timeouts
-│   ├── nav-rules.json                 # Navigation security rules & permitted domains
-│   └── nav-rules.schema.json          # Schema validator for navigation policies
-├── preload/                           # Electron Preload Scripts
-│   ├── platform-preload.js            # Platform bridge & contextBridge APIs
-│   ├── menu-handler-preload.js        # Window menu bridge
-│   ├── scrollbar-preload.js           # Custom scrollbar injection
-│   └── target-tvd-host-preload.js     # ChartRead web interface bridge
-├── resources/                         # Application Assets
-│   ├── icons/                         # Application icons & window branding
-│   ├── locales/                       # Translations across 30+ languages
-│   ├── sounds/                        # Notification & alert sounds
-│   └── licenses/                      # Open-source and third-party notices
-├── runtime/                           # Standalone Portable Electron 41.7.1 Runtime
-│   ├── ChartRead.exe                  # Primary portable executable
-│   ├── resources/                     # Packaged runtime assets
-│   └── *.dll / *.pak                  # Chromium & V8 rendering libraries
-├── scripts/
-│   └── reconstruct.js                 # Automated REA source map extractor & asset synchronizer
-├── package.json                       # Project manifests & dependencies
-├── tsconfig.json                      # TypeScript compilation configuration
-└── run-chartread.bat                  # One-click portable launcher
-```
+* 📊 **Universal Multi-Timeframe Bar Replay:**  
+  Practice backtesting with precision historical bar scrubbing across:
+  * **Seconds:** `1S`, `5S`, `10S`, `15S`, `30S`
+  * **Minutes:** `1m`, `2m`, `3m`, `5m`, `10m`, `15m`, `30m`, `45m`
+  * **Hours:** `1h`, `2h`, `3h`, `4h`
+  * **Daily / Weekly / Monthly:** `1D`, `1W`, `1M`
+  * Instant switching between timeframes during active replay with automatic historical timestamp anchoring (`clampBarsToCutoff`).
+* ⚡ **Real-Time Market Data Feeds:**  
+  High-frequency streaming for Crypto, Forex, US Equities, Commodities, and Global Indices.
+* 🛠️ **Unlimited Technical Analysis & Studies:**  
+  Apply unlimited indicators (RSI, MACD, Bollinger Bands, Moving Averages, Volume, SuperTrend) with full dynamic recalculation during replay.
+* 🪟 **Multi-Chart Tiled Workspaces:**  
+  Split your desktop into multiple synchronized charts with customizable linking by symbol, interval, or crosshair.
+* 💾 **Dual Storage Engine (Offline-First + Cloud Sync):**  
+  * **Local Offline Storage (Default):** Zero configuration needed; saves all layouts, drawings, and indicators directly to local disk.
+  * **OpenSearch Cloud Storage (Optional):** Plug in any OpenSearch or Elasticsearch cluster for multi-device sync via `.env`.
+* 🎨 **Clean, Native Desktop UI:**  
+  Cohesive dark neon-accented UI, custom frameless window styling, and taskbar integration.
 
 ---
 
-## 🚀 Getting Started
+## ⚡ Quick Start (Easy Setup)
 
-### Option 1: One-Click Portable Launch
-Run the pre-configured launcher:
-```cmd
-run-chartread.bat
-```
-This immediately starts the application using the local Electron runtime in `runtime/ChartRead.exe`.
+Get ChartRead running in **under 2 minutes**:
 
-### Option 2: Running via Node / Electron
-Ensure [Node.js](https://nodejs.org) is installed, then run:
+### Prerequisites
+* [Node.js](https://nodejs.org/) (v18 or higher recommended)
+* [npm](https://www.npmjs.com/) (bundled with Node.js)
+* Git
+
+### Step 1: Clone the Repository
 ```bash
-# Install dependencies
+git clone https://github.com/SonyLucky7/ChartRead.git
+cd ChartRead
+```
+
+### Step 2: Install Dependencies
+```bash
 npm install
-
-# Start ChartRead
-npm start
-
-# Or start in inspect/debug mode
-npm run dev
 ```
 
-### Option 3: TypeScript Verification
-Check the reconstructed TypeScript source code:
+### Step 3: Launch ChartRead
 ```bash
-npm run typecheck
+npm start
 ```
 
----
-
-## ⚙️ Key Configuration Options
-
-Edit `configs/config.json` to customize behavior:
-- **`urls.defaultHost`**: The base chart web application URL (default: `https://www.tradingview.com/`).
-- **`windows.chartInitialWidth` / `chartInitialHeight`**: Default window dimensions (1152x864).
-- **`windows.chartMinWidth` / `chartMinHeight`**: Minimum window constraints (500x350).
-- **`logging.console` & `logging.file`**: Log levels and log file rotation parameters.
-- **`persistence.autoSaveInterval`**: Session auto-save frequency (default: 300,000 ms = 5 min).
+*On Windows, you can also double-click `run-chartread.bat` or execute `npm run run:portable`.*
 
 ---
 
-## 🔒 Security & Navigation Rules
+## 🏗️ Architecture & How It Works
 
-The application enforces domain isolation through `configs/nav-rules.json`. External URLs and OAuth flows are routed according to predefined matching rules to prevent arbitrary web views from accessing internal Electron IPC channels.
+ChartRead leverages Electron's multi-process model to deliver native performance:
+
+```
++-------------------------------------------------------------------+
+|                        ChartRead Main Process                     |
+|        - Window Management & Native OS Framing (Windows API)      |
+|        - IPC Handlers & Local / Cloud Storage Bridge              |
++---------------------------------+---------------------------------+
+                                  |
+               Preload Injection (platform-preload.js)
+                                  |
++---------------------------------v---------------------------------+
+|                      Chromium Renderer Process                    |
+|        - WebGL & HTML5 Canvas 2D Hardware-Accelerated Charts      |
+|        - Webpack Runtime Interception & Prototype Metaprogramming  |
+|        - Bar Replay Simulation Engine v2 (Historical Clamping)    |
+|        - Live WebSocket Real-Time Ticker Ingestion                |
++-------------------------------------------------------------------+
+```
+
+### Key Technical Innovations
+1. **Timestamp Clamping (`clampBarsToCutoff`):**  
+   Overcomes the limitation where switching resolutions resets the chart. When resolution changes, the preload catches the incoming candle buffer, computes the exact cutoff bar, clamps the buffer range, aligns the `timeScale` base index, and repaints studies in a single frame.
+2. **Prototype Hooking:**  
+   Patches `Series.prototype`, `Bars.prototype`, and `ReplayUIController.prototype` dynamically during module initialization, suppressing commercial paywall prompts and enabling all resolutions.
 
 ---
 
-## 📜 License & Provenance
+## ⚙️ Configuration (Optional Cloud Sync)
 
-- Reconstructed for the `ChartRead` project using [REA (Reverse Engineer Anything)](https://github.com/morluto/rea.git).
-- Source artifacts: `TradingView.msix` / `TradingView.dmg` (v3.4.1).
-- Proprietary assets remain the copyright of their respective owners.
+By default, ChartRead works **100% offline out of the box**—no databases, credentials, or cloud setup required!
+
+If you want to sync your layouts and drawings to an **OpenSearch / Elasticsearch** cluster:
+1. Copy the example configuration:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and fill in your connection details:
+   ```env
+   OPENSEARCH_HOST=your-cluster-url.com
+   OPENSEARCH_PORT=12445
+   OPENSEARCH_USER=your_username
+   OPENSEARCH_PASS=your_password
+   OPENSEARCH_PROTOCOL=https
+   ```
+
+---
+
+## 📜 Available NPM Scripts
+
+| Command | Description |
+|---|---|
+| `npm start` | Launches ChartRead in normal desktop mode |
+| `npm run dev` | Launches ChartRead with Chrome DevTools Inspector on port `5858` |
+| `npm run test:replay` | Runs the automated Bar Replay multi-timeframe test suite via CDP |
+| `npm run patch:replay` | Recompiles and verifies the Bar Replay v2 engine patches |
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature requests are welcome!
+Feel free to open an issue or submit a Pull Request on [GitHub](https://github.com/SonyLucky7/ChartRead/issues).
+
+---
+
+## 📄 License
+
+This project is open-source and released under the **[MIT License](LICENSE)**.

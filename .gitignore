@@ -1,7 +1,21 @@
+# Dependencies
 node_modules/
+
+# Production builds and runtimes
 dist/
 runtime/
 org/
-*.log
+TVAppStorage/
+
+# Environment and sensitive credentials
+.env
+*.local
+
+# System and editor files
 .DS_Store
 Thumbs.db
+*.log
+*.tvbak
+current_live_screen.png
+.vscode/
+.idea/
