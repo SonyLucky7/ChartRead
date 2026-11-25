@@ -75,10 +75,20 @@ try {
   }
 } catch (e) {}
 
+let lastSavedJson = '';
+let diskWriteTimer = null;
+
 function saveCacheToDisk() {
-  try {
-    fs.writeFileSync(CACHE_FILE, JSON.stringify(memoryCache, null, 2), 'utf8');
-  } catch (e) {}
+  if (diskWriteTimer) clearTimeout(diskWriteTimer);
+  diskWriteTimer = setTimeout(() => {
+    diskWriteTimer = null;
+    try {
+      const serialized = JSON.stringify(memoryCache, null, 2);
+      if (serialized === lastSavedJson) return;
+      lastSavedJson = serialized;
+      fs.promises.writeFile(CACHE_FILE, serialized, 'utf8').catch(() => {});
+    } catch (e) {}
+  }, 300);
 }
 
 /**

@@ -20,6 +20,25 @@
     // ======================================================================
     const isHomeRoute = /^\/(home\/?)?$/.test(location.pathname || "");
     if (isHomeRoute) {
+      // Prevent TradingView homepage Webpack bundles from booting or firing ChunkLoadErrors
+      if (electron?.webFrame?.executeJavaScript) {
+        try {
+          electron.webFrame.executeJavaScript(`
+            (function() {
+              window.addEventListener("unhandledrejection", function(e) { e.preventDefault(); }, true);
+              window.addEventListener("error", function(e) { e.preventDefault(); }, true);
+              try {
+                Object.defineProperty(window, "webpackChunktradingview", {
+                  value: Object.freeze({ push: function() { return 0; } }),
+                  writable: false,
+                  configurable: false
+                });
+              } catch (e) {}
+            })();
+          `);
+        } catch (e) {}
+      }
+
       // 0ms veil so ZERO TradingView homepage pixels ever flash
       if (electron?.webFrame?.insertCSS) {
         electron.webFrame.insertCSS(`
@@ -672,16 +691,52 @@
     }
 
     // ================================================================
-    // C0. WebSocket Router -> widgetdata.tradingview.com
-    // Unlocks real server-side Pine Script & unlimited simultaneous custom indicators
-    // (Flux Charts, LuxAlgo, ICT, Volume, RSI, BB, etc.) without study_limit_exceeded!
+    // C0. WebSocket Router -> widgetdata.tradingview.com + Replay Frame Filter
+    // - Routes prodata/data WS to widgetdata so custom Pine scripts (Flux Charts,
+    //   LuxAlgo, ICT) & unlimited built-ins run natively with 0 study_limit_exceeded.
+    // - Drops client-side replay_* frames (handled locally by Replay Engine v2)
+    //   so widgetdata never returns sessions_limit / unknown_session_id errors!
     // ================================================================
     if (typeof window.WebSocket === "function" && !window.WebSocket.__cr_v6_wd) {
       const OrigWS = window.WebSocket;
+      const filterReplayPacket = (data) => {
+        if (typeof data !== "string" || !data.includes('"m":"replay_')) return data;
+        try {
+          let i = 0;
+          let out = "";
+          while (i < data.length) {
+            if (!data.startsWith("~m~", i)) return data;
+            const lenEnd = data.indexOf("~m~", i + 3);
+            if (lenEnd === -1) return data;
+            const len = parseInt(data.slice(i + 3, lenEnd), 10);
+            if (Number.isNaN(len)) return data;
+            const payloadStart = lenEnd + 3;
+            const payload = data.slice(payloadStart, payloadStart + len);
+            i = payloadStart + len;
+
+            let drop = false;
+            if (payload.startsWith("{") && payload.includes('"m":"replay_')) {
+              try {
+                const parsed = JSON.parse(payload);
+                if (typeof parsed.m === "string" && parsed.m.startsWith("replay_")) drop = true;
+              } catch (e) {}
+            }
+            if (!drop) {
+              out += "~m~" + payload.length + "~m~" + payload;
+            }
+          }
+          return out.length > 0 ? out : null;
+        } catch (e) {
+          return data;
+        }
+      };
+
       const PatchedWS = function(url, protocols) {
         let targetUrl = url;
+        let isChartSocket = false;
         try {
           if (typeof targetUrl === "string" && targetUrl.includes("/socket.io/websocket")) {
+            isChartSocket = true;
             if (targetUrl.startsWith("wss://prodata.tradingview.com")) {
               targetUrl = "wss://widgetdata.tradingview.com" + targetUrl.slice("wss://prodata.tradingview.com".length);
             } else if (targetUrl.startsWith("wss://data.tradingview.com")) {
@@ -689,7 +744,16 @@
             }
           }
         } catch (e) {}
-        return protocols !== undefined ? new OrigWS(targetUrl, protocols) : new OrigWS(targetUrl);
+        const ws = protocols !== undefined ? new OrigWS(targetUrl, protocols) : new OrigWS(targetUrl);
+        if (isChartSocket && typeof ws.send === "function") {
+          const origSend = ws.send.bind(ws);
+          ws.send = function(data) {
+            const filtered = filterReplayPacket(data);
+            if (filtered === null) return;
+            return origSend(filtered);
+          };
+        }
+        return ws;
       };
       PatchedWS.prototype = OrigWS.prototype;
       Object.setPrototypeOf(PatchedWS, OrigWS);
@@ -1937,10 +2001,12 @@
     // ================================================================
 
     // ================================================================
-    // J. Local / Cloud Workspace Auto-Sync (Debounced, Low Overhead)
+    // J. Local / Cloud Workspace Auto-Sync (Dirty-Checked, Zero Idle Overhead)
     // ================================================================
     if (window.ChartReadCloud) {
       const getActiveChartModel = () => getChartModel();
+      let lastDrawingsSig = "";
+      let lastLayoutSig = "";
 
       window.chartreadSyncDrawings = async () => {
         try {
@@ -1958,6 +2024,9 @@
               };
             } catch (e) { return null; }
           }).filter(Boolean);
+          const sig = symbol + "|" + JSON.stringify(drawingsData);
+          if (sig === lastDrawingsSig) return { skipped: true, count: drawingsData.length, symbol };
+          lastDrawingsSig = sig;
           await window.ChartReadCloud.saveDrawings(symbol, drawingsData);
           return { success: true, count: drawingsData.length, symbol };
         } catch (err) { return { error: err.message }; }
@@ -1970,11 +2039,13 @@
           const layoutState = model.state({ withData: false });
           const symbol = model.mainSeries?.()?.symbol?.() || "DEFAULT";
           const resolution = model.mainSeries?.()?.properties?.()?.interval?.value?.() || "1D";
+          const studies = model.allStudies ? model.allStudies().map(s => s.metaInfo?.()?.description) : [];
+          const payload = { symbol, resolution, state: layoutState, studies };
+          const sig = JSON.stringify(payload);
+          if (sig === lastLayoutSig) return { skipped: true, symbol, resolution };
+          lastLayoutSig = sig;
           await window.ChartReadCloud.saveLayout("default_layout", {
-            symbol,
-            resolution,
-            state: layoutState,
-            studies: model.allStudies ? model.allStudies().map(s => s.metaInfo?.()?.description) : [],
+            ...payload,
             updatedAt: new Date().toISOString()
           });
           return { success: true, symbol, resolution };
@@ -1982,8 +2053,10 @@
       };
 
       setInterval(() => {
-        window.chartreadSyncDrawings();
-        window.chartreadSyncLayout();
+        if (!document.hidden) {
+          window.chartreadSyncDrawings();
+          window.chartreadSyncLayout();
+        }
       }, 30000);
 
       let mouseSyncTimer = null;
@@ -1993,7 +2066,7 @@
           mouseSyncTimer = setTimeout(() => {
             window.chartreadSyncDrawings();
             window.chartreadSyncLayout();
-          }, 800);
+          }, 1200);
         }
       }, { passive: true });
     }
@@ -2004,7 +2077,7 @@
     const PROMO_DIALOG_RE = /black friday|cyber monday|up to \\d+% off|our best deal is here|explore offers|sale ends in|custom intervals|see what others don't|upgraded plans|invite-only script|access to this script is restricted|ready to trade|sign up and gain access|unlock bar replay|look first|create a free account|registration_promotion|try ai copilot|ai copilot is now free|copilot empowers|non-standard intervals|seconds intervals|intraday bar replay|go pro|30-day free trial|trial period|special offer|claim your offer|get it before the point of no return/i;
     const PROMO_CARD_RE = /black friday — our best deal|black friday.*\\d+% off|cyber monday.*\\d+% off|our best deal is here|claim your offer|30-day free trial|\\+1 free month/i;
 
-    const runDomSweep = () => {
+    const runDomSweep = (fullBodySweep = true, deltaNodes = null) => {
       try {
         // 1. Neutralize any promo dialogs, offer popups, Black Friday modals, or Copilot hints
         const overlayTargets = document.querySelectorAll(
@@ -2089,23 +2162,26 @@
             '<span class="chartread-menu-title">Chart<span style="color:#00ff38;">Read</span></span>';
         });
 
-        // 3b. Top-left chart menu button -> crisp ChartRead CR emblem pill
-        const menuBtn = [...document.querySelectorAll(".layout__area--topleft button, .layout__area--top button")].find((b) => {
-          const r = b.getBoundingClientRect();
-          return r.width > 10 && r.x >= 0 && r.x < 48 && r.y >= 0 && r.y < 48;
-        });
-        if (menuBtn && !menuBtn.__cr_emblem_v7) {
-          menuBtn.__cr_emblem_v7 = true;
-          menuBtn.classList.add("chartread-top-menu-btn");
-          menuBtn.setAttribute("title", "ChartRead Menu");
-          const svg = menuBtn.querySelector("svg");
-          if (svg && !menuBtn.querySelector(".chartread-top-emblem")) {
-            svg.style.display = "none";
-            const img = document.createElement("img");
-            img.className = "chartread-top-emblem";
-            img.src = CR_LOGO_URI;
-            img.alt = "ChartRead";
-            menuBtn.appendChild(img);
+        // 3b. Top-left chart menu button -> crisp ChartRead CR emblem pill (cached once mounted)
+        if (!window.__cr_emblem_mounted) {
+          const menuBtn = [...document.querySelectorAll(".layout__area--topleft button, .layout__area--top button")].find((b) => {
+            const r = b.getBoundingClientRect();
+            return r.width > 10 && r.x >= 0 && r.x < 48 && r.y >= 0 && r.y < 48;
+          });
+          if (menuBtn && !menuBtn.__cr_emblem_v7) {
+            menuBtn.__cr_emblem_v7 = true;
+            window.__cr_emblem_mounted = true;
+            menuBtn.classList.add("chartread-top-menu-btn");
+            menuBtn.setAttribute("title", "ChartRead Menu");
+            const svg = menuBtn.querySelector("svg");
+            if (svg && !menuBtn.querySelector(".chartread-top-emblem")) {
+              svg.style.display = "none";
+              const img = document.createElement("img");
+              img.className = "chartread-top-emblem";
+              img.src = CR_LOGO_URI;
+              img.alt = "ChartRead";
+              menuBtn.appendChild(img);
+            }
           }
         }
 
@@ -2129,9 +2205,21 @@
             '</div>';
         });
 
-        // 6. Replace visible "TradingView" text nodes cleanly on homepage/chart
-        if (document.body) {
-          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        // 6. O(delta) Text Node Sanitizer (walks only newly added subtrees, never entire body on every tick!)
+        const sanitizeSubtreeText = (rootNode) => {
+          if (!rootNode) return;
+          if (rootNode.nodeType === 3) {
+            const val = rootNode.nodeValue;
+            if (val && /tradingview/i.test(val)) {
+              const p = rootNode.parentElement;
+              if (p && p.tagName !== "SCRIPT" && p.tagName !== "STYLE" && p.tagName !== "TEXTAREA" && p.tagName !== "INPUT") {
+                rootNode.nodeValue = val.replace(/TradingView/gi, "ChartRead");
+              }
+            }
+            return;
+          }
+          if (rootNode.nodeType !== 1) return;
+          const walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT);
           let node;
           while ((node = walker.nextNode())) {
             const val = node.nodeValue;
@@ -2141,6 +2229,14 @@
                 node.nodeValue = val.replace(/TradingView/gi, "ChartRead");
               }
             }
+          }
+        };
+
+        if (fullBodySweep) {
+          sanitizeSubtreeText(document.body);
+        } else if (deltaNodes && deltaNodes.size > 0) {
+          for (const n of deltaNodes) {
+            if (n.isConnected) sanitizeSubtreeText(n);
           }
         }
 
@@ -2153,28 +2249,43 @@
 
     const isChartPage = location.pathname.startsWith("/chart");
     let domMutationAllowed = isChartPage;
+    let pendingDeltaNodes = new Set();
+    let sweepTimer = null;
 
-    let sweepScheduled = false;
-    const scheduleDomSweep = () => {
-      if (!domMutationAllowed || sweepScheduled) return;
-      sweepScheduled = true;
-      requestAnimationFrame(() => {
-        sweepScheduled = false;
-        runDomSweep();
-      });
+    const scheduleDomSweep = (fullBody = false) => {
+      if (!domMutationAllowed) return;
+      if (fullBody) {
+        if (sweepTimer) { clearTimeout(sweepTimer); sweepTimer = null; }
+        pendingDeltaNodes.clear();
+        runDomSweep(true, null);
+        return;
+      }
+      if (sweepTimer) return;
+      sweepTimer = setTimeout(() => {
+        sweepTimer = null;
+        const batch = pendingDeltaNodes;
+        pendingDeltaNodes = new Set();
+        runDomSweep(false, batch);
+      }, 250);
     };
 
     const startObservers = () => {
-      if (domMutationAllowed) runDomSweep();
+      if (domMutationAllowed) runDomSweep(true, null);
       try {
         const obs = new MutationObserver((mutations) => {
           if (!domMutationAllowed) return;
+          let hasNew = false;
           for (const m of mutations) {
             if (m.addedNodes && m.addedNodes.length > 0) {
-              scheduleDomSweep();
-              return;
+              for (const node of m.addedNodes) {
+                if (node.nodeType === 1 || node.nodeType === 3) {
+                  if (pendingDeltaNodes.size < 80) pendingDeltaNodes.add(node);
+                  hasNew = true;
+                }
+              }
             }
           }
+          if (hasNew) scheduleDomSweep(false);
         });
         obs.observe(document.documentElement, { childList: true, subtree: true });
       } catch (e) {}
@@ -2186,13 +2297,11 @@
       startObservers();
     }
 
-    // On SSR pages (homepage, markets), wait until after React hydration completes to mutate text/DOM
-    // (CSS already hides all banners, Black Friday promos, and GPT ads at 0ms without affecting hydration!)
     if (!isChartPage) {
       const enableAfterHydration = () => {
         setTimeout(() => {
           domMutationAllowed = true;
-          runDomSweep();
+          runDomSweep(true, null);
         }, 900);
       };
       if (document.readyState === "complete") {
@@ -2201,7 +2310,7 @@
         window.addEventListener("load", enableAfterHydration, { once: true });
       }
     } else {
-      window.addEventListener("load", scheduleDomSweep, { once: true });
+      window.addEventListener("load", () => scheduleDomSweep(true), { once: true });
     }
   } catch (e) {
     console.warn("[ChartRead] Main world setup error:", e);
@@ -2226,43 +2335,51 @@
     };
     injectMainWorld();
 
-    // 3. Single Crisp Watermark Injection (ONLY on .chart-gui-wrapper — ZERO duplicates!)
-    let wmScheduled = false;
+    // 3. Single Crisp Watermark Injection (Zero Reflows, Theme-Aware, Debounced)
+    let wmTimer = null;
+    let lastWmTheme = null;
     const injectWatermarks = () => {
-      wmScheduled = false;
+      wmTimer = null;
       try {
         const isDark = document.documentElement.classList.contains("theme-dark") ||
                        document.body?.classList.contains("theme-dark") ||
                        window.matchMedia("(prefers-color-scheme: dark)").matches;
         const logoData = isDark ? DARK_WATERMARK_URI : LIGHT_WATERMARK_URI;
-
-        // Clean any stray watermarks outside .chart-gui-wrapper
-        document.querySelectorAll(".chart-widget > .chartread-chart-watermark, .chart-widget > .chartread-corner-logo").forEach((el) => el.remove());
+        const themeChanged = lastWmTheme !== isDark;
+        lastWmTheme = isDark;
 
         document.querySelectorAll(".chart-gui-wrapper").forEach((wrapper) => {
-          if (!wrapper.querySelector(":scope > .chartread-chart-watermark")) {
-            const wm = document.createElement("img");
+          let wm = wrapper.querySelector(":scope > .chartread-chart-watermark");
+          if (!wm) {
+            wm = document.createElement("img");
             wm.className = "chartread-chart-watermark";
             wm.src = logoData;
             wm.alt = "ChartRead";
-            if (getComputedStyle(wrapper).position === "static") wrapper.style.position = "relative";
+            if (!wrapper.style.position && getComputedStyle(wrapper).position === "static") {
+              wrapper.style.position = "relative";
+            }
             wrapper.appendChild(wm);
+          } else if (themeChanged) {
+            wm.src = logoData;
           }
-          if (!wrapper.querySelector(":scope > .chartread-corner-logo")) {
-            const corner = document.createElement("img");
+
+          let corner = wrapper.querySelector(":scope > .chartread-corner-logo");
+          if (!corner) {
+            corner = document.createElement("img");
             corner.className = "chartread-corner-logo";
             corner.src = logoData;
             corner.alt = "ChartRead";
             wrapper.appendChild(corner);
+          } else if (themeChanged) {
+            corner.src = logoData;
           }
         });
       } catch (e) {}
     };
 
     const scheduleWatermarks = () => {
-      if (wmScheduled) return;
-      wmScheduled = true;
-      requestAnimationFrame(injectWatermarks);
+      if (wmTimer) return;
+      wmTimer = setTimeout(injectWatermarks, 350);
     };
 
     const startWatermarkObserver = () => {
@@ -2270,13 +2387,22 @@
       try {
         const wmObs = new MutationObserver((mutations) => {
           for (const m of mutations) {
-            if (m.addedNodes && m.addedNodes.length > 0) {
+            if (m.type === "attributes") {
               scheduleWatermarks();
               return;
+            }
+            if (m.addedNodes && m.addedNodes.length > 0) {
+              for (const n of m.addedNodes) {
+                if (n.nodeType === 1 && (n.classList?.contains("chart-gui-wrapper") || n.querySelector?.(".chart-gui-wrapper"))) {
+                  scheduleWatermarks();
+                  return;
+                }
+              }
             }
           }
         });
         wmObs.observe(document.body || document.documentElement, { childList: true, subtree: true });
+        wmObs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
       } catch (e) {}
     };
 
