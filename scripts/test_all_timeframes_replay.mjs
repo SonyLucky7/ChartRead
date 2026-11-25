@@ -29,9 +29,10 @@ async function run() {
 
   // STEP 2: START REPLAY ON 15M (Select recent bar e.g. 20 bars ago)
   console.log('\n--- Step 2: Starting Replay on 15m ---');
-  const start = await evalInPage(`(() => {
+  const start = await evalInPage(`(async () => {
     const api = window.TradingViewApi;
-    const ctrl = api._replayApi._replayUIController;
+    const rapi = api._replayApi || (await api.replayApi());
+    const ctrl = rapi._replayUIController;
     ctrl.enableReplayMode(true);
     ctrl.showReplayToolbar();
 
