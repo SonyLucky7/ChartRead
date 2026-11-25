@@ -7,6 +7,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SonyLucky7)
 
+> [!IMPORTANT]
+> **Educational Purpose Only:** ChartRead is an independent open-source project created strictly for **educational, research, and technical analysis learning purposes**. Nothing in this application constitutes financial or investment advice. ChartRead is not affiliated with, endorsed by, or officially connected to any third-party charting or market data provider.
+
 **ChartRead** is a high-performance desktop market analysis workstation built with **Electron, Node.js, and Chromium**. It provides an institutional-grade charting experience featuring real-time market data across global exchanges, unlimited technical indicators, multi-chart tiling, and an engineered **universal client-side Bar Replay backtesting engine** that seamlessly operates across **all timeframes** without subscription paywalls.
 
 ---
@@ -142,6 +145,15 @@ ChartRead is 100% free, open-source, and ad-free. If it helps your trading or ba
 <p align="left">
   <img src="resources/branding/sponsor-usdt-bep20-qr.png" alt="USDT BEP-20 QR Code" width="160" />
 </p>
+
+---
+
+## ⚠️ Disclaimer (Educational Purpose Only)
+
+This software is provided strictly for **educational, personal study, and backtesting learning purposes only**.
+- It does **not** provide financial, trading, or investment advice.
+- Users are solely responsible for how they use this software and for complying with all applicable local laws and third-party terms of service.
+- All trademarks and data feeds belong to their respective owners.
 
 ---
 

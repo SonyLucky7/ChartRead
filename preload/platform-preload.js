@@ -2089,6 +2089,26 @@
             '<span class="chartread-menu-title">Chart<span style="color:#00ff38;">Read</span></span>';
         });
 
+        // 3b. Top-left chart menu button -> crisp ChartRead CR emblem pill
+        const menuBtn = [...document.querySelectorAll(".layout__area--topleft button, .layout__area--top button")].find((b) => {
+          const r = b.getBoundingClientRect();
+          return r.width > 10 && r.x >= 0 && r.x < 48 && r.y >= 0 && r.y < 48;
+        });
+        if (menuBtn && !menuBtn.__cr_emblem_v7) {
+          menuBtn.__cr_emblem_v7 = true;
+          menuBtn.classList.add("chartread-top-menu-btn");
+          menuBtn.setAttribute("title", "ChartRead Menu");
+          const svg = menuBtn.querySelector("svg");
+          if (svg && !menuBtn.querySelector(".chartread-top-emblem")) {
+            svg.style.display = "none";
+            const img = document.createElement("img");
+            img.className = "chartread-top-emblem";
+            img.src = CR_LOGO_URI;
+            img.alt = "ChartRead";
+            menuBtn.appendChild(img);
+          }
+        }
+
         // 4. Fix top-left avatar image (prevent broken image icon)
         document.querySelectorAll('img[class*="userPic"], img.js-userpic-mid').forEach((img) => {
           if (!img.getAttribute("src") || !img.complete || img.naturalWidth === 0) {
@@ -2317,6 +2337,10 @@
       [data-role="menuitem"][aria-label="What's new"],
       [data-role="menuitem"][aria-label="Log in"],
       [data-role="menuitem"][aria-label="Sign in"],
+      div:has(> [data-role="menuitem"][aria-label="Help"]),
+      div:has(> [data-role="menuitem"][aria-label="What's new"]),
+      div:has(> [data-role="menuitem"][aria-label="Log in"]),
+      div:has(> [data-role="menuitem"][aria-label="Sign in"]),
 
       /* Remove lock icons on indicators */
       [class*="lock-"],
@@ -2425,14 +2449,189 @@
         display: block !important;
       }
 
-      /* ChartRead Neon Green Brand Colors */
+      /* ================================================================
+         ChartRead Obsidian-Emerald Workstation Redesign
+         Distinctive institutional-dark surfaces & emerald active accents
+         ================================================================ */
       :root {
         --tv-color-brand: #00FF38 !important;
-        --tv-color-brand-hover: #00E635 !important;
-        --tv-color-brand-active: #00B82B !important;
+        --tv-color-brand-hover: #2BFF5B !important;
+        --tv-color-brand-active: #00C92E !important;
         --color-brand: #00FF38 !important;
-        --color-brand-hover: #00E635 !important;
-        --color-brand-active: #00B82B !important;
+        --color-brand-hover: #2BFF5B !important;
+        --color-brand-active: #00C92E !important;
+        --color-tv-blue-500: #00E858 !important;
+        --color-tv-blue-600: #00C84B !important;
+        --color-tv-blue-400: #33FF78 !important;
+        --color-tv-blue-a100: rgba(0, 255, 56, 0.14) !important;
+        --tv-color-toolbar-button-text-active: #00FF38 !important;
+        --tv-color-toolbar-button-text-active-hover: #3BFF6A !important;
+        --tv-color-item-active-text: #00FF38 !important;
+        --tv-color-popup-element-text-active: #00FF38 !important;
+      }
+
+      html.theme-dark {
+        --tv-color-platform-background: #06090F !important;
+        --tv-color-pane-background: #0A0F19 !important;
+        --tv-color-toolbar-button-background-hover: rgba(0, 255, 56, 0.10) !important;
+        --tv-color-toolbar-button-background-expanded: rgba(0, 255, 56, 0.12) !important;
+        --tv-color-toolbar-button-background-active: rgba(0, 255, 56, 0.16) !important;
+        --tv-color-toolbar-button-background-active-hover: rgba(0, 255, 56, 0.22) !important;
+        --tv-color-toolbar-divider-background: #1B2436 !important;
+        --tv-color-popup-background: #0D1422 !important;
+        --tv-color-popup-element-background-hover: rgba(0, 255, 56, 0.09) !important;
+        --tv-color-popup-element-background-active: rgba(0, 255, 56, 0.16) !important;
+        --themed-color-bg-primary: #0A0F19 !important;
+        --themed-color-pane-bg: #0A0F19 !important;
+        --themed-color-toolbar-bg: #0A0F19 !important;
+        --themed-color-container-fill-primary-neutral-extra-bold: #06090F !important;
+        --themed-color-container-fill-primary-neutral-bold: #0D1422 !important;
+      }
+
+      /* Top Toolbar & Top-Left Corner: Obsidian surface + signature emerald top accent bar */
+      html.theme-dark .layout__area--top,
+      html.theme-dark .layout__area--topleft {
+        background: #0A0F19 !important;
+        border-top: 2px solid rgba(0, 255, 56, 0.52) !important;
+        border-bottom: 1px solid #182336 !important;
+      }
+      html.theme-dark .layout__area--top [class*="toolbar-"],
+      html.theme-dark .layout__area--top [class*="inner-"],
+      html.theme-dark .layout__area--topleft [class*="inner-"] {
+        background: #0A0F19 !important;
+      }
+
+      /* Top-Left ChartRead CR Menu Emblem Button */
+      .chartread-top-menu-btn {
+        border-radius: 8px !important;
+        padding: 3px !important;
+        transition: transform 0.14s ease, box-shadow 0.16s ease !important;
+      }
+      .chartread-top-menu-btn:hover {
+        transform: scale(1.04) !important;
+        box-shadow: 0 0 12px rgba(0, 255, 56, 0.35) !important;
+      }
+      .chartread-top-emblem {
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 7px !important;
+        border: 1px solid rgba(0, 255, 56, 0.45) !important;
+        display: block !important;
+      }
+
+      /* Rounded Pill Symbol Search, Indicators & Replay Controls */
+      html.theme-dark #header-toolbar-symbol-search {
+        background: #111928 !important;
+        border: 1px solid #22304A !important;
+        border-radius: 8px !important;
+        margin: 4px 4px !important;
+        height: 30px !important;
+        padding: 0 10px !important;
+        transition: border-color 0.16s ease, background 0.16s ease !important;
+      }
+      html.theme-dark #header-toolbar-symbol-search:hover {
+        background: #152033 !important;
+        border-color: rgba(0, 255, 56, 0.5) !important;
+      }
+
+      html.theme-dark .layout__area--top button,
+      html.theme-dark .layout__area--left button,
+      html.theme-dark .layout__area--right button,
+      html.theme-dark .layout__area--bottom button {
+        border-radius: 7px !important;
+      }
+
+      /* Replay Button: sleek emerald active pill instead of stark white */
+      html.theme-dark #header-toolbar-replay[aria-pressed="true"],
+      html.theme-dark #header-toolbar-replay[class*="isActive-"] {
+        background: rgba(0, 255, 56, 0.15) !important;
+        color: #00FF38 !important;
+        border: 1px solid rgba(0, 255, 56, 0.5) !important;
+        box-shadow: 0 0 12px rgba(0, 255, 56, 0.18) !important;
+      }
+      html.theme-dark #header-toolbar-replay[aria-pressed="true"] svg,
+      html.theme-dark #header-toolbar-replay[class*="isActive-"] svg {
+        color: #00FF38 !important;
+      }
+
+      /* Left Drawing Rail, Right Widget Bar & Bottom Bar: Cohesive Obsidian Slate */
+      html.theme-dark .layout__area--left,
+      html.theme-dark .layout__area--left [class*="drawingToolbar-"],
+      html.theme-dark .layout__area--left [class*="inner-"],
+      html.theme-dark .layout__area--right,
+      html.theme-dark .layout__area--right [class*="widgetbar-"],
+      html.theme-dark .layout__area--bottom,
+      html.theme-dark .layout__area--bottom [class*="toolbar-"] {
+        background: #0A0F19 !important;
+      }
+      html.theme-dark .layout__area--left {
+        border-right: 1px solid #182336 !important;
+      }
+      html.theme-dark .layout__area--right {
+        border-left: 1px solid #182336 !important;
+      }
+      html.theme-dark .layout__area--bottom {
+        border-top: 1px solid #182336 !important;
+      }
+
+      /* Replace harsh white/blue active states on drawing rail with refined emerald pill */
+      html.theme-dark .layout__area--left [class*="isActive-"],
+      html.theme-dark .layout__area--left [aria-pressed="true"] {
+        background: rgba(0, 255, 56, 0.16) !important;
+        color: #00FF38 !important;
+        box-shadow: inset 0 0 0 1px rgba(0, 255, 56, 0.42) !important;
+      }
+      html.theme-dark .layout__area--left [class*="isActive-"] *,
+      html.theme-dark .layout__area--left [aria-pressed="true"] * {
+        background-color: transparent !important;
+        color: #00FF38 !important;
+      }
+
+      /* Floating Bar Replay Control Dock */
+      html.theme-dark [class*="replayToolbar-"],
+      html.theme-dark [data-name="replay-toolbar"] {
+        background: #0D1422 !important;
+        border: 1px solid rgba(0, 255, 56, 0.28) !important;
+        border-radius: 11px !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55) !important;
+      }
+
+      /* Dialogs, Indicators Search Modal & Context Menus */
+      html.theme-dark [data-dialog-name],
+      html.theme-dark [class*="dialog-"][role="dialog"],
+      html.theme-dark [data-name="menu-inner"],
+      html.theme-dark [class*="menuBox-"] {
+        background: #0D1422 !important;
+        border: 1px solid #1E2B42 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65) !important;
+      }
+      /* Replace TradingView's default blue selection highlight in Indicators & menus with ChartRead emerald */
+      html.theme-dark [data-dialog-name] [data-role="list-item"][class*="selected-"],
+      html.theme-dark [data-dialog-name] [data-role="list-item"]:hover,
+      html.theme-dark [data-role="menuitem"]:hover {
+        background: rgba(0, 255, 56, 0.11) !important;
+      }
+      html.theme-dark [data-dialog-name] input:focus,
+      html.theme-dark [data-dialog-name] [class*="focused-"] {
+        border-color: rgba(0, 255, 56, 0.65) !important;
+        box-shadow: 0 0 0 2px rgba(0, 255, 56, 0.14) !important;
+      }
+
+      /* Sleek ChartRead Ultra-Thin Dark Scrollbars */
+      html.theme-dark ::-webkit-scrollbar {
+        width: 6px !important;
+        height: 6px !important;
+      }
+      html.theme-dark ::-webkit-scrollbar-track {
+        background: #080C14 !important;
+      }
+      html.theme-dark ::-webkit-scrollbar-thumb {
+        background: #233049 !important;
+        border-radius: 999px !important;
+      }
+      html.theme-dark ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 255, 56, 0.55) !important;
       }
     `;
 
