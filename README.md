@@ -125,10 +125,20 @@ If you want to sync your layouts and drawings to an **OpenSearch / Elasticsearch
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing & Support
 
 Contributions, bug reports, and feature requests are welcome!
 Feel free to open an issue or submit a Pull Request on [GitHub](https://github.com/SonyLucky7/ChartRead/issues).
+
+### Support Development
+ChartRead is 100% free, open-source, and ad-free. If it helps your trading or backtesting, you can support ongoing development directly:
+
+* **GitHub Sponsors:** [github.com/sponsors/SonyLucky7](https://github.com/sponsors/SonyLucky7) *(0% platform fee)*
+* **USDT (BNB Smart Chain / BEP-20):** `0x992de9de5b80e98272e64a6f4cc3a49f4ec80198`
+
+<p align="left">
+  <img src="resources/branding/sponsor-usdt-bep20-qr.png" alt="USDT BEP-20 QR Code" width="160" />
+</p>
 
 ---
 

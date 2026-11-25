@@ -30,11 +30,12 @@ const DEV_CONFIG = {
   githubProfile: 'https://github.com/SonyLucky7',
   githubRepo: 'https://github.com/SonyLucky7/ChartRead',
   githubSponsors: 'https://github.com/sponsors/SonyLucky7',
-  upiId: '',
-  kofiUrl: ''
+  usdtNetwork: 'BNB Smart Chain (BEP-20)',
+  usdtAddress: '0x992de9de5b80e98272e64a6f4cc3a49f4ec80198'
 };
 
 const crLogoDataUri = loadDataUri('resources/branding/ChartRead-Logo-192.png');
+const sponsorQrDataUri = loadDataUri('resources/branding/sponsor-usdt-bep20-qr.png');
 const darkWatermarkDataUri = loadDataUri('resources/watermarks/dark-base64.txt');
 const lightWatermarkDataUri = loadDataUri('resources/watermarks/light-base64.txt');
 
@@ -49,6 +50,7 @@ const injectorCode = `
   try {
     const electron = require("electron");
     const CR_LOGO_URI = ${JSON.stringify(crLogoDataUri)};
+    const SPONSOR_QR_URI = ${JSON.stringify(sponsorQrDataUri)};
     const DARK_WATERMARK_URI = ${JSON.stringify(darkWatermarkDataUri)};
     const LIGHT_WATERMARK_URI = ${JSON.stringify(lightWatermarkDataUri)};
     const DEV_CONFIG = ${JSON.stringify(DEV_CONFIG)};
@@ -336,18 +338,89 @@ const injectorCode = `
                 border-radius: 999px;
               }
               .cr-sponsor-text {
-                font-size: 13.5px;
-                line-height: 1.58;
+                font-size: 13px;
+                line-height: 1.55;
                 color: #9AA7BC;
-                margin: 0 0 18px;
+                margin: 0 0 16px;
               }
-              .cr-sponsor-actions {
+              .cr-crypto-box {
+                display: grid;
+                grid-template-columns: 112px 1fr;
+                gap: 16px;
+                align-items: center;
+                padding: 14px;
+                border-radius: 11px;
+                background: #0A0E16;
+                border: 1px solid #1E283A;
+                margin-bottom: 14px;
+              }
+              .cr-qr-frame {
+                width: 112px;
+                height: 112px;
+                padding: 6px;
+                border-radius: 9px;
+                background: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+              }
+              .cr-qr-frame img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                image-rendering: pixelated;
+              }
+              .cr-crypto-meta {
+                min-width: 0;
                 display: flex;
                 flex-direction: column;
+                gap: 7px;
+              }
+              .cr-crypto-net {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                color: #00FF38;
+                text-transform: uppercase;
+              }
+              .cr-crypto-addr {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11.5px;
+                line-height: 1.4;
+                color: #E2E8F0;
+                word-break: break-all;
+                background: #111724;
+                border: 1px solid #1E283B;
+                border-radius: 6px;
+                padding: 6px 8px;
+                user-select: all;
+              }
+              .cr-btn-copy-addr {
+                width: 100%;
+                padding: 7px 12px;
+                font-size: 12px;
+                border-radius: 7px;
+                background: #151D2C;
+                color: #F3F6FA;
+                border: 1px solid #2A3750;
+              }
+              .cr-btn-copy-addr:hover {
+                border-color: rgba(0, 255, 56, 0.55);
+                color: #00FF38;
+              }
+              .cr-crypto-hint {
+                font-size: 11px;
+                color: #6F7E96;
+              }
+              .cr-sponsor-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 10px;
               }
               .cr-fee-note {
-                font-size: 12px;
+                font-size: 11.5px;
                 color: #77869E;
                 margin-top: 12px;
                 line-height: 1.45;
@@ -402,13 +475,6 @@ const injectorCode = `
           if (!document.body) return;
           document.body.innerHTML = "";
 
-          const upiBlock = DEV_CONFIG.upiId
-            ? '<button type="button" class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-copy="' + DEV_CONFIG.upiId + '">UPI Direct (0% Fee): ' + DEV_CONFIG.upiId + '</button>'
-            : "";
-          const kofiBlock = DEV_CONFIG.kofiUrl
-            ? '<a class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-external="' + DEV_CONFIG.kofiUrl + '" href="' + DEV_CONFIG.kofiUrl + '">Support on Ko-fi (0% Platform Fee) &rarr;</a>'
-            : "";
-
           const root = document.createElement("div");
           root.id = "chartread-home-root";
           root.innerHTML =
@@ -460,14 +526,21 @@ const injectorCode = `
                     '<h3 class="cr-sponsor-title">Sponsor Development</h3>' +
                     '<span class="cr-pill">Free &amp; MIT</span>' +
                   '</div>' +
-                  '<p class="cr-sponsor-text">ChartRead has zero ads, zero tracking, and zero subscription walls. If this workstation helps your analysis or backtesting, you can directly support ongoing development.</p>' +
-                  '<div class="cr-sponsor-actions">' +
-                    '<a class="cr-btn cr-btn-sponsor" data-cr-external="' + DEV_CONFIG.githubSponsors + '" href="' + DEV_CONFIG.githubSponsors + '">Sponsor on GitHub &rarr;</a>' +
-                    upiBlock +
-                    kofiBlock +
-                    '<a class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-external="' + DEV_CONFIG.githubRepo + '/issues" href="' + DEV_CONFIG.githubRepo + '/issues">Report Bug / Request Feature</a>' +
+                  '<p class="cr-sponsor-text">Zero ads, zero tracking, zero paywalls. Support ChartRead via direct USDT (BEP-20) or GitHub Sponsors.</p>' +
+                  '<div class="cr-crypto-box">' +
+                    '<div class="cr-qr-frame"><img src="' + SPONSOR_QR_URI + '" alt="USDT BEP-20 QR Code" /></div>' +
+                    '<div class="cr-crypto-meta">' +
+                      '<div class="cr-crypto-net">USDT &middot; ' + DEV_CONFIG.usdtNetwork + '</div>' +
+                      '<div class="cr-crypto-addr">' + DEV_CONFIG.usdtAddress + '</div>' +
+                      '<button type="button" class="cr-btn cr-btn-copy-addr" data-cr-copy="' + DEV_CONFIG.usdtAddress + '">Copy USDT Address</button>' +
+                      '<div class="cr-crypto-hint">Scan from Binance or any BEP-20 wallet</div>' +
+                    '</div>' +
                   '</div>' +
-                  '<div class="cr-fee-note">100% voluntary community support. GitHub Sponsors charges 0% platform fee for personal developer accounts.</div>' +
+                  '<div class="cr-sponsor-actions">' +
+                    '<a class="cr-btn cr-btn-sponsor" data-cr-external="' + DEV_CONFIG.githubSponsors + '" href="' + DEV_CONFIG.githubSponsors + '">GitHub Sponsors &rarr;</a>' +
+                    '<a class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-external="' + DEV_CONFIG.githubRepo + '/issues" href="' + DEV_CONFIG.githubRepo + '/issues">Report Issue</a>' +
+                  '</div>' +
+                  '<div class="cr-fee-note">100% voluntary community support &middot; Send USDT on BNB Smart Chain (BEP-20) only.</div>' +
                 '</div>' +
                 '<div class="cr-card">' +
                   '<div class="cr-card-label">Workstation Capabilities</div>' +

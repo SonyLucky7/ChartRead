@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const ASAR_EXTRACT_DIR = 'C:/Users/hac/AppData/Local/Temp/rea-extracted-d9a9661b-9acb-4eef-a13e-c1314ee228e4';
-const MSIX_EXTRACT_DIR = 'C:/Users/hac/AppData/Local/Temp/rea-extracted-5be371bb-4147-4ab3-950b-a389b9d4d88f';
+const ASAR_EXTRACT_DIR = process.env.ASAR_EXTRACT_DIR || '';
+const MSIX_EXTRACT_DIR = process.env.MSIX_EXTRACT_DIR || '';
 const TARGET_DIR = path.resolve(__dirname, '..');
 
 console.log('Target directory:', TARGET_DIR);
