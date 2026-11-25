@@ -712,6 +712,36 @@ const injectorCode = `
     }
 
     // ================================================================
+    // C0. WebSocket Router -> widgetdata.tradingview.com
+    // Unlocks real server-side Pine Script & unlimited simultaneous custom indicators
+    // (Flux Charts, LuxAlgo, ICT, Volume, RSI, BB, etc.) without study_limit_exceeded!
+    // ================================================================
+    if (typeof window.WebSocket === "function" && !window.WebSocket.__cr_v6_wd) {
+      const OrigWS = window.WebSocket;
+      const PatchedWS = function(url, protocols) {
+        let targetUrl = url;
+        try {
+          if (typeof targetUrl === "string" && targetUrl.includes("/socket.io/websocket")) {
+            if (targetUrl.startsWith("wss://prodata.tradingview.com")) {
+              targetUrl = "wss://widgetdata.tradingview.com" + targetUrl.slice("wss://prodata.tradingview.com".length);
+            } else if (targetUrl.startsWith("wss://data.tradingview.com")) {
+              targetUrl = "wss://widgetdata.tradingview.com" + targetUrl.slice("wss://data.tradingview.com".length);
+            }
+          }
+        } catch (e) {}
+        return protocols !== undefined ? new OrigWS(targetUrl, protocols) : new OrigWS(targetUrl);
+      };
+      PatchedWS.prototype = OrigWS.prototype;
+      Object.setPrototypeOf(PatchedWS, OrigWS);
+      PatchedWS.CONNECTING = OrigWS.CONNECTING;
+      PatchedWS.OPEN = OrigWS.OPEN;
+      PatchedWS.CLOSING = OrigWS.CLOSING;
+      PatchedWS.CLOSED = OrigWS.CLOSED;
+      PatchedWS.__cr_v6_wd = true;
+      window.WebSocket = PatchedWS;
+    }
+
+    // ================================================================
     // C. Fetch Interception (Zero 403s, Zero Offer APIs, Zero Auto-Logout)
     // ================================================================
     if (typeof window.fetch === "function" && !window.fetch.__cr_v6) {
@@ -742,7 +772,7 @@ const injectorCode = `
             if (url.includes("/savesettings/")) {
               return makeJsonResp({ status: "ok" });
             }
-            if (url.includes("/api/v1/symbols_list/colored")) {
+            if (url.includes("/api/v1/symbols_list/colored") || url.includes("/pubscripts-get/personal-access/")) {
               return makeJsonResp([]);
             }
             if (url.includes("/list_alerts") || url.includes("/get_offline_fire_controls") || url.includes("/get_offline_fires")) {
@@ -1578,11 +1608,13 @@ const injectorCode = `
       paidStudyAccessError: () => ({ studyAccessBlocked: false }),
       isServiceStudyErrorCode: returnFalse,
       studyStatusBlocked: returnFalse,
-      applyStudyWithCheckPermission: (pkg, id, cb) => {
-        if (typeof cb === "function") cb();
+      applyStudyWithCheckPermission: (...args) => {
+        const cb = args.find((a) => typeof a === "function");
+        if (cb) cb();
       },
-      applyStudyWithCheckPermissionByStudyId: (id, cb) => {
-        if (typeof cb === "function") cb();
+      applyStudyWithCheckPermissionByStudyId: (...args) => {
+        const cb = args.find((a) => typeof a === "function");
+        if (cb) cb();
       }
     };
 
@@ -1720,9 +1752,10 @@ const injectorCode = `
       StudySearchBaseDialog(SSBD) {
         if (!SSBD?.prototype || SSBD.prototype.__cr_v6) return;
         SSBD.prototype.__cr_v6 = true;
-        SSBD.prototype._handleClickOnStudyApply = function(item, t, i) {
+        SSBD.prototype._ignoreChecksWhenAddingStudy = true;
+        SSBD.prototype._handleClickOnStudyApply = function(item, t, i, s) {
           if (!item) return;
-          if (this._applyStudy) return this._applyStudy(item, t, i);
+          if (this._applyStudy) return this._applyStudy(item, t, i, s);
         };
       },
       StudySearchDialog(SSD) {
@@ -1937,154 +1970,11 @@ const injectorCode = `
     runBoundedSetup();
 
     // ================================================================
-    // H. Optimized Client-Side Study Fallback (Early-Exit When Populated)
+    // H. Study Sync Hook (Real Server-Computed Pine & Built-in Studies)
+    // Note: Removed fake computeEmptyStudies dummy close-price injection and
+    // duplicate capture-phase click listener — all real custom/community Pine
+    // scripts (Flux Charts, LuxAlgo, ICT, etc.) execute natively on widgetdata WS!
     // ================================================================
-    const computeEmptyStudies = () => {
-      try {
-        const chart = window.TradingViewApi?.activeChart?.();
-        if (!chart) return;
-        const studies = chart.getAllStudies?.() || [];
-        if (studies.length === 0) return;
-
-        // Fast check: only build barsList if at least one study has empty data
-        const emptyStudies = [];
-        for (const s of studies) {
-          const study = chart.getStudyById(s.id)?.study?.();
-          if (study && study.data && study.data().isEmpty()) {
-            emptyStudies.push({ meta: s, study });
-          }
-        }
-        if (emptyStudies.length === 0) return;
-
-        const model = chart._chartWidget?.model ? chart._chartWidget.model() : (emptyStudies[0].study?._model || chart._chartWidget?._model);
-        const ms = model?.mainSeries ? model.mainSeries() : null;
-        const bars = ms?.bars?.();
-        if (!bars || bars.isEmpty?.()) return;
-
-        const firstIdx = bars.firstIndex();
-        const lastIdx = bars.lastIndex();
-        const barsList = [];
-        for (let i = firstIdx; i <= lastIdx; i++) {
-          const v = bars.valueAt(i);
-          if (v) barsList.push({ index: i, time: v[0], open: v[1], high: v[2], low: v[3], close: v[4], volume: v[5] });
-        }
-        if (barsList.length < 2) return;
-
-        for (const { meta, study } of emptyStudies) {
-          try {
-            const name = (meta.name || "").toLowerCase();
-            study._wasCompletedBefore = true;
-            study.isFailed = returnFalse;
-            study.hasCompileError = returnFalse;
-            study.error = returnNull;
-
-            if (name.includes("bollinger")) {
-              const length = 20, mult = 2;
-              for (let i = length - 1; i < barsList.length; i++) {
-                let sum = 0;
-                for (let j = 0; j < length; j++) sum += barsList[i - j].close;
-                const basis = sum / length;
-                let varSum = 0;
-                for (let j = 0; j < length; j++) {
-                  const diff = barsList[i - j].close - basis;
-                  varSum += diff * diff;
-                }
-                const stddev = Math.sqrt(varSum / length);
-                study.data().add(barsList[i].index, [barsList[i].time, basis, basis + mult * stddev, basis - mult * stddev]);
-              }
-            } else if (name.includes("relative") || name.includes("rsi")) {
-              const length = 14;
-              let avgGain = 0, avgLoss = 0;
-              for (let i = 1; i <= length && i < barsList.length; i++) {
-                const diff = barsList[i].close - barsList[i - 1].close;
-                if (diff > 0) avgGain += diff; else avgLoss += -diff;
-              }
-              avgGain /= length; avgLoss /= length;
-              for (let i = length; i < barsList.length; i++) {
-                const diff = barsList[i].close - barsList[i - 1].close;
-                const gain = diff > 0 ? diff : 0, loss = diff < 0 ? -diff : 0;
-                avgGain = (avgGain * (length - 1) + gain) / length;
-                avgLoss = (avgLoss * (length - 1) + loss) / length;
-                const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
-                study.data().add(barsList[i].index, [barsList[i].time, 100 - (100 / (1 + rs))]);
-              }
-            } else if (name.includes("exponential") || name.includes("ema")) {
-              const length = 9, k = 2 / (length + 1);
-              let ema = barsList[0].close;
-              study.data().add(barsList[0].index, [barsList[0].time, ema]);
-              for (let i = 1; i < barsList.length; i++) {
-                ema = barsList[i].close * k + ema * (1 - k);
-                study.data().add(barsList[i].index, [barsList[i].time, ema]);
-              }
-            } else if (name.includes("moving") || name.includes("sma") || name.includes("ma")) {
-              const length = 9;
-              for (let i = length - 1; i < barsList.length; i++) {
-                let sum = 0;
-                for (let j = 0; j < length; j++) sum += barsList[i - j].close;
-                study.data().add(barsList[i].index, [barsList[i].time, sum / length]);
-              }
-            } else if (name.includes("volume") || name.includes("vol")) {
-              for (let i = 0; i < barsList.length; i++) {
-                const color = barsList[i].close >= barsList[i].open ? 1 : 0;
-                study.data().add(barsList[i].index, [barsList[i].time, barsList[i].volume, color]);
-              }
-            } else {
-              for (let i = 0; i < barsList.length; i++) {
-                study.data().add(barsList[i].index, [barsList[i].time, barsList[i].close]);
-              }
-            }
-            if (study._dataUpdated?.fire) study._dataUpdated.fire();
-          } catch (e) {}
-        }
-        if (ms._model?.lightUpdate) ms._model.lightUpdate();
-      } catch (e) {}
-    };
-    setInterval(computeEmptyStudies, 2500);
-
-    // ================================================================
-    // I. Indicator Click Helper (Single Listener, Zero Duplicates)
-    // ================================================================
-    document.addEventListener("click", (e) => {
-      try {
-        const itemEl = e.target.closest('[data-role="list-item"]');
-        if (!itemEl) return;
-        const dialog = itemEl.closest('[data-dialog-name="Indicators, metrics, and strategies"]');
-        if (!dialog) return;
-
-        const key = Object.keys(itemEl).find(k => k.startsWith("__reactFiber") || k.startsWith("__reactInternalInstance"));
-        let cur = itemEl[key];
-        let itemData = null;
-        while (cur) {
-          if (cur.memoizedProps?.item) { itemData = cur.memoizedProps.item; break; }
-          cur = cur.return;
-        }
-        if (!itemData) return;
-
-        const chart = window.TradingViewApi?.activeChart?.();
-        const studyData = itemData.studyData || {};
-        const title = studyData.title || itemData.name || itemData.title || "";
-        const id = studyData.id || itemData.id || "";
-
-        if (chart?.createStudy && title && !id.startsWith("PUB;")) {
-          try {
-            chart.createStudy(title, false, false);
-            setTimeout(() => { if (window.chartreadSyncLayout) window.chartreadSyncLayout(); }, 1200);
-            return;
-          } catch (err) {}
-        }
-
-        if (window.studyMarket?._insertStudyService) {
-          const desc = studyData.descriptor || {
-            type: id.startsWith("PUB;") ? "pine" : "java",
-            pineId: id,
-            pineVersion: studyData.version || "1.0"
-          };
-          window.studyMarket._insertStudyService.insertStudy({ descriptor: desc, insertionInfo: itemData })
-            .then(() => setTimeout(() => { if (window.chartreadSyncLayout) window.chartreadSyncLayout(); }, 1200))
-            .catch(() => {});
-        }
-      } catch (err) {}
-    }, true);
 
     // ================================================================
     // J. Local / Cloud Workspace Auto-Sync (Debounced, Low Overhead)
