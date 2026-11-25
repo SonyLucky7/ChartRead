@@ -24,7 +24,17 @@ function loadDataUri(relPath, mime = 'image/png') {
   return raw.startsWith('data:') ? raw : `data:${mime};base64,${raw}`;
 }
 
-const crLogoDataUri = loadDataUri('resources/icons/logo.png');
+const DEV_CONFIG = {
+  name: 'SonyLucky7',
+  role: 'Creator & Independent Developer',
+  githubProfile: 'https://github.com/SonyLucky7',
+  githubRepo: 'https://github.com/SonyLucky7/ChartRead',
+  githubSponsors: 'https://github.com/sponsors/SonyLucky7',
+  upiId: '',
+  kofiUrl: ''
+};
+
+const crLogoDataUri = loadDataUri('resources/branding/ChartRead-Logo-192.png');
 const darkWatermarkDataUri = loadDataUri('resources/watermarks/dark-base64.txt');
 const lightWatermarkDataUri = loadDataUri('resources/watermarks/light-base64.txt');
 
@@ -41,6 +51,503 @@ const injectorCode = `
     const CR_LOGO_URI = ${JSON.stringify(crLogoDataUri)};
     const DARK_WATERMARK_URI = ${JSON.stringify(darkWatermarkDataUri)};
     const LIGHT_WATERMARK_URI = ${JSON.stringify(lightWatermarkDataUri)};
+    const DEV_CONFIG = ${JSON.stringify(DEV_CONFIG)};
+
+    // ======================================================================
+    // 0. Custom ChartRead Home / Developer & Sponsor Page (Replaces TV Home)
+    // ======================================================================
+    const isHomeRoute = /^\\/(home\\/?)?$/.test(location.pathname || "");
+    if (isHomeRoute) {
+      // 0ms veil so ZERO TradingView homepage pixels ever flash
+      if (electron?.webFrame?.insertCSS) {
+        electron.webFrame.insertCSS(\`
+          html, body {
+            background: #0B0E14 !important;
+            color: #F3F6FA !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh !important;
+            overflow-x: hidden !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif !important;
+          }
+          body > *:not(#chartread-home-root) {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+          }
+        \`);
+      }
+
+      const mountChartReadHome = () => {
+        try { window.stop(); } catch (e) {}
+        try {
+          document.title = "ChartRead — Built by " + DEV_CONFIG.name;
+          // Strip third-party stylesheets and scripts cleanly
+          document.querySelectorAll('link[rel="stylesheet"], style:not(#chartread-home-style), script').forEach((n) => n.remove());
+          if (!document.getElementById("chartread-home-style")) {
+            const st = document.createElement("style");
+            st.id = "chartread-home-style";
+            st.textContent = \`
+              * { box-sizing: border-box; }
+              html, body {
+                margin: 0;
+                padding: 0;
+                background: #0B0E14;
+                color: #F3F6FA;
+                min-height: 100vh;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+                -webkit-font-smoothing: antialiased;
+              }
+              #chartread-home-root {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                background:
+                  radial-gradient(900px 420px at 14% -8%, rgba(0, 255, 56, 0.08), transparent 60%),
+                  linear-gradient(180deg, #0B0E14 0%, #090C11 100%);
+              }
+              .cr-topbar {
+                height: 64px;
+                padding: 0 36px;
+                border-bottom: 1px solid #1B2230;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: rgba(11, 14, 20, 0.9);
+              }
+              .cr-brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+              }
+              .cr-brand img {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+                border: 1px solid rgba(0, 255, 56, 0.25);
+              }
+              .cr-wordmark {
+                font-size: 20px;
+                font-weight: 800;
+                letter-spacing: -0.4px;
+                color: #FFFFFF;
+              }
+              .cr-wordmark span { color: #00FF38; }
+              .cr-ver {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11px;
+                color: #8E9BB0;
+                padding: 3px 8px;
+                border: 1px solid #222B3C;
+                border-radius: 999px;
+                background: #111622;
+              }
+              .cr-top-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              }
+              .cr-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 18px;
+                border-radius: 8px;
+                font-size: 13.5px;
+                font-weight: 600;
+                text-decoration: none;
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: transform 0.14s ease, background 0.15s ease, border-color 0.15s ease;
+              }
+              .cr-btn:active { transform: scale(0.98); }
+              .cr-btn-primary {
+                background: #00FF38;
+                color: #07120A;
+                border-color: #00FF38;
+              }
+              .cr-btn-primary:hover { background: #1FFF50; }
+              .cr-btn-ghost {
+                background: #131926;
+                color: #E2E8F0;
+                border-color: #253044;
+              }
+              .cr-btn-ghost:hover {
+                background: #1A2233;
+                border-color: #364560;
+              }
+              .cr-btn-sponsor {
+                width: 100%;
+                padding: 12px 18px;
+                background: rgba(0, 255, 56, 0.12);
+                color: #00FF38;
+                border: 1px solid rgba(0, 255, 56, 0.45);
+                font-size: 14px;
+              }
+              .cr-btn-sponsor:hover {
+                background: #00FF38;
+                color: #07120A;
+              }
+              .cr-main {
+                flex: 1;
+                width: 100%;
+                max-width: 1080px;
+                margin: 0 auto;
+                padding: 48px 36px 36px;
+                display: grid;
+                grid-template-columns: 1.2fr 0.95fr;
+                gap: 32px;
+                align-items: start;
+              }
+              @media (max-width: 860px) {
+                .cr-main { grid-template-columns: 1fr; padding: 28px 20px; }
+                .cr-topbar { padding: 0 20px; }
+              }
+              .cr-eyebrow {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11.5px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: #00FF38;
+                margin-bottom: 12px;
+              }
+              .cr-title {
+                font-size: 42px;
+                line-height: 1.08;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                margin: 0 0 14px;
+                color: #FFFFFF;
+              }
+              .cr-lead {
+                font-size: 15.5px;
+                line-height: 1.6;
+                color: #9AA7BC;
+                margin: 0 0 28px;
+                max-width: 52ch;
+              }
+              .cr-card {
+                background: #111622;
+                border: 1px solid #1E2738;
+                border-radius: 14px;
+                padding: 24px;
+              }
+              .cr-dev-card {
+                margin-bottom: 22px;
+              }
+              .cr-card-label {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #6F7E96;
+                margin-bottom: 16px;
+              }
+              .cr-dev-row {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                margin-bottom: 18px;
+              }
+              .cr-dev-avatar {
+                width: 54px;
+                height: 54px;
+                border-radius: 12px;
+                border: 1px solid rgba(0, 255, 56, 0.35);
+                flex-shrink: 0;
+              }
+              .cr-dev-name {
+                font-size: 20px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0 0 3px;
+              }
+              .cr-dev-role {
+                font-size: 13.5px;
+                color: #8E9BB0;
+                margin: 0;
+              }
+              .cr-dev-bio {
+                font-size: 14px;
+                line-height: 1.55;
+                color: #B4C0D3;
+                margin: 0 0 18px;
+              }
+              .cr-link-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
+              .cr-link-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 11px 14px;
+                border-radius: 9px;
+                background: #0C1018;
+                border: 1px solid #1C2536;
+                color: #E5ECF6;
+                text-decoration: none;
+                font-size: 13.5px;
+                cursor: pointer;
+                transition: border-color 0.15s ease, background 0.15s ease;
+              }
+              .cr-link-row:hover {
+                border-color: rgba(0, 255, 56, 0.45);
+                background: #101624;
+              }
+              .cr-link-mono {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 12.5px;
+                color: #00FF38;
+              }
+              .cr-cta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+              }
+              .cr-sponsor-card {
+                border-top: 2px solid #00FF38;
+                margin-bottom: 20px;
+              }
+              .cr-sponsor-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                margin-bottom: 10px;
+              }
+              .cr-sponsor-title {
+                font-size: 18px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0;
+              }
+              .cr-pill {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11px;
+                color: #00FF38;
+                background: rgba(0, 255, 56, 0.1);
+                border: 1px solid rgba(0, 255, 56, 0.25);
+                padding: 3px 9px;
+                border-radius: 999px;
+              }
+              .cr-sponsor-text {
+                font-size: 13.5px;
+                line-height: 1.58;
+                color: #9AA7BC;
+                margin: 0 0 18px;
+              }
+              .cr-sponsor-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
+              .cr-fee-note {
+                font-size: 12px;
+                color: #77869E;
+                margin-top: 12px;
+                line-height: 1.45;
+              }
+              .cr-specs {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+              }
+              .cr-spec-item {
+                display: grid;
+                grid-template-columns: 112px 1fr;
+                gap: 12px;
+                align-items: baseline;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #1A2232;
+                font-size: 13px;
+              }
+              .cr-spec-item:last-child {
+                padding-bottom: 0;
+                border-bottom: none;
+              }
+              .cr-spec-key {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 11px;
+                letter-spacing: 0.06em;
+                color: #00FF38;
+              }
+              .cr-spec-val {
+                color: #C4CFE0;
+                line-height: 1.45;
+              }
+              .cr-footer {
+                padding: 18px 36px;
+                border-top: 1px solid #161C28;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 12.5px;
+                color: #6B7A92;
+              }
+              .cr-footer a {
+                color: #9AA7BC;
+                text-decoration: none;
+                cursor: pointer;
+              }
+              .cr-footer a:hover { color: #00FF38; }
+            \`;
+            (document.head || document.documentElement).appendChild(st);
+          }
+
+          if (!document.body) return;
+          document.body.innerHTML = "";
+
+          const upiBlock = DEV_CONFIG.upiId
+            ? '<button type="button" class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-copy="' + DEV_CONFIG.upiId + '">UPI Direct (0% Fee): ' + DEV_CONFIG.upiId + '</button>'
+            : "";
+          const kofiBlock = DEV_CONFIG.kofiUrl
+            ? '<a class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-external="' + DEV_CONFIG.kofiUrl + '" href="' + DEV_CONFIG.kofiUrl + '">Support on Ko-fi (0% Platform Fee) &rarr;</a>'
+            : "";
+
+          const root = document.createElement("div");
+          root.id = "chartread-home-root";
+          root.innerHTML =
+            '<header class="cr-topbar">' +
+              '<div class="cr-brand">' +
+                '<img src="' + CR_LOGO_URI + '" alt="ChartRead" />' +
+                '<span class="cr-wordmark">Chart<span>Read</span></span>' +
+                '<span class="cr-ver">v1.0 · Open Source</span>' +
+              '</div>' +
+              '<div class="cr-top-actions">' +
+                '<a class="cr-btn cr-btn-ghost" data-cr-external="' + DEV_CONFIG.githubRepo + '" href="' + DEV_CONFIG.githubRepo + '">GitHub Repo</a>' +
+                '<a class="cr-btn cr-btn-primary" data-cr-charts="1" href="https://www.tradingview.com/chart/">Open Live Charts &rarr;</a>' +
+              '</div>' +
+            '</header>' +
+            '<main class="cr-main">' +
+              '<section>' +
+                '<div class="cr-eyebrow">INDEPENDENT DESKTOP CHARTING WORKSTATION</div>' +
+                '<h1 class="cr-title">Built for clean, focused market analysis.</h1>' +
+                '<p class="cr-lead">ChartRead is a fast, distraction-free desktop workstation engineered for real-time charting, unlimited technical indicators, and multi-timeframe Bar Replay backtesting.</p>' +
+                '<div class="cr-card cr-dev-card">' +
+                  '<div class="cr-card-label">Developed &amp; Maintained By</div>' +
+                  '<div class="cr-dev-row">' +
+                    '<img class="cr-dev-avatar" src="' + CR_LOGO_URI + '" alt="' + DEV_CONFIG.name + '" />' +
+                    '<div>' +
+                      '<h2 class="cr-dev-name">' + DEV_CONFIG.name + '</h2>' +
+                      '<p class="cr-dev-role">' + DEV_CONFIG.role + '</p>' +
+                    '</div>' +
+                  '</div>' +
+                  '<p class="cr-dev-bio">Created and maintained as a free, open-source project under the MIT License. Explore the source code, suggest features, or follow updates directly on GitHub.</p>' +
+                  '<div class="cr-link-list">' +
+                    '<a class="cr-link-row" data-cr-external="' + DEV_CONFIG.githubProfile + '" href="' + DEV_CONFIG.githubProfile + '">' +
+                      '<span>GitHub Profile</span>' +
+                      '<span class="cr-link-mono">github.com/' + DEV_CONFIG.name + ' &nearr;</span>' +
+                    '</a>' +
+                    '<a class="cr-link-row" data-cr-external="' + DEV_CONFIG.githubRepo + '" href="' + DEV_CONFIG.githubRepo + '">' +
+                      '<span>Project Repository</span>' +
+                      '<span class="cr-link-mono">github.com/' + DEV_CONFIG.name + '/ChartRead &nearr;</span>' +
+                    '</a>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="cr-cta-row">' +
+                  '<a class="cr-btn cr-btn-primary" data-cr-charts="1" href="https://www.tradingview.com/chart/">Launch Live Charts &rarr;</a>' +
+                  '<button type="button" class="cr-btn cr-btn-ghost" data-cr-copy="' + DEV_CONFIG.githubRepo + '">Copy GitHub Link</button>' +
+                '</div>' +
+              '</section>' +
+              '<aside>' +
+                '<div class="cr-card cr-sponsor-card">' +
+                  '<div class="cr-sponsor-head">' +
+                    '<h3 class="cr-sponsor-title">Sponsor Development</h3>' +
+                    '<span class="cr-pill">Free &amp; MIT</span>' +
+                  '</div>' +
+                  '<p class="cr-sponsor-text">ChartRead has zero ads, zero tracking, and zero subscription walls. If this workstation helps your analysis or backtesting, you can directly support ongoing development.</p>' +
+                  '<div class="cr-sponsor-actions">' +
+                    '<a class="cr-btn cr-btn-sponsor" data-cr-external="' + DEV_CONFIG.githubSponsors + '" href="' + DEV_CONFIG.githubSponsors + '">Sponsor on GitHub &rarr;</a>' +
+                    upiBlock +
+                    kofiBlock +
+                    '<a class="cr-btn cr-btn-ghost" style="width:100%;" data-cr-external="' + DEV_CONFIG.githubRepo + '/issues" href="' + DEV_CONFIG.githubRepo + '/issues">Report Bug / Request Feature</a>' +
+                  '</div>' +
+                  '<div class="cr-fee-note">100% voluntary community support. GitHub Sponsors charges 0% platform fee for personal developer accounts.</div>' +
+                '</div>' +
+                '<div class="cr-card">' +
+                  '<div class="cr-card-label">Workstation Capabilities</div>' +
+                  '<div class="cr-specs">' +
+                    '<div class="cr-spec-item"><span class="cr-spec-key">BAR REPLAY</span><span class="cr-spec-val">Multi-timeframe replay (1S to 1M) with timestamp-anchored switching</span></div>' +
+                    '<div class="cr-spec-item"><span class="cr-spec-key">INDICATORS</span><span class="cr-spec-val">Unlimited studies with real-time calculation and replay sync</span></div>' +
+                    '<div class="cr-spec-item"><span class="cr-spec-key">STORAGE</span><span class="cr-spec-val">Offline-first local disk persistence with optional cloud sync</span></div>' +
+                  '</div>' +
+                '</div>' +
+              '</aside>' +
+            '</main>' +
+            '<footer class="cr-footer">' +
+              '<span>ChartRead &middot; Developed by ' + DEV_CONFIG.name + ' &middot; MIT License</span>' +
+              '<a data-cr-external="' + DEV_CONFIG.githubRepo + '" href="' + DEV_CONFIG.githubRepo + '">github.com/' + DEV_CONFIG.name + '/ChartRead</a>' +
+            '</footer>';
+
+          document.body.appendChild(root);
+
+          // Wire external links via Electron shell.openExternal + Copy button + Charts navigation
+          root.addEventListener("click", (e) => {
+            const ext = e.target.closest("[data-cr-external]");
+            if (ext) {
+              e.preventDefault();
+              const url = ext.getAttribute("data-cr-external");
+              if (url && electron?.shell?.openExternal) {
+                electron.shell.openExternal(url);
+              } else if (url) {
+                window.open(url, "_blank", "noopener");
+              }
+              return;
+            }
+            const copyBtn = e.target.closest("[data-cr-copy]");
+            if (copyBtn) {
+              e.preventDefault();
+              const val = copyBtn.getAttribute("data-cr-copy");
+              const origText = copyBtn.textContent;
+              try {
+                if (electron?.clipboard?.writeText) electron.clipboard.writeText(val);
+                else if (navigator.clipboard?.writeText) navigator.clipboard.writeText(val);
+                copyBtn.textContent = "Copied to Clipboard!";
+                setTimeout(() => { copyBtn.textContent = origText; }, 1600);
+              } catch (err) {}
+              return;
+            }
+            const chartBtn = e.target.closest("[data-cr-charts]");
+            if (chartBtn) {
+              e.preventDefault();
+              window.location.href = "https://www.tradingview.com/chart/";
+            }
+          });
+
+          // Keep body strictly clean if any late third-party script attempts to append nodes
+          new MutationObserver(() => {
+            document.title = "ChartRead — Built by " + DEV_CONFIG.name;
+            for (const child of Array.from(document.body.children)) {
+              if (child.id !== "chartread-home-root") child.remove();
+            }
+          }).observe(document.body, { childList: true });
+        } catch (e) {}
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", mountChartReadHome, { once: true });
+      } else {
+        mountChartReadHome();
+      }
+      return;
+    }
+
+    // Intercept "Home" menu click on chart pages so it switches cleanly to our ChartRead Home page in-place
+    document.addEventListener("click", (e) => {
+      try {
+        const homeItem = e.target?.closest?.('[data-role="menuitem"][aria-label="Home"]');
+        if (homeItem) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          window.location.href = "https://www.tradingview.com/";
+        }
+      } catch (err) {}
+    }, true);
 
     // 1. Document Title Sanitizer (event-driven, zero polling)
     const sanitizeTitle = () => {
@@ -1883,9 +2390,8 @@ const injectorCode = `
       [data-role="hint"],
       span[class*="menuNotifications-"],
       div[class*="notifications-"] [class*="counter-"],
-      [data-role="menuitem"][aria-label="What's new"] [class*="right-"],
-      [data-role="menuitem"][aria-label="What's new"] [class*="badge-"],
-      [data-role="menuitem"][aria-label="What's new"] [class*="counter-"],
+      [data-role="menuitem"][aria-label="Help"],
+      [data-role="menuitem"][aria-label="What's new"],
       [data-role="menuitem"][aria-label="Log in"],
       [data-role="menuitem"][aria-label="Sign in"],
 
