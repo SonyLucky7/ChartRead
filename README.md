@@ -5,6 +5,7 @@
 [![Runtime](https://img.shields.io/badge/Runtime-Electron%2041-brightgreen.svg)](#)
 [![Node](https://img.shields.io/badge/Node-%3E%3D18.0.0-orange.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SonyLucky7)
 
 **ChartRead** is a high-performance desktop market analysis workstation built with **Electron, Node.js, and Chromium**. It provides an institutional-grade charting experience featuring real-time market data across global exchanges, unlimited technical indicators, multi-chart tiling, and an engineered **universal client-side Bar Replay backtesting engine** that seamlessly operates across **all timeframes** without subscription paywalls.
 
@@ -133,7 +134,9 @@ Feel free to open an issue or submit a Pull Request on [GitHub](https://github.c
 ### Support Development
 ChartRead is 100% free, open-source, and ad-free. If it helps your trading or backtesting, you can support ongoing development directly:
 
-* **GitHub Sponsors:** [github.com/sponsors/SonyLucky7](https://github.com/sponsors/SonyLucky7) *(0% platform fee)*
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor%20on%20GitHub-SonyLucky7-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SonyLucky7)
+
+* **GitHub Sponsors:** [https://github.com/sponsors/SonyLucky7](https://github.com/sponsors/SonyLucky7) *(0% platform fee)*
 * **USDT (BNB Smart Chain / BEP-20):** `0x992de9de5b80e98272e64a6f4cc3a49f4ec80198`
 
 <p align="left">
