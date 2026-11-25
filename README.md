@@ -33,32 +33,34 @@
 
 ---
 
-## ⚡ Quick Start (Easy Setup)
+## ⚡ Quick Start (1-Minute Easy Setup)
 
-Get ChartRead running in **under 2 minutes**:
+Only **Node.js (v18+)** is required—**no Python, no C++ build tools, no `.env`, and no database setup needed.**
 
 ### Prerequisites
-* [Node.js](https://nodejs.org/) (v18 or higher recommended)
-* [npm](https://www.npmjs.com/) (bundled with Node.js)
-* Git
+* [Node.js (LTS)](https://nodejs.org/) (v18 or higher — includes `npm`)
 
-### Step 1: Clone the Repository
+---
+
+### Option 1: 1-Click Launch on Windows (Easiest)
+1. Click **Code → Download ZIP** (and extract it) **or** run:
+   ```bash
+   git clone https://github.com/SonyLucky7/ChartRead.git
+   ```
+2. Double-click **`run-chartread.bat`** inside the `ChartRead` folder.  
+   *On first run, it automatically installs Electron and launches ChartRead.*
+
+---
+
+### Option 2: Terminal Setup (Windows, macOS & Linux)
 ```bash
 git clone https://github.com/SonyLucky7/ChartRead.git
 cd ChartRead
-```
-
-### Step 2: Install Dependencies
-```bash
 npm install
-```
-
-### Step 3: Launch ChartRead
-```bash
 npm start
 ```
 
-*On Windows, you can also double-click `run-chartread.bat` or execute `npm run run:portable`.*
+*On macOS / Linux, you can also run `./start.sh` for automatic first-time install + launch.*
 
 ---
 

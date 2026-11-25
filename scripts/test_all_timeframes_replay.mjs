@@ -1,6 +1,10 @@
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 import { evalInPage, captureScreenshot } from './cdp_helper.js';
 
-const ARTIFACT_DIR = 'C:/Users/hac/.gemini/antigravity/brain/11adb640-c842-45b0-8444-193fc36777c8';
+const ARTIFACT_DIR = path.join(os.tmpdir(), 'chartread-replay-tests');
+fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
