@@ -1,4 +1,4 @@
-(()=>{"use strict";const e=require("electron");var t,n;if(function(e){e[e.Classic=1]="Classic",e[e.Protocol=2]="Protocol",e[e.Both=3]="Both"}(t||(t={})),function(e){e.RENDERER_START="sentry-electron.renderer-start",e.EVENT="sentry-electron.event",e.SCOPE="sentry-electron.scope",e.ENVELOPE="sentry-electron.envelope",e.STATUS="sentry-electron.status",e.ADD_METRIC="sentry-electron.add-metric"}(n||(n={})),window.__SENTRY_IPC__)console.log("Sentry Electron preload has already been run");else{const t={sendRendererStart:()=>e.ipcRenderer.send(n.RENDERER_START),sendScope:t=>e.ipcRenderer.send(n.SCOPE,t),sendEvent:t=>e.ipcRenderer.send(n.EVENT,t),sendEnvelope:t=>e.ipcRenderer.send(n.ENVELOPE,t),sendStatus:t=>e.ipcRenderer.send(n.STATUS,t),sendAddMetric:t=>e.ipcRenderer.send(n.ADD_METRIC,t)};if(window.__SENTRY_IPC__=t,e.contextBridge)try{e.contextBridge.exposeInMainWorld("__SENTRY_IPC__",t)}catch(e){}}const r="tvd:debug-auto-save-dialog",o="tvd:screen-capture";class s{key;rules;constructor(e,t){this.key=e,this.rules=t}applyRules(t){const n=t??this.rules;if(!n)return;const r=localStorage.getItem(this.key);r&&e.webFrame.removeInsertedCSS(r);const o=e.webFrame.insertCSS(n);localStorage.setItem(this.key,o)}removeRules(){const t=localStorage.getItem(this.key);t&&e.webFrame.removeInsertedCSS(t)}}function a(e){let t,n=e;return()=>{if(n){const e=n;n=void 0,t=e()}return t}}require("url");const i="TARGET_TVD_HOST",c="https://www.tradingview.com/",d=a((()=>{const e="http(s?):\\/\\/((\\w|-)*\\.)?tradingview\\.com";let t=c;return i in process.env&&(t=process.env[i]??c),null!==new RegExp(e,"i").exec(t)?e:(t.endsWith("/")&&(t=t?.substring(0,t.length-1)),t.replace(/\./gi,"\\.").replace(/\//gi,"\\/"))}));function l(e,t=!0){const n=e=>{let n=e.toString().replace(/\./gi,"\\.").replace(/(?<!\))\*/gi,"(.*)");return n.match(/\w+(\/\((\.\*\)))/gi)&&(n=n.replace(/\/\((\.\*\))/gi,"(/(.*))?")),n=n.replace(/\//gi,"\\/").replace(/\$\{TV\}/gi,d()),n=`^${n}${t?"$":""}`,new RegExp(n,"i")};return"string"==typeof e?n(e):e.map(n)}const p="${TV}/chart/([a-zA-Z0-9]{0,12})?/?",v="${TV}/(\\w|-)*screener/*",u="${TV}/chart/[a-z0-9-._~:\\?#@!$&'()*+,;%=]+/[a-z0-9-._~:\\?#@!$&'()*+,;%=]+/",g=(a((()=>l(v))),a((()=>l("${TV}/",!0))),a((()=>l("${TV}/chart/",!0))),a((()=>l(p))),a((()=>l("(${TV}/chart/([a-zA-Z0-9]{0,12})?)/\\?*?"))),a((()=>l(u,!0))),a((()=>l("${TV}/screener/*"))),a((()=>l("${TV}/heatmap/*"))),a((()=>l("${TV}/community/*"))),a((()=>l("${TV}/pine-script-docs/en/v5/Introduction.html"))),a((()=>l("${TV}/pine-script-reference/v5/"))),a((()=>l("${TV}/x/*"))),a((()=>l("${TV}/*"))),a((()=>l("${TV}/account-recovery/*"))),a((()=>l("${TV}/chat/*"))),a((()=>/:\/\/s3\..+\/snapshots\//i)),a((()=>l("${TV}/pine/*"))),a((()=>l("${TV}/markets/*"))),a((()=>l("${TV}/markets/*/news/"))),a((()=>l("${TV}/markets/stocks-*/*")))),h=(a((()=>l("${TV}/markets/world-economy/*"))),a((()=>l("${TV}/u/TradingView/"))),a((()=>l("${TV}/news/*"))),a((()=>l("${TV}/news/"))),a((()=>l("${TV}/news/\\?market=*"))),a((()=>l("${TV}/news/\\?market=topstories"))),a((()=>l("${TV}/HTML5-stock-forex-bitcoin-charting-library/"))),a((()=>l("${TV}/support/*"))),a((()=>l("https://status.tradingview.com/",!0))),a((()=>l("${TV}/ideas/*"))),a((()=>l("${TV}/scripts/*"))),a((()=>l(["${TV}/","${TV}/ideas/*",u,"${TV}/scripts/*","${TV}/script/*","${TV}/community/*","${TV}/widget/","${TV}/markets/corporate-bonds/*","${TV}/social-network/","${TV}/the-leap/*","${TV}/broker/*","${TV}/data-coverage/","${TV}/markets/stocks-*/*"])))),m=a((()=>l("${TV}/markets/bonds/*")));function b(e,t){const n=e.split("\n").join("");return t instanceof RegExp?t.test(n):t.some((e=>e.test(n)))}a((()=>l([p,v,"${TV}/markets/*","${TV}/symbols/*","${TV}/(\\w|-)*calendar/*"])));const w=window.location.href,T=`\n\t.tv-market-heatmap__standalone-title-wrap,\n\t.tv-screener__standalone-title-wrap,\n\t.tv-footer {\n\t\tdisplay: none !important;\n\t}\n\n\t${k=w,b(k,h())?"":".tv-header { display: none !important; }"}\n\n\t${function(e){return b(e,g())}(w)?"":'.tv-economic-calendar [class^="separator"],\n\t\t.tv-content [class^="container"] [class^="marketHeader"],\n\t\t.tv-content .tv-category__tab-page [class^="marketHeader"],\n\t\t.tv-sticky-symbol-header,\n\t\t.tv-screener-toolbar {\n\t\t\ttop: 0 !important;\n\t\t}'}\n\n\t.tv-content .tv-category__tab-page [class^="shadow"] [class^="tableWrapSticky"] {\n\t\ttop: 58px !important;\n\t}\n\n\t.tv-content .tv-economy-country-tab [class^="table"] [class^="stickyContainer"],\n\t.tv-content .tv-economy-indicator-tab [class^="table"] [class^="stickyContainer"] {\n\t\ttop: -1px !important;\n\t}\n\n\t.tv-content [class^="container"] [class^="shadow"] [class^="tableWrapSticky"] {\n\t\ttop: ${function(e){return b(e,m())}(w)?"-1px":"58px"}\n\t}\n\n\t.tv-category__tab-page.tv-card-exterior > .screener-markets-page-container > div {\n\t\t--screener-sticky-offset-top: 63px !important;\n\t}\n\n\t.tv-screener__standalone-wrap {\n\t\tpadding: 0 !important;\n\t}\n\n\t.i-hidden-on-tvdesktop {\n\t\tdisplay: none !important;\n\t}\n`;var k;const y="tvd:session-storage",R={initCachedStoreSync:`${y}:init-cached-store-sync`,setItem:`${y}:set-item`,clear:`${y}:clear`,removeItem:`${y}:remove-item`},V=new class{#e=null;getLength(){return this.ensureLoaded().size}setItem(t,n){this.ensureLoaded().set(t,n),e.ipcRenderer.send(R.setItem,t,n)}getItem(e){return this.ensureLoaded().get(e)??null}removeItem(t){this.ensureLoaded().delete(t),e.ipcRenderer.send(R.removeItem,t)}clear(){this.ensureLoaded().clear(),e.ipcRenderer.send(R.clear)}ensureLoaded(){if(null!==this.#e)return this.#e;try{const n=e.ipcRenderer.sendSync(R.initCachedStoreSync);if(t=n,Array.isArray(t)&&t.every((e=>Array.isArray(e)&&2===e.length&&"string"==typeof e[0]&&"string"==typeof e[1])))return this.#e=new Map(n),this.#e}catch(e){console.log("TVD.sessionStorage cachedStorage init request failed with error: ",e)}var t;return this.#e=new Map,this.#e}},$={getLength:function(){return V.getLength()},setItem:function(e,t){V.setItem(String(e),String(t))},getItem:function(e){return V.getItem(String(e))},removeItem:function(e){V.removeItem(String(e))},clear:function(){V.clear()}},f={updateLinkValues(t){e.ipcRenderer.send("tvd:update-link-values",t)}},S={getDesktopStream:async()=>await e.ipcRenderer.invoke("tvd:get-screen"),async getCurrentCameraDevice(){const t=await e.ipcRenderer.invoke("tvd:get-camera");if(t)return A.findMediaDevice(t.label,"videoinput")},async getCurrentAudioDevice(){const t=await e.ipcRenderer.invoke("tvd:get-audio");if(t)return A.findMediaDevice(t.label,"audioinput")},async findMediaDevice(e,t){const n=await navigator.mediaDevices.enumerateDevices();return n.find((n=>n.label===e&&n.kind===t))?.deviceId},startedScreenCapture(){let t="";window&&(t=window.location.href),e.ipcRenderer.send(o,!0,t)},stoppedScreenCapture(){let t="";window&&(t=window.location.href),e.ipcRenderer.send(o,!1,t)}},E={setTitle(t){e.ipcRenderer.send("tvd:set-title",t)},reloadTab(){e.ipcRenderer.send("tvd:reload-tab")},layoutChange(t){e.ipcRenderer.send("tvd:layout-change",t)},getActiveWatchlistId:()=>e.ipcRenderer.invoke("tvd:get-watchlist"),onActiveWatchlistIdChange(t){e.ipcRenderer.send("tvd:watchlist-change",t)},layoutRestored(){e.ipcRenderer.send("tvd:layout-restored")},setFocusPineEditor(t){e.ipcRenderer.send("tvd:focus-pine-editor",t)}},x={setNotification(t){e.ipcRenderer.send("tvd:set-notification",t)},setNotificationViewed(){e.ipcRenderer.send("tvd:set-notification-viewed")}},_={setCredentials:t=>e.ipcRenderer.invoke("tvd:set-credentials",t),getCredentials:()=>e.ipcRenderer.invoke("tvd:get-credentials"),insertCredentialsText:t=>e.ipcRenderer.invoke("tvd:native-input-string",t)},I={setLocale(t){e.ipcRenderer.send("tvd-main:set-locale",t)},getTheme:()=>e.ipcRenderer.invoke("tvd:get-theme"),getThemeSetting:()=>e.ipcRenderer.invoke("tvd:get-theme-setting"),setThemeSetting(t){e.ipcRenderer.send("tvd:set-theme-setting",t)},getReports:async()=>await e.ipcRenderer.invoke("tvd:get-reports"),signIn(){e.ipcRenderer.send("tvd-main:initiate-sign-in")},openSettings(t){e.ipcRenderer.send("tvd:open-settings",t)},openNewWindow(t,n,r){e.ipcRenderer.send("tvd:open-new-window",t,n,r)},log(t){e.ipcRenderer.invoke("tvd:log",t)},sendToSentry(t){e.ipcRenderer.invoke("tvd:send-to-sentry-breadcrumb",t)},crosshairSyncEnabled:function(){let t=!0;const n=new Map,r=e=>{t!==e&&(t=e,o())},o=()=>{n.forEach((e=>e(t)))};return e.ipcRenderer.invoke("tvd:get-crosshair-sync").then((e=>{r(e)})).catch((e=>console.log(e))),e.ipcRenderer.on("tvd:crosshair-sync-setting-update",((e,t)=>{r(t)})),{value:()=>t,subscribe(e){const t=self.crypto.randomUUID();return n.set(t,e),t},unsubscribe(e){n.has(e)&&n.delete(e)}}}(),sessionStorage:$},A={...S,...E,...x,..._,...I,...{openAutosaveDialogDebug(){e.ipcRenderer.send(r,!0)},closeAutosaveDialogDebug(){e.ipcRenderer.send(r,!1)},errorAutosaveDialogDebug(){e.ipcRenderer.send(r,!1,!0)}},contracts:{link:{OpenExternal:"OpenExternal"}},linkingApi:f};if(function(t){if("darwin"===process.platform)return;const n=new s("scrollbarTheme"),r=e=>{const t="light"===e?"\n\t* {\n\t\t--scrollbar-thumb-default: #D1D4DC;\n\t\t--scrollbar-thumb-hover: #B2B5BE;\n\t\t--scrollbar-thumb-active: #9598A1;\n\t\t--scrollbar-track: #FFFFFF;\n\t\t--scrollbar-track-border: #E0E3EB;\n\t}\n\n":"\n\t* {\n\t\t--scrollbar-thumb-default: #50535E;\n\t\t--scrollbar-thumb-hover: #868993;\n\t\t--scrollbar-thumb-active: #A3A6AF;\n\t\t--scrollbar-track: #131722;\n\t\t--scrollbar-track-border: #2A2E39;\n\t}\n\n";n.applyRules(t+"\n\t::-webkit-scrollbar {\n\t\twidth: 9px;\n\t\theight: 9px;\n\t}\n\n\t::-webkit-scrollbar-thumb {\n\t\tbox-sizing: border-box;\n\t\tborder: 2px solid transparent;\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-default);\n\t\tborder-radius: 8px;\n\t\tbackground-color: unset;\n\t}\n\n\t::-webkit-scrollbar-thumb:hover {\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-hover);\n\t}\n\n\t::-webkit-scrollbar-thumb:active {\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-active);\n\t}\n\n\t::-webkit-scrollbar-track {\n\t\tborder-radius: unset;\n\t\tpadding: 2px;\n\t\tbackground-color: var(--scrollbar-track);\n\t}\n\n\t::-webkit-scrollbar-track:vertical {\n\t\tborder-left: 1px solid var(--scrollbar-track-border);\n\t}\n\n\t::-webkit-scrollbar-track:horizontal {\n\t\tborder-top: 1px solid var(--scrollbar-track-border);\n\t}\n\n\t::-webkit-scrollbar-corner {\n\t\tdisplay: none;\n\t}\n")};window.addEventListener("load",(()=>{if(window._setTheme){const e=e=>{"theme"===e.key&&e.newValue&&r(e.newValue)};window.addEventListener("storage",e),window.addEventListener("unload",(()=>{window.removeEventListener("storage",e)}))}})),t().then((e=>{r(e)})).catch((e=>console.log(e))),e.ipcRenderer.on("tvd:update-theme",((e,t)=>{"string"==typeof t&&r(t)}))}(A.getTheme),function(){const e=()=>{new s("desktopOptimize",T).applyRules()};window.addEventListener("load",e),window.addEventListener("unload",(()=>{window.removeEventListener("load",e)})),e()}(),process.contextIsolated)try{e.contextBridge.exposeInMainWorld("TVD",A);try{e.contextBridge.exposeInMainWorld("ChartReadCloud",{saveUserData:(d)=>e.ipcRenderer.invoke("chartread:opensearch-save-userdata",d),getUserData:()=>e.ipcRenderer.invoke("chartread:opensearch-get-userdata"),saveLayout:(id,d)=>e.ipcRenderer.invoke("chartread:opensearch-save-layout",id,d),getLayout:(id)=>e.ipcRenderer.invoke("chartread:opensearch-get-layout",id),listLayouts:()=>e.ipcRenderer.invoke("chartread:opensearch-list-layouts"),saveDrawings:(s,d)=>e.ipcRenderer.invoke("chartread:opensearch-save-drawings",s,d),getDrawings:(s)=>e.ipcRenderer.invoke("chartread:opensearch-get-drawings",s)})}catch(_e){console.warn("ChartReadCloud expose err",_e)}}catch(e){console.error("Failed to expose API:",e)}})();
+(()=>{"use strict";const e=require("electron");var t,n;if(function(e){e[e.Classic=1]="Classic",e[e.Protocol=2]="Protocol",e[e.Both=3]="Both"}(t||(t={})),function(e){e.RENDERER_START="sentry-electron.renderer-start",e.EVENT="sentry-electron.event",e.SCOPE="sentry-electron.scope",e.ENVELOPE="sentry-electron.envelope",e.STATUS="sentry-electron.status",e.ADD_METRIC="sentry-electron.add-metric"}(n||(n={})),window.__SENTRY_IPC__)console.log("Sentry Electron preload has already been run");else{const t={sendRendererStart:()=>e.ipcRenderer.send(n.RENDERER_START),sendScope:t=>e.ipcRenderer.send(n.SCOPE,t),sendEvent:t=>e.ipcRenderer.send(n.EVENT,t),sendEnvelope:t=>e.ipcRenderer.send(n.ENVELOPE,t),sendStatus:t=>e.ipcRenderer.send(n.STATUS,t),sendAddMetric:t=>e.ipcRenderer.send(n.ADD_METRIC,t)};if(window.__SENTRY_IPC__=t,e.contextBridge)try{e.contextBridge.exposeInMainWorld("__SENTRY_IPC__",t)}catch(e){}}const r="tvd:debug-auto-save-dialog",o="tvd:screen-capture";class s{key;rules;constructor(e,t){this.key=e,this.rules=t}applyRules(t){const n=t??this.rules;if(!n)return;const r=localStorage.getItem(this.key);r&&e.webFrame.removeInsertedCSS(r);const o=e.webFrame.insertCSS(n);localStorage.setItem(this.key,o)}removeRules(){const t=localStorage.getItem(this.key);t&&e.webFrame.removeInsertedCSS(t)}}function a(e){let t,n=e;return()=>{if(n){const e=n;n=void 0,t=e()}return t}}require("url");const i="TARGET_TVD_HOST",c="https://www.tradingview.com/",d=a((()=>{const e="http(s?):\\/\\/((\\w|-)*\\.)?tradingview\\.com";let t=c;return i in process.env&&(t=process.env[i]??c),null!==new RegExp(e,"i").exec(t)?e:(t.endsWith("/")&&(t=t?.substring(0,t.length-1)),t.replace(/\./gi,"\\.").replace(/\//gi,"\\/"))}));function l(e,t=!0){const n=e=>{let n=e.toString().replace(/\./gi,"\\.").replace(/(?<!\))\*/gi,"(.*)");return n.match(/\w+(\/\((\.\*\)))/gi)&&(n=n.replace(/\/\((\.\*\))/gi,"(/(.*))?")),n=n.replace(/\//gi,"\\/").replace(/\$\{TV\}/gi,d()),n=`^${n}${t?"$":""}`,new RegExp(n,"i")};return"string"==typeof e?n(e):e.map(n)}const p="${TV}/chart/([a-zA-Z0-9]{0,12})?/?",v="${TV}/(\\w|-)*screener/*",u="${TV}/chart/[a-z0-9-._~:\\?#@!$&'()*+,;%=]+/[a-z0-9-._~:\\?#@!$&'()*+,;%=]+/",g=(a((()=>l(v))),a((()=>l("${TV}/",!0))),a((()=>l("${TV}/chart/",!0))),a((()=>l(p))),a((()=>l("(${TV}/chart/([a-zA-Z0-9]{0,12})?)/\\?*?"))),a((()=>l(u,!0))),a((()=>l("${TV}/screener/*"))),a((()=>l("${TV}/heatmap/*"))),a((()=>l("${TV}/community/*"))),a((()=>l("${TV}/pine-script-docs/en/v5/Introduction.html"))),a((()=>l("${TV}/pine-script-reference/v5/"))),a((()=>l("${TV}/x/*"))),a((()=>l("${TV}/*"))),a((()=>l("${TV}/account-recovery/*"))),a((()=>l("${TV}/chat/*"))),a((()=>/:\/\/s3\..+\/snapshots\//i)),a((()=>l("${TV}/pine/*"))),a((()=>l("${TV}/markets/*"))),a((()=>l("${TV}/markets/*/news/"))),a((()=>l("${TV}/markets/stocks-*/*")))),h=(a((()=>l("${TV}/markets/world-economy/*"))),a((()=>l("${TV}/u/TradingView/"))),a((()=>l("${TV}/news/*"))),a((()=>l("${TV}/news/"))),a((()=>l("${TV}/news/\\?market=*"))),a((()=>l("${TV}/news/\\?market=topstories"))),a((()=>l("${TV}/HTML5-stock-forex-bitcoin-charting-library/"))),a((()=>l("${TV}/support/*"))),a((()=>l("https://status.tradingview.com/",!0))),a((()=>l("${TV}/ideas/*"))),a((()=>l("${TV}/scripts/*"))),a((()=>l(["${TV}/","${TV}/ideas/*",u,"${TV}/scripts/*","${TV}/script/*","${TV}/community/*","${TV}/widget/","${TV}/markets/corporate-bonds/*","${TV}/social-network/","${TV}/the-leap/*","${TV}/broker/*","${TV}/data-coverage/","${TV}/markets/stocks-*/*"])))),m=a((()=>l("${TV}/markets/bonds/*")));function b(e,t){const n=e.split("\n").join("");return t instanceof RegExp?t.test(n):t.some((e=>e.test(n)))}a((()=>l([p,v,"${TV}/markets/*","${TV}/symbols/*","${TV}/(\\w|-)*calendar/*"])));const w=window.location.href,T=`\n\t.tv-market-heatmap__standalone-title-wrap,\n\t.tv-screener__standalone-title-wrap,\n\t.tv-footer {\n\t\tdisplay: none !important;\n\t}\n\n\t${k=w,b(k,h())?"":".tv-header { display: none !important; }"}\n\n\t${function(e){return b(e,g())}(w)?"":'.tv-economic-calendar [class^="separator"],\n\t\t.tv-content [class^="container"] [class^="marketHeader"],\n\t\t.tv-content .tv-category__tab-page [class^="marketHeader"],\n\t\t.tv-sticky-symbol-header,\n\t\t.tv-screener-toolbar {\n\t\t\ttop: 0 !important;\n\t\t}'}\n\n\t.tv-content .tv-category__tab-page [class^="shadow"] [class^="tableWrapSticky"] {\n\t\ttop: 58px !important;\n\t}\n\n\t.tv-content .tv-economy-country-tab [class^="table"] [class^="stickyContainer"],\n\t.tv-content .tv-economy-indicator-tab [class^="table"] [class^="stickyContainer"] {\n\t\ttop: -1px !important;\n\t}\n\n\t.tv-content [class^="container"] [class^="shadow"] [class^="tableWrapSticky"] {\n\t\ttop: ${function(e){return b(e,m())}(w)?"-1px":"58px"}\n\t}\n\n\t.tv-category__tab-page.tv-card-exterior > .screener-markets-page-container > div {\n\t\t--screener-sticky-offset-top: 63px !important;\n\t}\n\n\t.tv-screener__standalone-wrap {\n\t\tpadding: 0 !important;\n\t}\n\n\t.i-hidden-on-tvdesktop {\n\t\tdisplay: none !important;\n\t}\n`;var k;const y="tvd:session-storage",R={initCachedStoreSync:`${y}:init-cached-store-sync`,setItem:`${y}:set-item`,clear:`${y}:clear`,removeItem:`${y}:remove-item`},V=new class{#e=null;getLength(){return this.ensureLoaded().size}setItem(t,n){this.ensureLoaded().set(t,n),e.ipcRenderer.send(R.setItem,t,n)}getItem(e){return this.ensureLoaded().get(e)??null}removeItem(t){this.ensureLoaded().delete(t),e.ipcRenderer.send(R.removeItem,t)}clear(){this.ensureLoaded().clear(),e.ipcRenderer.send(R.clear)}ensureLoaded(){if(null!==this.#e)return this.#e;try{const n=e.ipcRenderer.sendSync(R.initCachedStoreSync);if(t=n,Array.isArray(t)&&t.every((e=>Array.isArray(e)&&2===e.length&&"string"==typeof e[0]&&"string"==typeof e[1])))return this.#e=new Map(n),this.#e}catch(e){console.log("TVD.sessionStorage cachedStorage init request failed with error: ",e)}var t;return this.#e=new Map,this.#e}},$={getLength:function(){return V.getLength()},setItem:function(e,t){V.setItem(String(e),String(t))},getItem:function(e){return V.getItem(String(e))},removeItem:function(e){V.removeItem(String(e))},clear:function(){V.clear()}},f={updateLinkValues(t){e.ipcRenderer.send("tvd:update-link-values",t)}},S={getDesktopStream:async()=>await e.ipcRenderer.invoke("tvd:get-screen"),async getCurrentCameraDevice(){const t=await e.ipcRenderer.invoke("tvd:get-camera");if(t)return A.findMediaDevice(t.label,"videoinput")},async getCurrentAudioDevice(){const t=await e.ipcRenderer.invoke("tvd:get-audio");if(t)return A.findMediaDevice(t.label,"audioinput")},async findMediaDevice(e,t){const n=await navigator.mediaDevices.enumerateDevices();return n.find((n=>n.label===e&&n.kind===t))?.deviceId},startedScreenCapture(){let t="";window&&(t=window.location.href),e.ipcRenderer.send(o,!0,t)},stoppedScreenCapture(){let t="";window&&(t=window.location.href),e.ipcRenderer.send(o,!1,t)}},E={setTitle(t){e.ipcRenderer.send("tvd:set-title",t)},reloadTab(){e.ipcRenderer.send("tvd:reload-tab")},layoutChange(t){e.ipcRenderer.send("tvd:layout-change",t)},getActiveWatchlistId:()=>e.ipcRenderer.invoke("tvd:get-watchlist"),onActiveWatchlistIdChange(t){e.ipcRenderer.send("tvd:watchlist-change",t)},layoutRestored(){e.ipcRenderer.send("tvd:layout-restored")},setFocusPineEditor(t){e.ipcRenderer.send("tvd:focus-pine-editor",t)}},x={setNotification(t){e.ipcRenderer.send("tvd:set-notification",t)},setNotificationViewed(){e.ipcRenderer.send("tvd:set-notification-viewed")}},_={setCredentials:t=>e.ipcRenderer.invoke("tvd:set-credentials",t),getCredentials:()=>e.ipcRenderer.invoke("tvd:get-credentials"),insertCredentialsText:t=>e.ipcRenderer.invoke("tvd:native-input-string",t)},I={setLocale(t){e.ipcRenderer.send("tvd-main:set-locale",t)},getTheme:()=>e.ipcRenderer.invoke("tvd:get-theme"),getThemeSetting:()=>e.ipcRenderer.invoke("tvd:get-theme-setting"),setThemeSetting(t){e.ipcRenderer.send("tvd:set-theme-setting",t)},getReports:async()=>await e.ipcRenderer.invoke("tvd:get-reports"),signIn(){e.ipcRenderer.send("tvd-main:initiate-sign-in")},openSettings(t){e.ipcRenderer.send("tvd:open-settings",t)},openNewWindow(t,n,r){e.ipcRenderer.send("tvd:open-new-window",t,n,r)},log(t){e.ipcRenderer.invoke("tvd:log",t)},sendToSentry(t){e.ipcRenderer.invoke("tvd:send-to-sentry-breadcrumb",t)},crosshairSyncEnabled:function(){let t=!0;const n=new Map,r=e=>{t!==e&&(t=e,o())},o=()=>{n.forEach((e=>e(t)))};return e.ipcRenderer.invoke("tvd:get-crosshair-sync").then((e=>{r(e)})).catch((e=>console.log(e))),e.ipcRenderer.on("tvd:crosshair-sync-setting-update",((e,t)=>{r(t)})),{value:()=>t,subscribe(e){const t=self.crypto.randomUUID();return n.set(t,e),t},unsubscribe(e){n.has(e)&&n.delete(e)}}}(),sessionStorage:$},A={...S,...E,...x,..._,...I,...{openAutosaveDialogDebug(){e.ipcRenderer.send(r,!0)},closeAutosaveDialogDebug(){e.ipcRenderer.send(r,!1)},errorAutosaveDialogDebug(){e.ipcRenderer.send(r,!1,!0)}},contracts:{link:{OpenExternal:"OpenExternal"}},linkingApi:f};if(function(t){if("darwin"===process.platform)return;const n=new s("scrollbarTheme"),r=e=>{const t="light"===e?"\n\t* {\n\t\t--scrollbar-thumb-default: #D1D4DC;\n\t\t--scrollbar-thumb-hover: #B2B5BE;\n\t\t--scrollbar-thumb-active: #9598A1;\n\t\t--scrollbar-track: #FFFFFF;\n\t\t--scrollbar-track-border: #E0E3EB;\n\t}\n\n":"\n\t* {\n\t\t--scrollbar-thumb-default: #50535E;\n\t\t--scrollbar-thumb-hover: #868993;\n\t\t--scrollbar-thumb-active: #A3A6AF;\n\t\t--scrollbar-track: #131722;\n\t\t--scrollbar-track-border: #2A2E39;\n\t}\n\n";n.applyRules(t+"\n\t::-webkit-scrollbar {\n\t\twidth: 9px;\n\t\theight: 9px;\n\t}\n\n\t::-webkit-scrollbar-thumb {\n\t\tbox-sizing: border-box;\n\t\tborder: 2px solid transparent;\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-default);\n\t\tborder-radius: 8px;\n\t\tbackground-color: unset;\n\t}\n\n\t::-webkit-scrollbar-thumb:hover {\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-hover);\n\t}\n\n\t::-webkit-scrollbar-thumb:active {\n\t\tbox-shadow: inset 0 0 10px 10px var(--scrollbar-thumb-active);\n\t}\n\n\t::-webkit-scrollbar-track {\n\t\tborder-radius: unset;\n\t\tpadding: 2px;\n\t\tbackground-color: var(--scrollbar-track);\n\t}\n\n\t::-webkit-scrollbar-track:vertical {\n\t\tborder-left: 1px solid var(--scrollbar-track-border);\n\t}\n\n\t::-webkit-scrollbar-track:horizontal {\n\t\tborder-top: 1px solid var(--scrollbar-track-border);\n\t}\n\n\t::-webkit-scrollbar-corner {\n\t\tdisplay: none;\n\t}\n")};window.addEventListener("load",(()=>{if(window._setTheme){const e=e=>{"theme"===e.key&&e.newValue&&r(e.newValue)};window.addEventListener("storage",e),window.addEventListener("unload",(()=>{window.removeEventListener("storage",e)}))}})),t().then((e=>{r(e)})).catch((e=>console.log(e))),e.ipcRenderer.on("tvd:update-theme",((e,t)=>{"string"==typeof t&&r(t)}))}(A.getTheme),function(){const e=()=>{new s("desktopOptimize",T).applyRules()};window.addEventListener("load",e),window.addEventListener("unload",(()=>{window.removeEventListener("load",e)})),e()}(),process.contextIsolated)try{e.contextBridge.exposeInMainWorld("TVD",A);try{e.contextBridge.exposeInMainWorld("ChartReadCloud",{saveUserData:(d)=>e.ipcRenderer.invoke("chartread:opensearch-save-userdata",d),getUserData:()=>e.ipcRenderer.invoke("chartread:opensearch-get-userdata"),saveLayout:(id,d,imm)=>e.ipcRenderer.invoke("chartread:opensearch-save-layout",id,d,!!imm),saveLayoutNow:(id,d)=>e.ipcRenderer.invoke("chartread:opensearch-save-layout",id,d,!0),getLayout:(id)=>e.ipcRenderer.invoke("chartread:opensearch-get-layout",id),listLayouts:()=>e.ipcRenderer.invoke("chartread:opensearch-list-layouts"),deleteLayout:(id)=>e.ipcRenderer.invoke("chartread:opensearch-delete-layout",id),saveDrawings:(s,d)=>e.ipcRenderer.invoke("chartread:opensearch-save-drawings",s,d),getDrawings:(s)=>e.ipcRenderer.invoke("chartread:opensearch-get-drawings",s),saveWorkspaceSync:(p)=>e.ipcRenderer.sendSync("chartread:local-save-sync",p)})}catch(_e){console.warn("ChartReadCloud expose err",_e)}}catch(e){console.error("Failed to expose API:",e)}})();
 
 // ==========================================
 // ChartRead Desktop Platform Preload Injector v6 (Optimized & Dynamic)
@@ -782,6 +782,9 @@
             if (url.includes("/quote_token/")) {
               return makeJsonResp({ token: "unauthorized_user_token" });
             }
+            if (url.includes("/chart-token/")) {
+              return makeJsonResp({ token: "cr_local_token" });
+            }
             if (url.includes("/pro-plans/profile/")) {
               return makeJsonResp({
                 pro_plan: "pro_premium_expert",
@@ -795,6 +798,18 @@
             }
             if (url.includes("/savesettings/")) {
               return makeJsonResp({ status: "ok" });
+            }
+            if (url.includes("/charts/save/")) {
+              return makeJsonResp({
+                status: "ok",
+                result: { id: 1, image_url: "cr_local", lastModified: Math.floor(Date.now() / 1000), isPrivate: true }
+              });
+            }
+            if (url.includes("/my-charts/")) {
+              return makeJsonResp([]);
+            }
+            if (url.includes("/charts-storage/")) {
+              return makeJsonResp({ status: "ok", payload: { sources: {}, groups: {} } });
             }
             if (url.includes("/api/v1/symbols_list/colored") || url.includes("/pubscripts-get/personal-access/")) {
               return makeJsonResp([]);
@@ -2001,74 +2016,649 @@
     // ================================================================
 
     // ================================================================
-    // J. Local / Cloud Workspace Auto-Sync (Dirty-Checked, Zero Idle Overhead)
+    // J. Full Local Workspace Persistence: Auto-Save, Per-Symbol Drawings,
+    //    Auto-Restore on Reopen & Top-Right Native Save Button (Ctrl+S)
     // ================================================================
-    if (window.ChartReadCloud) {
-      const getActiveChartModel = () => getChartModel();
-      let lastDrawingsSig = "";
-      let lastLayoutSig = "";
+    if (window.ChartReadCloud && location.pathname.startsWith("/chart")) {
+      const LAYOUT_ID = "default_layout";
+      let isRestoring = false;
+      let initialRestoreDone = false;
+      let symbolSwitching = false;
+      let lastSavedLayoutSig = "";
+      let lastSavedDrawingsBySym = new Map();
+      let lastStableSymbol = null;
+      let autoSaveTimer = null;
+      let saveServicesHooked = false;
+      let hookedWidgetSet = new WeakSet();
 
-      window.chartreadSyncDrawings = async () => {
+      const getCWC = () => window.TradingViewApi?._chartWidgetCollection || null;
+      const getActiveWidget = () => {
         try {
-          const model = getActiveChartModel();
-          if (!model) return;
-          const symbol = model.mainSeries?.()?.symbol?.() || "GLOBAL";
-          const tools = model.allLineTools ? model.allLineTools() : [];
-          const drawingsData = tools.map((t) => {
-            try {
-              return {
-                id: t.id(),
-                name: t.name ? t.name() : t.toolname,
-                points: t.points ? t.points() : null,
-                state: t.state ? t.state() : null
-              };
-            } catch (e) { return null; }
-          }).filter(Boolean);
-          const sig = symbol + "|" + JSON.stringify(drawingsData);
-          if (sig === lastDrawingsSig) return { skipped: true, count: drawingsData.length, symbol };
-          lastDrawingsSig = sig;
-          await window.ChartReadCloud.saveDrawings(symbol, drawingsData);
-          return { success: true, count: drawingsData.length, symbol };
-        } catch (err) { return { error: err.message }; }
+          const cwc = getCWC();
+          const w = cwc?.activeChartWidget?.value?.() || window.TradingViewApi?._activeChartWidgetWV?.value?.();
+          if (w && typeof w.hasModel === "function" && !w.hasModel()) return null;
+          return w || null;
+        } catch (e) { return null; }
+      };
+      const getActiveChartApi = () => {
+        try { return window.TradingViewApi?.activeChart?.() || null; } catch (e) { return null; }
       };
 
-      window.chartreadSyncLayout = async () => {
+      const isInternalStudyDesc = (desc) => /^(dividends|splits|earnings|dates calculator for continuous|events)$/i.test(String(desc || "").trim());
+
+      const showSaveToast = (title, subtitle) => {
         try {
-          const model = getActiveChartModel();
-          if (!model || !model.state) return;
-          const layoutState = model.state({ withData: false });
-          const symbol = model.mainSeries?.()?.symbol?.() || "DEFAULT";
-          const resolution = model.mainSeries?.()?.properties?.()?.interval?.value?.() || "1D";
-          const studies = model.allStudies ? model.allStudies().map(s => s.metaInfo?.()?.description) : [];
-          const payload = { symbol, resolution, state: layoutState, studies };
-          const sig = JSON.stringify(payload);
-          if (sig === lastLayoutSig) return { skipped: true, symbol, resolution };
-          lastLayoutSig = sig;
-          await window.ChartReadCloud.saveLayout("default_layout", {
-            ...payload,
-            updatedAt: new Date().toISOString()
-          });
-          return { success: true, symbol, resolution };
-        } catch (err) { return { error: err.message }; }
+          let toast = document.getElementById("cr-save-toast");
+          if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "cr-save-toast";
+            document.body.appendChild(toast);
+          }
+          toast.innerHTML =
+            '<span class="cr-save-toast-dot"></span>' +
+            '<div class="cr-save-toast-body">' +
+              '<div class="cr-save-toast-title">' + title + '</div>' +
+              (subtitle ? '<div class="cr-save-toast-sub">' + subtitle + '</div>' : '') +
+            '</div>';
+          toast.classList.add("cr-show");
+          if (toast.__cr_hide_timer) clearTimeout(toast.__cr_hide_timer);
+          toast.__cr_hide_timer = setTimeout(() => {
+            toast.classList.remove("cr-show");
+          }, 2400);
+        } catch (e) {}
       };
 
-      setInterval(() => {
-        if (!document.hidden) {
-          window.chartreadSyncDrawings();
-          window.chartreadSyncLayout();
+      const flashTopRightSaveButton = (timestampStr) => {
+        try {
+          const btn = document.querySelector('#header-toolbar-save-load button[aria-label*="Save all charts"], #header-toolbar-save-load button');
+          if (!btn) return;
+          btn.setAttribute("title", "Saved locally at " + timestampStr + " (Auto-save enabled)");
+          btn.classList.add("cr-save-btn-saved");
+          if (btn.__cr_flash_timer) clearTimeout(btn.__cr_flash_timer);
+          btn.__cr_flash_timer = setTimeout(() => {
+            btn.classList.remove("cr-save-btn-saved");
+          }, 1800);
+        } catch (e) {}
+      };
+
+      const getActiveSymbol = () => {
+        try {
+          const ac = getActiveChartApi();
+          if (ac && typeof ac.symbol === "function") return ac.symbol();
+          const w = getActiveWidget();
+          if (w && typeof w.symbol === "function") return w.symbol();
+          const mw = w?.model?.();
+          const m = mw?.model ? mw.model() : mw;
+          return m?.mainSeries?.()?.symbol?.() || null;
+        } catch (e) { return null; }
+      };
+
+      const getActiveResolution = () => {
+        try {
+          const ac = getActiveChartApi();
+          if (ac && typeof ac.resolution === "function") return ac.resolution();
+          const w = getActiveWidget();
+          const mw = w?.model?.();
+          const m = mw?.model ? mw.model() : mw;
+          return m?.mainSeries?.()?.properties?.()?.interval?.value?.() || "1D";
+        } catch (e) { return "1D"; }
+      };
+
+      const serializeLineToolsForActiveChart = () => {
+        try {
+          const ac = getActiveChartApi();
+          const symbol = getActiveSymbol();
+          if (!ac || !symbol) return null;
+          const lt = ac.getLineToolsState ? ac.getLineToolsState() : null;
+          if (!lt) return null;
+          const sources = lt.sources instanceof Map ? Array.from(lt.sources.entries()) : [];
+          const groups = lt.groups instanceof Map ? Array.from(lt.groups.entries()) : [];
+          return {
+            symbol,
+            count: sources.length,
+            data: { version: 2, symbol, sources, groups }
+          };
+        } catch (e) {
+          return null;
         }
-      }, 30000);
+      };
 
-      let mouseSyncTimer = null;
+      const captureWorkspaceSnapshot = () => {
+        try {
+          const cwc = getCWC();
+          const w = getActiveWidget();
+          const ac = getActiveChartApi();
+          if (!cwc || !w || !ac || typeof cwc.state !== "function") return null;
+
+          const mw = w.model?.();
+          const m = mw?.model ? mw.model() : mw;
+          if (!m || !m.mainSeries?.()?.bars?.()?._items?.length) return null;
+
+          const fullState = cwc.state({ withData: false });
+          if (!fullState || !Array.isArray(fullState.charts) || fullState.charts.length === 0) return null;
+
+          const symbol = getActiveSymbol() || "TVC:GOLD";
+          const resolution = getActiveResolution();
+          const studies = (m.allStudies ? m.allStudies() : [])
+            .map((s) => s.metaInfo?.()?.description)
+            .filter((d) => d && !isInternalStudyDesc(d));
+          const ltSnap = serializeLineToolsForActiveChart();
+          const drawingsCount = ltSnap ? ltSnap.count : (ac.getAllShapes ? ac.getAllShapes().length : 0);
+
+          const layoutData = {
+            version: 2,
+            name: "ChartRead",
+            symbol,
+            resolution,
+            studies,
+            studiesCount: studies.length,
+            drawingsCount,
+            state: fullState,
+            symbolDrawings: ltSnap ? ltSnap.data : null,
+            updatedAt: new Date().toISOString()
+          };
+          return { layoutData, ltSnap, symbol, resolution, studiesCount: studies.length, drawingsCount };
+        } catch (e) {
+          return null;
+        }
+      };
+
+      window.chartreadSaveAll = async (opts = {}) => {
+        const manual = Boolean(opts.manual);
+        const showToast = Boolean(opts.showToast);
+        const sync = Boolean(opts.sync);
+
+        if (isRestoring || (!initialRestoreDone && !manual)) {
+          return { skipped: true, reason: "initializing" };
+        }
+        if (symbolSwitching && !manual) {
+          return { skipped: true, reason: "symbol_switching" };
+        }
+
+        const snap = captureWorkspaceSnapshot();
+        if (!snap) return { skipped: true, reason: "not_ready" };
+
+        const layoutSig = JSON.stringify({
+          symbol: snap.symbol,
+          resolution: snap.resolution,
+          state: snap.layoutData.state
+        });
+        const drawingsSig = snap.ltSnap ? JSON.stringify(snap.ltSnap.data) : "";
+        const prevDrawSig = lastSavedDrawingsBySym.get(snap.symbol) || "";
+        const layoutChanged = layoutSig !== lastSavedLayoutSig;
+        const drawingsChanged = Boolean(snap.ltSnap) && drawingsSig !== prevDrawSig;
+
+        if (!manual && !layoutChanged && !drawingsChanged) {
+          return { skipped: true, symbol: snap.symbol, resolution: snap.resolution };
+        }
+
+        // Guard against overwriting non-empty saved drawings with an empty mid-transition state
+        const allowDrawingsSave = Boolean(snap.ltSnap) && (manual || snap.ltSnap.count > 0 || snap.symbol === lastStableSymbol);
+
+        try {
+          if (sync && typeof window.ChartReadCloud.saveWorkspaceSync === "function") {
+            window.ChartReadCloud.saveWorkspaceSync({
+              layoutId: LAYOUT_ID,
+              layoutData: snap.layoutData,
+              symbol: allowDrawingsSave ? snap.symbol : null,
+              drawingsData: allowDrawingsSave ? snap.ltSnap.data : null
+            });
+          } else {
+            if (allowDrawingsSave && (manual || drawingsChanged)) {
+              await window.ChartReadCloud.saveDrawings(snap.symbol, snap.ltSnap.data);
+            }
+            if (manual || layoutChanged) {
+              await window.ChartReadCloud.saveLayout(LAYOUT_ID, snap.layoutData, manual);
+            }
+          }
+
+          lastSavedLayoutSig = layoutSig;
+          if (allowDrawingsSave) {
+            lastSavedDrawingsBySym.set(snap.symbol, drawingsSig);
+            lastStableSymbol = snap.symbol;
+          }
+
+          // Mark TradingView's internal SaveChartService as cleanly saved
+          try {
+            const scs = window.TradingViewApi?.getSaveChartService?.();
+            if (scs?._chartChangesWatcher?.setHasChanges) {
+              scs._chartChangesWatcher.setHasChanges(false);
+            }
+          } catch (e) {}
+
+          const timeLabel = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          flashTopRightSaveButton(timeLabel);
+          if (showToast) {
+            const shortSym = String(snap.symbol).includes(":") ? String(snap.symbol).split(":").pop() : snap.symbol;
+            const indLabel = snap.studiesCount + (snap.studiesCount === 1 ? " indicator" : " indicators");
+            const drwLabel = snap.drawingsCount + (snap.drawingsCount === 1 ? " drawing" : " drawings");
+            showSaveToast("Saved locally", shortSym + " (" + snap.resolution + ")  •  " + indLabel + "  •  " + drwLabel);
+          }
+          return {
+            success: true,
+            symbol: snap.symbol,
+            resolution: snap.resolution,
+            studiesCount: snap.studiesCount,
+            drawingsCount: snap.drawingsCount
+          };
+        } catch (err) {
+          return { error: err?.message || String(err) };
+        }
+      };
+
+      // Backward-compatible aliases
+      window.chartreadSyncDrawings = () => window.chartreadSaveAll({ manual: false });
+      window.chartreadSyncLayout = () => window.chartreadSaveAll({ manual: false });
+
+      const scheduleAutoSave = (delayMs = 1200) => {
+        if (isRestoring || !initialRestoreDone || symbolSwitching) return;
+        if (autoSaveTimer) clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+          autoSaveTimer = null;
+          window.chartreadSaveAll({ manual: false });
+        }, delayMs);
+      };
+
+      const applySavedDrawingsForSymbol = async (targetSymbol, fallbackData = null) => {
+        try {
+          if (!targetSymbol) return false;
+          let saved = await window.ChartReadCloud.getDrawings(targetSymbol);
+          if ((!saved || !Array.isArray(saved.sources) || saved.sources.length === 0) &&
+              fallbackData && fallbackData.symbol === targetSymbol && Array.isArray(fallbackData.sources) && fallbackData.sources.length > 0) {
+            saved = fallbackData;
+          }
+          if (!saved || !Array.isArray(saved.sources) || saved.sources.length === 0) return false;
+
+          const ac = getActiveChartApi();
+          if (!ac) return false;
+          if (getActiveSymbol() !== targetSymbol) return false;
+
+          // Avoid duplicating shapes already present on chart (100% idempotent!)
+          const existingIds = new Set((ac.getAllShapes ? ac.getAllShapes() : []).map((s) => s.id));
+          const missingSources = saved.sources.filter(([id]) => !existingIds.has(id));
+          if (missingSources.length === 0) return true;
+
+          const stateObj = {
+            sources: new Map(missingSources),
+            groups: new Map(Array.isArray(saved.groups) ? saved.groups : [])
+          };
+          if (typeof ac.applyLineToolsState === "function") {
+            await ac.applyLineToolsState(stateObj);
+          }
+          lastSavedDrawingsBySym.set(targetSymbol, JSON.stringify(saved));
+          return true;
+        } catch (e) {
+          return false;
+        }
+      };
+
+      const attachActiveChartSymbolListener = () => {
+        try {
+          const ac = getActiveChartApi();
+          if (!ac || hookedWidgetSet.has(ac)) return;
+          hookedWidgetSet.add(ac);
+          lastStableSymbol = getActiveSymbol() || lastStableSymbol;
+          const onSym = ac.onSymbolChanged?.();
+          if (onSym && typeof onSym.subscribe === "function") {
+            onSym.subscribe(null, () => {
+              if (isRestoring) return;
+              const newSym = getActiveSymbol();
+              if (!newSym || newSym === lastStableSymbol) return;
+              symbolSwitching = true;
+              setTimeout(async () => {
+                try {
+                  if (getActiveSymbol() === newSym) {
+                    await applySavedDrawingsForSymbol(newSym);
+                    lastStableSymbol = newSym;
+                  }
+                } catch (e) {} finally {
+                  symbolSwitching = false;
+                  scheduleAutoSave(1000);
+                }
+              }, 900);
+            });
+          }
+        } catch (e) {}
+      };
+
+      const hookNativeSaveServices = () => {
+        try {
+          const api = window.TradingViewApi;
+          const cwc = getCWC();
+          const scs = api?.getSaveChartService?.();
+          if (!api || !cwc || !scs || saveServicesHooked) return;
+          saveServicesHooked = true;
+
+          // Seed local layout name only (leave id=null & uid="" so TradingView hydrates all drawings locally without cloud LineToolStubs or /chart-token/ 403s)
+          try {
+            if (cwc.metaInfo) {
+              if (!cwc.metaInfo.name?.value?.()) cwc.metaInfo.name?.setValue?.("ChartRead");
+              if (!cwc.metaInfo.username?.value?.()) cwc.metaInfo.username?.setValue?.("ChartRead");
+            }
+          } catch (e) {}
+
+          // Patch TradingView's SaveLoad backend methods to use local disk storage
+          const backend = scs._saveLoad?.backend;
+          if (backend) {
+            backend.saveChart = async (name, shortName, resolution, data) => {
+              await window.chartreadSaveAll({ manual: true, showToast: false });
+              return {
+                status: "ok",
+                result: {
+                  id: 1,
+                  image_url: "cr_local",
+                  lastModified: Math.floor(Date.now() / 1000),
+                  isPrivate: true
+                }
+              };
+            };
+            backend.getCharts = async () => {
+              const list = (await window.ChartReadCloud.listLayouts()) || [];
+              return list.map((item, idx) => ({
+                id: idx + 1,
+                url: item.id,
+                name: item.name || "ChartRead",
+                timestamp: item.updated_at ? Math.floor(new Date(item.updated_at).getTime() / 1000) : Math.floor(Date.now() / 1000)
+              }));
+            };
+            backend.loadLayout = async (info) => {
+              const lid = info?.url || LAYOUT_ID;
+              const saved = await window.ChartReadCloud.getLayout(lid);
+              return saved?.state || null;
+            };
+          }
+
+          // Patch SaveChartService so top-right Save, Autosave, and Electron close-save ALL save locally
+          // (and NEVER redirect location.href to /chart/cr_local!)
+          const runLocalSaveCallback = (onSuccess, onError, isManual) => {
+            window.chartreadSaveAll({ manual: Boolean(isManual), showToast: Boolean(isManual) })
+              .then((res) => {
+                if (typeof onSuccess === "function") {
+                  onSuccess({ id: 1, uid: "cr_local", name: "ChartRead", result: res });
+                }
+              })
+              .catch((err) => {
+                if (typeof onError === "function") onError(err);
+              });
+          };
+
+          scs._doSave = (onStart, onSuccess, onError, isAuto) => {
+            try { if (typeof onStart === "function") onStart(); } catch (e) {}
+            runLocalSaveCallback(onSuccess, onError, !isAuto);
+          };
+          scs.saveChartSilently = (onSuccess, onError, opts) => {
+            runLocalSaveCallback(onSuccess, onError, !(opts && opts.autoSave));
+          };
+          scs.saveExistentChart = (onStart, onSuccess, onError) => {
+            try { if (typeof onStart === "function") onStart(); } catch (e) {}
+            runLocalSaveCallback(onSuccess, onError, true);
+          };
+          scs.saveNewChart = (onStart, onSuccess, onError) => {
+            try { if (typeof onStart === "function") onStart(); } catch (e) {}
+            runLocalSaveCallback(onSuccess, onError, true);
+          };
+          scs.saveChartOrShowTitleDialog = (onStart, onSuccess, onError) => {
+            try { if (typeof onStart === "function") onStart(); } catch (e) {}
+            runLocalSaveCallback(onSuccess, onError, true);
+          };
+          api.saveChartToServer = (onSuccess, onError) => {
+            window.chartreadSaveAll({ manual: true, sync: true, showToast: false });
+            if (typeof onSuccess === "function") onSuccess();
+          };
+          api.shouldBeSaved = () => false;
+
+          // Subscribe to TradingView's own native chart changes watcher (drawings, studies, styles, symbol, TF)
+          try {
+            const onChanges = scs.getOnChanges ? scs.getOnChanges() : scs._chartChangesWatcher?.changes;
+            if (onChanges && typeof onChanges.subscribe === "function") {
+              onChanges.subscribe(null, () => scheduleAutoSave(1200));
+            }
+          } catch (e) {}
+
+          // Ensure Autosave state reports ON for TradingView Desktop's shutdown checks
+          try {
+            if (scs._watchedAutoSaveEnabled?.setValue) scs._watchedAutoSaveEnabled.setValue(true);
+          } catch (e) {}
+        } catch (e) {}
+      };
+
+      const stripLineToolsFromLayoutState = (rawState) => {
+        try {
+          const clone = JSON.parse(JSON.stringify(rawState));
+          for (const ch of (clone.charts || [])) {
+            for (const pane of (ch.panes || [])) {
+              const removedIds = new Set();
+              if (Array.isArray(pane.sources)) {
+                pane.sources = pane.sources.filter((src) => {
+                  const isLt = typeof src?.type === "string" && src.type.startsWith("LineTool");
+                  if (isLt && src.id) removedIds.add(src.id);
+                  return !isLt;
+                });
+              }
+              if (removedIds.size > 0) {
+                for (const axList of [pane.leftAxisesState, pane.rightAxisesState]) {
+                  if (!Array.isArray(axList)) continue;
+                  for (const ax of axList) {
+                    if (Array.isArray(ax?.sources)) {
+                      ax.sources = ax.sources.filter((id) => !removedIds.has(id));
+                    }
+                  }
+                }
+                if (pane.overlayPriceScales && typeof pane.overlayPriceScales === "object") {
+                  for (const rid of removedIds) {
+                    delete pane.overlayPriceScales[rid];
+                  }
+                }
+              }
+            }
+          }
+          return clone;
+        } catch (e) {
+          return rawState;
+        }
+      };
+
+      const restoreSavedWorkspace = async () => {
+        if (initialRestoreDone || isRestoring) return;
+        const cwc = getCWC();
+        const w = getActiveWidget();
+        if (!cwc || !w) return;
+        const mw = w.model?.();
+        const m = mw?.model ? mw.model() : mw;
+        if (!m || !m.mainSeries?.()?.bars?.()?._items?.length) return;
+
+        isRestoring = true;
+        try {
+          hookNativeSaveServices();
+          const saved = await window.ChartReadCloud.getLayout(LAYOUT_ID);
+          if (saved && saved.version === 2 && saved.state && Array.isArray(saved.state.charts) && saved.state.charts.length > 0) {
+            // Wait until initial chart boot finishes mounting default Volume so it never races with loadContent
+            for (let bWait = 0; bWait < 10; bWait++) {
+              const hasBootVol = (m.allStudies ? m.allStudies() : []).some((st) => st.metaInfo?.()?.shortId === "Volume");
+              if (hasBootVol && bWait >= 2) break;
+              await new Promise((r) => setTimeout(r, 200));
+            }
+
+            // Strip LineTool* sources before loadContent so TradingView never creates un-hydrated cloud LineToolStubs;
+            // drawings are then hydrated cleanly & natively via applyLineToolsState()!
+            const cleanState = stripLineToolsFromLayoutState(saved.state);
+            await cwc.loadContent(cleanState);
+
+            // Wait for restored symbol's bars & studies to settle cleanly
+            const targetSym = saved.symbol;
+            for (let waitI = 0; waitI < 16; waitI++) {
+              await new Promise((r) => setTimeout(r, 250));
+              const wCur = getActiveWidget();
+              const mwCur = wCur?.model?.();
+              const mCur = mwCur?.model ? mwCur.model() : mwCur;
+              const curBarsLen = mCur?.mainSeries?.()?.bars?.()?._items?.length || 0;
+              if (curBarsLen > 0 && (!targetSym || getActiveSymbol() === targetSym)) {
+                break;
+              }
+            }
+
+            // Extra safety dedup via public removeEntity only if duplicate Volume still appeared
+            try {
+              const savedVolCount = (cleanState.charts || []).reduce((acc, ch) => {
+                for (const p of (ch.panes || [])) {
+                  for (const s of (p.sources || [])) {
+                    if (s.type === "study_Volume" || s.metaInfo?.shortId === "Volume") acc++;
+                  }
+                }
+                return acc;
+              }, 0);
+              const acDedup = getActiveChartApi();
+              const wDedup = getActiveWidget();
+              const mwDedup = wDedup?.model?.();
+              const mDedup = mwDedup?.model ? mwDedup.model() : mwDedup;
+              if (mDedup && acDedup && typeof acDedup.removeEntity === "function") {
+                const volStudies = (mDedup.allStudies ? mDedup.allStudies() : []).filter((st) => {
+                  const mi = st.metaInfo?.();
+                  return mi?.shortId === "Volume" || mi?.description === "Volume";
+                });
+                if (volStudies.length > savedVolCount) {
+                  for (let vi = 0; vi < volStudies.length - savedVolCount; vi++) {
+                    try { acDedup.removeEntity(volStudies[vi].id()); } catch (e) {}
+                  }
+                }
+              }
+            } catch (e) {}
+
+            const activeSym = getActiveSymbol() || saved.symbol;
+
+            // Hydrate ALL saved drawings natively for the active symbol (100% real visible drawings, zero stubs!)
+            if (activeSym) {
+              await applySavedDrawingsForSymbol(activeSym, saved.symbolDrawings);
+              setTimeout(() => {
+                if (!symbolSwitching && getActiveSymbol() === activeSym) {
+                  applySavedDrawingsForSymbol(activeSym, saved.symbolDrawings);
+                }
+              }, 1400);
+              setTimeout(() => {
+                if (!symbolSwitching && getActiveSymbol() === activeSym) {
+                  applySavedDrawingsForSymbol(activeSym, saved.symbolDrawings);
+                }
+              }, 3000);
+            }
+
+            // Re-seed local metaInfo name after loadContent (keep id=null & uid="" for 100% local drawing hydration)
+            try {
+              if (cwc.metaInfo) {
+                cwc.metaInfo.name?.setValue?.(saved.name || "ChartRead");
+                cwc.metaInfo.username?.setValue?.("ChartRead");
+              }
+            } catch (e) {}
+
+            // Notify Electron Desktop host that layout restoration is done
+            try { window.TVD?.layoutRestored?.(); } catch (e) {}
+
+            // Cache current signature so we don't immediately re-save unchanged restored state
+            const snapNow = captureWorkspaceSnapshot();
+            if (snapNow) {
+              lastSavedLayoutSig = JSON.stringify({
+                symbol: snapNow.symbol,
+                resolution: snapNow.resolution,
+                state: snapNow.layoutData.state
+              });
+              if (snapNow.ltSnap) {
+                lastSavedDrawingsBySym.set(snapNow.symbol, JSON.stringify(snapNow.ltSnap.data));
+              }
+              lastStableSymbol = snapNow.symbol;
+            }
+          } else {
+            // No v2 saved layout yet — still check if per-symbol drawings exist for initial symbol
+            const curSym = getActiveSymbol();
+            lastStableSymbol = curSym || null;
+            if (curSym) await applySavedDrawingsForSymbol(curSym);
+          }
+
+          // Attach symbol-switch listener on the active chart API (and re-attach on active chart changes)
+          attachActiveChartSymbolListener();
+          try {
+            window.TradingViewApi?.onActiveChartChanged?.().subscribe?.(null, attachActiveChartSymbolListener);
+          } catch (e) {}
+        } catch (err) {
+          console.warn("[ChartRead] Local workspace restore warning:", err);
+        } finally {
+          isRestoring = false;
+          initialRestoreDone = true;
+        }
+      };
+
+      // Poll briefly at startup until chart model & bars are ready, then restore ONCE
+      let restoreWaitAttempts = 0;
+      const restorePollTimer = setInterval(() => {
+        restoreWaitAttempts++;
+        const w = getActiveWidget();
+        const mw = w?.model?.();
+        const m = mw?.model ? mw.model() : mw;
+        const barsReady = Boolean(m?.mainSeries?.()?.bars?.()?._items?.length > 0);
+        if (barsReady) {
+          clearInterval(restorePollTimer);
+          restoreSavedWorkspace();
+        } else if (restoreWaitAttempts >= 60) {
+          clearInterval(restorePollTimer);
+          hookNativeSaveServices();
+          initialRestoreDone = true;
+        }
+      }, 350);
+
+      // Intercept Top-Right Native "Save" Button directly (1-Click Local Save like TradingView!)
+      document.addEventListener("click", (e) => {
+        try {
+          const saveBtn = e.target?.closest?.('#header-toolbar-save-load button[aria-label*="Save all charts"]');
+          if (saveBtn) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            window.chartreadSaveAll({ manual: true, showToast: true });
+          }
+        } catch (err) {}
+      }, true);
+
+      // Intercept Ctrl+S / Cmd+S for instant manual local save
+      document.addEventListener("keydown", (e) => {
+        try {
+          if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && String(e.key || "").toLowerCase() === "s") {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            window.chartreadSaveAll({ manual: true, showToast: true });
+          }
+        } catch (err) {}
+      }, true);
+
+      // Auto-save after chart mouse interactions (drawings, dragging, resizing, toolbars) & Delete/Undo keys
       document.addEventListener("mouseup", (e) => {
-        if (e.target?.closest?.(".chart-gui-wrapper")) {
-          if (mouseSyncTimer) clearTimeout(mouseSyncTimer);
-          mouseSyncTimer = setTimeout(() => {
-            window.chartreadSyncDrawings();
-            window.chartreadSyncLayout();
-          }, 1200);
+        if (e.target?.closest?.(".chart-gui-wrapper, [data-dialog-name], .layout__area--left, .layout__area--top")) {
+          scheduleAutoSave(1200);
         }
       }, { passive: true });
+
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "Delete" || e.key === "Backspace" || ((e.ctrlKey || e.metaKey) && (e.key === "z" || e.key === "y"))) {
+          scheduleAutoSave(1000);
+        }
+      }, { passive: true });
+
+      // Periodic dirty-checked safety net (0 disk writes when unchanged)
+      setInterval(() => {
+        if (!document.hidden && initialRestoreDone && !isRestoring) {
+          window.chartreadSaveAll({ manual: false });
+        }
+      }, 15000);
+
+      // Synchronous Atomic Auto-Save on Tab Close, Window Close, Reload, or Hide!
+      const flushSyncOnUnload = () => {
+        try {
+          if (initialRestoreDone && !isRestoring) {
+            window.chartreadSaveAll({ manual: true, sync: true, showToast: false });
+          }
+        } catch (e) {}
+      };
+      window.addEventListener("beforeunload", flushSyncOnUnload);
+      window.addEventListener("pagehide", flushSyncOnUnload);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) flushSyncOnUnload();
+      });
     }
 
     // ================================================================
@@ -2758,6 +3348,62 @@
       }
       html.theme-dark ::-webkit-scrollbar-thumb:hover {
         background: rgba(0, 255, 56, 0.55) !important;
+      }
+
+      /* ChartRead Local Save Button Flash & Subtle Obsidian-Emerald Toast */
+      .cr-save-btn-saved {
+        color: #00FF38 !important;
+        background: rgba(0, 255, 56, 0.14) !important;
+        box-shadow: inset 0 0 0 1px rgba(0, 255, 56, 0.55) !important;
+        transition: all 0.18s ease !important;
+      }
+      .cr-save-btn-saved *,
+      .cr-save-btn-saved svg {
+        color: #00FF38 !important;
+      }
+      #cr-save-toast {
+        position: fixed;
+        right: 22px;
+        bottom: 46px;
+        z-index: 2147483000;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 16px;
+        border-radius: 11px;
+        background: rgba(10, 15, 25, 0.96);
+        border: 1px solid rgba(0, 255, 56, 0.45);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 16px rgba(0, 255, 56, 0.12);
+        color: #F3F6FA;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+        transition: opacity 0.2s ease, transform 0.22s ease;
+      }
+      #cr-save-toast.cr-show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      .cr-save-toast-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #00FF38;
+        box-shadow: 0 0 10px rgba(0, 255, 56, 0.85);
+        flex-shrink: 0;
+      }
+      .cr-save-toast-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #00FF38;
+        line-height: 1.2;
+      }
+      .cr-save-toast-sub {
+        font-size: 11.5px;
+        color: #B4C0D3;
+        margin-top: 2px;
+        line-height: 1.2;
       }
     `;
 

@@ -71,24 +71,71 @@ let memoryCache = {
 // Load local cache if exists
 try {
   if (fs.existsSync(CACHE_FILE)) {
-    memoryCache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
+    const parsed = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
+    if (parsed && typeof parsed === 'object') {
+      memoryCache = {
+        userdata: parsed.userdata || {},
+        layouts: parsed.layouts || {},
+        drawings: parsed.drawings || {}
+      };
+    }
   }
 } catch (e) {}
 
 let lastSavedJson = '';
 let diskWriteTimer = null;
 
-function saveCacheToDisk() {
+function writeCacheAtomicSync() {
+  if (diskWriteTimer) {
+    clearTimeout(diskWriteTimer);
+    diskWriteTimer = null;
+  }
+  try {
+    const serialized = JSON.stringify(memoryCache);
+    if (serialized === lastSavedJson) return true;
+    lastSavedJson = serialized;
+    const tmpFile = CACHE_FILE + '.tmp';
+    fs.writeFileSync(tmpFile, serialized, 'utf8');
+    fs.renameSync(tmpFile, CACHE_FILE);
+    return true;
+  } catch (e) {
+    try {
+      const serialized = JSON.stringify(memoryCache);
+      fs.writeFileSync(CACHE_FILE, serialized, 'utf8');
+      lastSavedJson = serialized;
+      return true;
+    } catch (e2) {
+      return false;
+    }
+  }
+}
+
+function saveCacheToDisk(immediate = false) {
+  if (immediate) {
+    return writeCacheAtomicSync();
+  }
   if (diskWriteTimer) clearTimeout(diskWriteTimer);
   diskWriteTimer = setTimeout(() => {
     diskWriteTimer = null;
     try {
-      const serialized = JSON.stringify(memoryCache, null, 2);
+      const serialized = JSON.stringify(memoryCache);
       if (serialized === lastSavedJson) return;
       lastSavedJson = serialized;
-      fs.promises.writeFile(CACHE_FILE, serialized, 'utf8').catch(() => {});
+      const tmpFile = CACHE_FILE + '.tmp';
+      fs.promises.writeFile(tmpFile, serialized, 'utf8')
+        .then(() => fs.promises.rename(tmpFile, CACHE_FILE))
+        .catch(() => fs.promises.writeFile(CACHE_FILE, serialized, 'utf8').catch(() => {}));
     } catch (e) {}
-  }, 300);
+  }, 250);
+}
+
+// Always flush any pending in-memory changes synchronously before Electron quits
+if (app && typeof app.on === 'function') {
+  try {
+    app.on('before-quit', writeCacheAtomicSync);
+    app.on('will-quit', writeCacheAtomicSync);
+    app.on('window-all-closed', writeCacheAtomicSync);
+  } catch (e) {}
 }
 
 /**
@@ -175,7 +222,7 @@ const OpenSearchService = {
   },
 
   // 2. Chart Layouts
-  async saveLayout(layoutId, layoutData) {
+  async saveLayout(layoutId, layoutData, immediate = false) {
     if (!layoutId) layoutId = 'default_layout';
     const entry = {
       id: layoutId,
@@ -183,7 +230,7 @@ const OpenSearchService = {
       updated_at: new Date().toISOString()
     };
     memoryCache.layouts[layoutId] = entry;
-    saveCacheToDisk();
+    saveCacheToDisk(Boolean(immediate));
 
     if (hasRemoteConfig) {
       await openSearchRequest('PUT', `/chartread_layouts/_doc/${encodeURIComponent(layoutId)}`, entry);
@@ -277,8 +324,36 @@ const OpenSearchService = {
       return await this.getUserData();
     });
 
-    ipcMain.handle('chartread:opensearch-save-layout', async (event, layoutId, data) => {
-      return await this.saveLayout(layoutId, data);
+    ipcMain.handle('chartread:opensearch-save-layout', async (event, layoutId, data, immediate = false) => {
+      return await this.saveLayout(layoutId, data, immediate);
+    });
+
+    // Synchronous atomic flush used on tab/window close & manual Save
+    ipcMain.on('chartread:local-save-sync', (event, payload) => {
+      try {
+        if (payload && typeof payload === 'object') {
+          const nowIso = new Date().toISOString();
+          if (payload.layoutData) {
+            const lid = payload.layoutId || 'default_layout';
+            memoryCache.layouts[lid] = {
+              id: lid,
+              data: payload.layoutData,
+              updated_at: nowIso
+            };
+          }
+          if (payload.symbol && payload.drawingsData) {
+            const key = String(payload.symbol).replace(/[^a-zA-Z0-9_-]/g, '_');
+            memoryCache.drawings[key] = {
+              symbol: payload.symbol,
+              drawings: payload.drawingsData,
+              updated_at: nowIso
+            };
+          }
+          event.returnValue = writeCacheAtomicSync();
+          return;
+        }
+      } catch (e) {}
+      event.returnValue = false;
     });
 
     ipcMain.handle('chartread:opensearch-get-layout', async (event, layoutId) => {
